@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080a12">
+<meta name="description" content="Pixel Pong 2D: tenis de mesa neón en HTML5 Canvas contra la IA, dos jugadores o desafío arcade. Parte del Arcade de BLACKDOT.">
+<title>Pixel Pong 2D — BLACKDOT ARCADE</title>
+<link rel="icon" type="image/png" href="assets/img/logo-blackdot.png">
+<link rel="stylesheet" href="css/pingpong.css">
+</head>
+<body>
+<div id="app">
+  <div class="brand">BLACKDOT <b>ARCADE</b> <a class="portfolio-link" id="portfolio" href="index.html#juegos" hidden>← PORTAFOLIO</a></div>
+  <header><h1>PIXEL <span>PONG</span> 2D</h1><div class="sub">Neon table tennis · play the pulse</div></header>
+  <div class="arena-wrap" id="arena">
+    <canvas id="game" aria-label="Mesa de Pixel Pong"></canvas>
+    <div class="hud"><div class="hud-mode" id="modeLabel">—</div><div class="score left" id="scoreL">0</div><div class="divider">/</div><div class="score right" id="scoreR">0</div><div class="speed">VELOCIDAD <i><em id="speedBar"></em></i></div></div>
+    <div class="touch"><span>W</span><span>↑</span></div>
+    <div class="overlay" id="overlay"><div class="card" id="card"></div></div>
+  </div>
+  <div class="toolbar"><span id="status" aria-live="polite">SISTEMA LISTO</span><div><button id="soundBtn">◖♪ SONIDO</button><button id="pauseBtn">Ⅱ PAUSA</button></div></div>
+  <div class="hint">W / S MOVER (O FLECHAS CONTRA LA IA) · ↑ / ↓ SEGUNDO JUGADOR · ESPACIO CONTINUAR · ESC / P PAUSA · R REINICIAR · EN MÓVIL ARRASTRA TU PALETA</div>
+</div>
+<script src="js/pingpong.js"></script>
+</body>
+</html>

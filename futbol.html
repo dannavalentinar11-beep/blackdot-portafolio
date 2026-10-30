@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07120f">
+<meta name="description" content="Atari Football 2D: fútbol arcade en HTML5 Canvas con modo contra la CPU y dos jugadores locales. Parte del Arcade de BLACKDOT.">
+<title>ATARI FOOTBALL 2D — BLACKDOT ARCADE</title>
+<link rel="icon" type="image/png" href="assets/img/logo-blackdot.png">
+<link rel="stylesheet" href="css/futbol.css">
+</head>
+<body>
+<div class="shell" id="home">
+  <header>
+    <div class="brand"><b>BLACKDOT</b> / ARCADE</div>
+    <a class="portfolio-link" id="portfolio" href="index.html#juegos" hidden>← VOLVER AL PORTAFOLIO</a>
+    <div class="live">ARCADE SPORTS SYSTEM · 01</div>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">UN CLÁSICO REIMAGINADO</p>
+      <h1>ATARI<span>FOOTBALL</span></h1>
+      <p class="sub">Fútbol rápido. Reflejos afilados. Un campo, dos porterías y cero excusas. Entra a la cancha.</p>
+      <div class="actions"><button class="btn primary" id="play">JUGAR</button><button class="btn secondary" id="two">DOS JUGADORES</button></div>
+      <div class="smallactions"><button class="textbtn" id="settings">Configuración</button><button class="textbtn" id="stats">Estadísticas</button><button class="textbtn" id="instructions">Cómo jugar</button></div>
+      <p class="keys-help">J1: W A S D + ESPACIO · J2: FLECHAS + ENTER · PAUSA: ESC / P</p>
+    </section>
+    <section class="art" aria-label="Ilustración de campo arcade">
+      <div class="orbit"></div>
+      <div class="field"><div class="goal top"></div><div class="goal bottom"></div><div class="box top"></div><div class="box bottom"></div><div class="player p1" data-n="7"></div><div class="player p2" data-n="9"></div><div class="ball"></div></div>
+      <i class="spark s1"></i><i class="spark s2"></i><i class="spark s3"></i>
+    </section>
+  </main>
+</div>
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="card"><button class="close" id="close" aria-label="Cerrar">×</button><div id="modalbody"></div></div></div>
+<div class="gamewrap" id="game">
+  <div class="gamebar">
+    <button class="gbtn left" id="back">← MENÚ</button>
+    <div class="score" aria-live="polite"><span class="team">AZUL</span><span id="scoreA">0</span><span style="color:#809087">:</span><span id="scoreB">0</span><span class="team red" id="teamB">ROJO</span></div>
+    <div class="clock" id="clock">02:00</div>
+    <div class="speedtag" id="speed">VEL ×1.00</div>
+    <button class="gbtn" id="pause">Ⅱ PAUSA</button>
+  </div>
+  <div class="canvasbox">
+    <canvas id="pitch" width="1000" height="610" aria-label="Cancha de fútbol"></canvas>
+    <div class="hint" id="hint">WASD + ESPACIO · ESC PAUSA · R REINICIA</div>
+    <div class="touch" id="touch"><div class="pad"><button data-k="up" aria-label="Arriba">▲</button><button data-k="left" aria-label="Izquierda">◀</button><button data-k="down" aria-label="Abajo">▼</button><button data-k="right" aria-label="Derecha">▶</button></div><button class="kick" data-kick>CHUTA</button></div>
+  </div>
+</div>
+<div id="toast">¡GOL!</div>
+<script src="js/futbol.js"></script>
+<!-- LIVE CODING: para activar una mecánica, descomenta su línea (ver live-coding/GUIA-LIVE-CODING.md)
+<script src="live-coding/turbo.js"></script>
+<script src="live-coding/viento.js"></script>
+<script src="live-coding/obstaculos.js"></script>
+<script src="live-coding/gol-gana.js"></script>
+-->
+</body>
+</html>

@@ -1,15 +1,37 @@
-BLACKDOT — proyecto organizado
+BLACKDOT — Portafolio de Ingeniería Multimedia · versión 2.1 (Segundo Previo)
+Autora: Danna Rueda · Ingeniería Web
+Sitio: https://dannavalentinar11-beep.github.io/blackdot-portafolio/
 
-index.html: portafolio con sección propia Manual de Identidad.
-css/style.css: estilos del sitio y del visor PDF.
-js/script.js: JavaScript principal.
-assets/manual-identidad-blackdot.pdf: manual corporativo de 34 páginas.
-La sección Manual de Identidad aparece en la navegación principal y móvil, incluye el PDF integrado, botón Abrir PDF y opción Descargar manual.
-Ejecutar con Live Server desde Visual Studio Code. Las fuentes Google Fonts requieren Internet.
-Se conserva BLACKDOT-Portafolio-ORIGINAL.html como respaldo.
+ESTRUCTURA
+index.html                 Portafolio (una página por secciones) y Arcade con 6 juegos
+futbol.html                Atari Football 2D (Canvas, 1 jugador vs CPU y 2 jugadores)
+pingpong.html              Pixel Pong 2D (Canvas, vs IA, 2 jugadores y desafío)
+juegos/cucuta.html         Cúcuta Open World (3D)
+juegos/dynasty.html        Dynasty FC (3D)
+juegos/skybound.html       Sky Bound (3D)
+juegos/rally.html          Rally Rush (3D)
+css/style.css              Estilos del portafolio
+css/futbol.css             Estilos de Atari Football 2D
+css/pingpong.css           Estilos de Pixel Pong 2D
+js/script.js               Lógica del portafolio, reproductor de juegos y Salón de récords
+js/futbol.js               Motor de Atari Football 2D (Game Loop, física, IA, LocalStorage)
+js/pingpong.js             Motor de Pixel Pong 2D
+assets/img/, assets/video/ Imágenes y videos del portafolio
+assets/manual-tecnico-blackdot.pdf     Manual técnico (1920x1080)
+assets/manual-identidad-blackdot.pdf   Manual de identidad
+live-coding/               Mecánicas sorpresa listas (turbo, viento, obstáculos, gol gana) y guía
 
-MANUAL TÉCNICO:
-- Sección web #manual-tecnico en navegación principal y móvil.
-- PDF integrado: assets/manual-tecnico-blackdot.pdf.
-- Incluye visor PDF, botón Abrir manual y opción Descargar PDF.
-- Evidencias de GitHub, despliegue y Lighthouse deben completarse con resultados reales.
+CÓMO EJECUTAR
+Abrir la carpeta con Live Server (VS Code) o cualquier servidor estático y entrar a index.html.
+Los juegos también pueden abrirse directamente: futbol.html, pingpong.html.
+Las fuentes de Google Fonts requieren Internet (sin conexión se usan fuentes del sistema).
+
+LOCALSTORAGE (JSON)
+blackdot-theme          Tema claro/oscuro del portafolio
+blackdot-football       Estadísticas e historial de Atari Football 2D
+blackdot-pixelpong-v1   Estadísticas e historial de Pixel Pong 2D
+Los juegos 3D usan sus propias claves (skybound.save.v2, rallyrush_v1, dynastyfc.*).
+
+PRUEBAS (modo QA)
+futbol.html?qa=1 y pingpong.html?qa=1 exponen un objeto de solo pruebas (__AF / __PP)
+que usan las pruebas automatizadas. Sin ?qa=1 no se expone nada.
