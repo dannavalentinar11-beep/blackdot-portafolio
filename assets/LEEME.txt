@@ -1,0 +1,1 @@
+Carpeta preparada para recursos externos. En esta versión, las imágenes y varios datos de videojuegos están incrustados dentro de index.html.

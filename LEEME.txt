@@ -1,0 +1,15 @@
+BLACKDOT — proyecto organizado
+
+index.html: portafolio con sección propia Manual de Identidad.
+css/style.css: estilos del sitio y del visor PDF.
+js/script.js: JavaScript principal.
+assets/manual-identidad-blackdot.pdf: manual corporativo de 34 páginas.
+La sección Manual de Identidad aparece en la navegación principal y móvil, incluye el PDF integrado, botón Abrir PDF y opción Descargar manual.
+Ejecutar con Live Server desde Visual Studio Code. Las fuentes Google Fonts requieren Internet.
+Se conserva BLACKDOT-Portafolio-ORIGINAL.html como respaldo.
+
+MANUAL TÉCNICO:
+- Sección web #manual-tecnico en navegación principal y móvil.
+- PDF integrado: assets/manual-tecnico-blackdot.pdf.
+- Incluye visor PDF, botón Abrir manual y opción Descargar PDF.
+- Evidencias de GitHub, despliegue y Lighthouse deben completarse con resultados reales.
