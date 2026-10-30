@@ -13,46 +13,46 @@
   /* ---------------- Datos ---------------- */
   var GAMES = [
     {
-      id: "cucuta", builtin: true, title: "Cúcuta", sub: "Open World", genre: "Mundo abierto · Acción", color: "#FFC400",
+      id: "cucuta", file: "juegos/cucuta.html", title: "Cúcuta", sub: "Open World", genre: "Mundo abierto · Acción", color: "#FFC400",
       desc: "Recorre una versión libre de Cúcuta: crea tu personaje, conduce, compra carros, escucha la radio y explora la ciudad.",
       tech: ["Three.js", "WebGL", "Audio generativo", "Guardado local"],
       help: "Crea tu personaje en el menú y pulsa «Partida nueva». Tu progreso se guarda en este navegador.",
       controls: [["W A S D", "Caminar / conducir"], ["Arrastrar", "Girar la cámara"], ["E", "Subir o bajar del carro"], ["Espacio", "Freno de mano"], ["Clic", "Disparar (clic der. apunta)"], ["M", "Mapa y GPS"], ["R", "Cambiar emisora"], ["Esc", "Pausa"]]
     },
     {
-      id: "dynasty", builtin: true, title: "Dynasty", sub: "FC", genre: "Deportes · Fútbol", color: "#C9A0DC",
+      id: "dynasty", file: "juegos/dynasty.html", title: "Dynasty", sub: "FC", genre: "Deportes · Fútbol", color: "#C9A0DC",
       desc: "No heredes la gloria, constrúyela. Fútbol 3D con modo carrera, fichajes, repeticiones y celebraciones de gol.",
       tech: ["Three.js", "Modo carrera", "IA de jugadores", "Mando y táctil"],
       help: "Elige «Jugar partido» o «Modo carrera». Puedes cambiar las teclas en Ajustes → Controles; también se juega con mando o con controles táctiles en el celular.",
       controls: [["W A S D", "Mover (o flechas)"], ["Espacio / Shift", "Sprint"], ["J", "Pase corto / presión"], ["K", "Disparo"], ["L", "Pase largo, centro / barrida"], ["U", "Entrada / pase al hueco"], ["Q / I", "Cambiar jugador"], ["E / H", "Regate / proteger"], ["1 – 8", "Celebración tras un gol"], ["Esc / P", "Pausa"]]
     },
     {
-      id: "skybound", builtin: true, title: "Sky", sub: "Bound", genre: "Aviación · Arcade", color: "#F2C86B",
+      id: "skybound", file: "juegos/skybound.html", title: "Sky", sub: "Bound", genre: "Aviación · Arcade", color: "#F2C86B",
       desc: "Domina el cielo. Atraviesa aros, junta monedas y sobrevive a batallas aéreas contra el Barón Rojo.",
       tech: ["Three.js", "Física de vuelo", "Hangar y tienda", "Récords"],
       help: "Crea tu piloto con un nombre, elige mapa y despega. Atraviesa el centro de los aros para sumar más puntos.",
       controls: [["W A S D", "Dirigir el avión (o flechas)"], ["Espacio", "Frenar para apuntar (entrenamiento)"], ["Espacio / J / clic", "Disparar (batalla)"], ["Esc", "Pausa"]]
     },
     {
-      id: "rally", builtin: true, title: "Rally", sub: "Rush", genre: "Deportes · Arcade", color: "#24C8FF",
+      id: "rally", file: "juegos/rally.html", title: "Rally", sub: "Rush", genre: "Deportes · Arcade", color: "#24C8FF",
       desc: "Ping-pong futurista en 3D. Gana el punto a velocidad creciente, sube de nivel, desbloquea mesas y pelotas y reta al Rival Imparable.",
       tech: ["Three.js", "1 o 2 jugadores", "IA por niveles", "Tienda y progreso"],
       help: "Elige JUGAR (contra la IA) o DOS JUGADORES, escribe tu nombre y empieza. Gana quien llegue a 7 puntos con 2 de ventaja, o quien lidere a los 40 s; el encuentro es al mejor de 3 partidas.",
       controls: [["Ratón / dedo", "Mover tu paleta (arrastra en el celular)"], ["W / S", "Jugador 1 arriba / abajo"], ["↑ / ↓", "Jugador 2 (o también jugador 1 contra la IA)"], ["Esc / P", "Pausa"]]
     },
     {
-      id: "pixelpong", builtin: true, title: "Pixel", sub: "Pong 2D", genre: "Deportes · Arcade 2D", color: "#52E5FF", tag: "2D · Web",
+      id: "pixelpong", file: "pingpong.html", title: "Pixel", sub: "Pong 2D", genre: "Deportes · Arcade 2D", color: "#52E5FF", tag: "2D · Web",
       desc: "Tenis de mesa neón en 2D. Juega contra la IA, en modo local de dos jugadores o supera el desafío, con velocidad creciente, estadísticas y ajustes.",
       tech: ["Canvas 2D", "1 o 2 jugadores", "IA", "Guardado local"],
       help: "Elige el modo de juego en el menú (contra la IA, dos jugadores o desafío). Haz clic dentro del juego si no responde al teclado.",
-      controls: [["W / S", "Jugador 1 arriba / abajo"], ["↑ / ↓", "Jugador 2 (o jugador 1 contra la IA)"], ["Espacio", "Continuar"], ["Esc", "Pausa"], ["R", "Reiniciar"]]
+      controls: [["W / S", "Jugador 1 arriba / abajo"], ["↑ / ↓", "Jugador 2 (o jugador 1 contra la IA)"], ["Arrastrar", "Mover tu paleta en el celular"], ["Espacio", "Continuar"], ["Esc / P", "Pausa"], ["R", "Reiniciar"]]
     },
     {
-      id: "atarifootball", builtin: true, title: "Atari", sub: "Football 2D", genre: "Deportes · Fútbol 2D", color: "#D9FF56", tag: "2D · Web",
+      id: "atarifootball", file: "futbol.html", title: "Atari", sub: "Football 2D", genre: "Deportes · Fútbol 2D", color: "#D9FF56", tag: "2D · Web",
       desc: "Un clásico reimaginado: fútbol rápido en un campo, dos porterías y cero excusas. Juega contra la CPU o con un amigo en la misma pantalla.",
       tech: ["Canvas 2D", "1 o 2 jugadores", "Estadísticas", "Controles táctiles"],
-      help: "Pulsa JUGAR (contra la CPU) o DOS JUGADORES. Marca más goles que tu rival antes de que se acabe el tiempo. En el celular aparecen controles táctiles.",
-      controls: [["W A S D", "Mover al jugador azul"], ["Espacio", "Chutar (mantén para cargar potencia)"], ["Flechas", "Jugador rojo (dos jugadores)"], ["Enter", "Chute del jugador rojo"], ["Esc", "Pausa"], ["R", "Reiniciar"]]
+      help: "Pulsa JUGAR (contra la CPU) o DOS JUGADORES. Marca más goles que tu rival antes de que se acabe el tiempo; los porteros defienden solos y el balón acelera a medida que avanza el partido. En el celular aparecen controles táctiles.",
+      controls: [["W A S D", "Mover al jugador azul"], ["Espacio", "Chutar (mantén para cargar potencia)"], ["Flechas", "Jugador rojo (dos jugadores)"], ["Enter", "Chute del jugador rojo"], ["Esc / P", "Pausa (o botón Ⅱ PAUSA)"], ["R", "Reiniciar"], ["F", "Mostrar FPS"]]
     }
   ];
 
@@ -63,7 +63,7 @@
     { cat: "04 / Motion graphics", title: "Animación y motion graphics", tool: ["ae", "Ae", "Adobe After Effects"], desc: "Creación de animaciones y composiciones audiovisuales mediante movimiento, efectos y narrativa visual.", extra: "Principios de animación aplicados: anticipación, squash & stretch y timing." },
     { cat: "05 / Edición audiovisual", title: "Edición de video", tool: ["pr", "Pr", "Adobe Premiere Pro"], desc: "Edición y montaje de contenido audiovisual, trabajando ritmo, transiciones, sonido y narrativa.", extra: "Montaje con intención: cada corte acompaña el ritmo de la música y la historia." },
     { cat: "06 / Modelado 3D", title: "Personajes 3D", tool: ["bl", "Bl", "Blender"], desc: "Modelado y creación de personajes tridimensionales explorando formas, proporciones, materiales y composición.", extra: "Tres personajes modelados en Blender: un gato negro, el dálmata de BlackDot y un ninja. Del model sheet al volumen: blocking, proporción y materiales." },
-    { cat: "07 / Videojuegos", title: "Videojuegos 3D para web", tool: ["js", "JS", "JavaScript + Three.js"], desc: "Seis juegos completos que corren directamente en el navegador: Cúcuta Open World, Dynasty FC, SkyBound, Rally Rush, Pixel Pong 2D y Atari Football 2D.", extra: "Pulsa «Ir a jugar» para ir al arcade y probarlos ahora mismo.", games: true }
+    { cat: "07 / Videojuegos", title: "Videojuegos para web", tool: ["js", "JS", "JavaScript · Three.js · Canvas 2D"], desc: "Seis juegos completos que corren directamente en el navegador: Cúcuta Open World, Dynasty FC, SkyBound, Rally Rush, Pixel Pong 2D y Atari Football 2D.", extra: "Pulsa «Ir a jugar» para ir al arcade y probarlos ahora mismo.", games: true }
   ];
 
   var TOOLS = [
@@ -624,7 +624,7 @@
   var playIcon = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>';
 
   function gameCard(g, i) {
-    var el = document.createElement("article");
+    var el = document.createElement("div");
     el.className = "game-card";
     el.tabIndex = 0;
     el.setAttribute("role", "button");
@@ -659,39 +659,12 @@
     });
   }
 
-  /* Descompresión de los juegos incluidos */
-  function b64ToBytes(b64) {
-    var bin = atob(b64), len = bin.length, bytes = new Uint8Array(len);
-    for (var i = 0; i < len; i++) bytes[i] = bin.charCodeAt(i);
-    return bytes;
-  }
-  /* El HTML se carga con srcdoc: el juego hereda el origen de la página, así
-     localStorage (guardado de partidas) funciona también al abrir el archivo
-     directamente desde el disco (file://). */
-  var htmlCache = {};
-  function getGameUrl(g, progress) {
-    if (htmlCache[g.id]) return Promise.resolve(htmlCache[g.id]);
-    return new Promise(function (resolve, reject) {
-      if (typeof DecompressionStream === "undefined") { reject(new Error("Tu navegador es muy antiguo para descomprimir el juego. Actualiza Chrome, Edge, Firefox o Safari.")); return; }
-      progress(15, "Leyendo datos del juego…");
-      setTimeout(function () {
-        try {
-          var node = document.getElementById("game-data-" + g.id);
-          var bytes = b64ToBytes(node.textContent.trim());
-          progress(45, "Descomprimiendo…");
-          var stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
-          new Response(stream).arrayBuffer().then(function (buf) {
-            progress(80, "Iniciando motor 3D…");
-            htmlCache[g.id] = new TextDecoder("utf-8").decode(buf);
-            resolve(htmlCache[g.id]);
-          }, reject);
-        } catch (err) { reject(err); }
-      }, 30);
-    });
-  }
+  /* Cada juego vive en su propio archivo HTML (g.file) y se carga bajo demanda
+     en un iframe del mismo origen: la portada no descarga los juegos y el
+     guardado (localStorage) es compartido con el portafolio. */
 
   /* Reproductor */
-  var player, stage, loader, frame = null, currentGame = null;
+  var player, stage, loader, frame = null, currentGame = null, loadTimer = 0;
   function setProgress(p, msg) {
     $("#pl-load-bar").style.width = p + "%";
     if (msg) $("#pl-load-msg").textContent = msg;
@@ -715,41 +688,47 @@
     lockScroll(true);
     root.classList.add("cursor-hidden");
     requestAnimationFrame(function () { requestAnimationFrame(function () { player.classList.add("is-open"); $("#pl-close").focus({ preventScroll: true }); }); });
-    getGameUrl(g, setProgress).then(function (html) {
-      if (currentGame !== g) return;
-      mountFrame(html);
-    }).catch(function (err) {
-      loader.classList.add("is-error");
-      $("#pl-load-msg").textContent = "No se pudo cargar el juego: " + (err && err.message ? err.message : err);
-    });
+    mountFrame(g);
   }
-  function mountFrame(html) {
-    if (frame) { frame.removeAttribute("srcdoc"); frame.src = "about:blank"; frame.remove(); }
+  function mountFrame(g) {
+    if (frame) { frame.src = "about:blank"; frame.remove(); }
     var f = frame = document.createElement("iframe");
-    f.title = currentGame.title;
+    f.title = g.title + (g.sub ? " " + g.sub : "");
     f.setAttribute("allow", "fullscreen; autoplay; gamepad; accelerometer; gyroscope");
     f.setAttribute("allowfullscreen", "");
+    /* Progreso estimado mientras el navegador descarga el archivo del juego */
+    var p = 10;
+    clearInterval(loadTimer);
+    loadTimer = setInterval(function () { p = Math.min(90, p + (90 - p) * 0.12); setProgress(Math.round(p), "Descargando el juego…"); }, 120);
     f.addEventListener("load", function () {
       if (frame !== f) return;
+      clearInterval(loadTimer);
       setProgress(100, "¡Listo!");
       setTimeout(function () {
         loader.classList.add("is-gone");
         try { f.focus(); if (f.contentWindow) f.contentWindow.focus(); } catch (e) {}
       }, 350);
     });
-    f.srcdoc = html;
+    f.addEventListener("error", function () {
+      clearInterval(loadTimer);
+      loader.classList.add("is-error");
+      $("#pl-load-msg").textContent = "No se pudo cargar el juego. Revisa tu conexión e inténtalo de nuevo.";
+    });
+    f.src = g.file;
     stage.insertBefore(f, stage.firstChild);
   }
   function closePlayer() {
     if (player.hidden) return;
     if (document.fullscreenElement) { try { document.exitFullscreen(); } catch (e) {} }
     player.classList.remove("is-open");
+    clearInterval(loadTimer);
     var g = currentGame; currentGame = null;
     setTimeout(function () {
-      if (frame) { frame.removeAttribute("srcdoc"); frame.src = "about:blank"; frame.remove(); frame = null; }
+      if (frame) { frame.src = "about:blank"; frame.remove(); frame = null; }
       player.hidden = true;
       lockScroll(false);
       root.classList.remove("cursor-hidden");
+      document.dispatchEvent(new CustomEvent("gameclosed"));
     }, reduced ? 0 : 850);
     var card = g && $$(".game-card").filter(function (c) { return c.getAttribute("aria-label") === "Jugar " + g.title + (g.sub ? " " + g.sub : ""); })[0];
     if (card) card.focus({ preventScroll: true });
@@ -758,9 +737,9 @@
     player = $("#player"); stage = $("#player-stage"); loader = $("#player-loader");
     $("#pl-close").addEventListener("click", closePlayer);
     $("#pl-reload").addEventListener("click", function () {
-      if (!currentGame || !htmlCache[currentGame.id]) return;
-      loader.classList.remove("is-gone"); setProgress(90, "Reiniciando…");
-      mountFrame(htmlCache[currentGame.id]);
+      if (!currentGame) return;
+      loader.classList.remove("is-gone", "is-error"); setProgress(10, "Reiniciando…");
+      mountFrame(currentGame);
     });
     $("#pl-full").addEventListener("click", function () {
       var el = stage;
@@ -770,10 +749,8 @@
       setTimeout(function () { try { frame && frame.focus(); } catch (e) {} }, 200);
     });
     $("#pl-tab").addEventListener("click", function () {
-      if (!currentGame || !htmlCache[currentGame.id]) { toast("Espera a que el juego termine de cargar.", true); return; }
-      var w = window.open("", "_blank");
-      if (!w) { toast("El navegador bloqueó la nueva pestaña. Permite ventanas emergentes.", true); return; }
-      w.document.open(); w.document.write(htmlCache[currentGame.id]); w.document.close();
+      if (!currentGame) return;
+      window.open(currentGame.file, "_blank", "noopener");
     });
     $("#pl-help").addEventListener("click", function () {
       var h = $("#player-help"), open = !h.classList.contains("is-open");
@@ -788,9 +765,92 @@
     });
   }
 
+  /* ---------------- Salón de récords (LocalStorage, formato JSON) ----------------
+     Los juegos 2D guardan sus estadísticas en estas claves; el portafolio las lee,
+     las valida y permite reiniciarlas. Datos inexistentes o dañados = valores en 0. */
+  var RECORDS = [
+    {
+      key: "blackdot-football", gameId: "atarifootball", title: "Atari Football 2D", color: "#D9FF56",
+      stats: function (d) {
+        return [[d.played, "Partidos"], [d.won, "Victorias"], [d.best, "Mejor racha"], [d.bestGoals, "Récord de goles"]];
+      },
+      modes: { ai: "vs CPU", two: "2 jugadores" }
+    },
+    {
+      key: "blackdot-pixelpong-v1", gameId: "pixelpong", title: "Pixel Pong 2D", color: "#52E5FF",
+      stats: function (d) {
+        return [[d.games, "Partidas"], [d.wins, "Victorias"], [d.bestStreak, "Mejor racha"], [d.best, "Récord desafío"]];
+      },
+      modes: { ai: "vs IA", local: "2 jugadores", challenge: "Desafío" }
+    }
+  ];
+  function readRecord(key) {
+    var d = {};
+    try {
+      var v = JSON.parse(localStorage.getItem(key) || "{}");
+      if (v && typeof v === "object" && !Array.isArray(v)) d = v;
+    } catch (e) { d = {}; }
+    function num(n) { n = Number(n); return isFinite(n) && n >= 0 ? Math.floor(n) : 0; }
+    var out = {};
+    ["played", "won", "best", "bestGoals", "games", "wins", "bestStreak"].forEach(function (k) { out[k] = num(d[k]); });
+    out.history = Array.isArray(d.history) ? d.history.filter(function (h) { return h && isFinite(h.a) && isFinite(h.b); }).slice(0, 5) : [];
+    return out;
+  }
+  function fmtDate(iso) {
+    var d = iso ? new Date(iso) : null;
+    return d && !isNaN(d) ? d.toLocaleDateString("es-CO", { day: "2-digit", month: "short" }) : "—";
+  }
+  function renderRecords() {
+    var grid = $("#records-grid");
+    if (!grid) return;
+    grid.innerHTML = RECORDS.map(function (r) {
+      var d = readRecord(r.key);
+      var hist = d.history.length ? d.history.map(function (h) {
+        return "<li><span>" + esc(fmtDate(h.date)) + "</span><span>" + esc(r.modes[h.mode] || h.mode || "—") + "</span><b>" + esc(h.a + " – " + h.b) + "</b></li>";
+      }).join("") : '<li class="empty">Aún no hay partidas registradas.</li>';
+      return '<article class="record-card" style="--gc:' + r.color + '">' +
+        '<header><h4>' + esc(r.title) + '</h4><button type="button" class="record-play" data-play="' + r.gameId + '">Jugar <span aria-hidden="true">→</span></button></header>' +
+        '<dl class="record-stats">' + r.stats(d).map(function (s) { return "<div><dt>" + esc(s[1]) + "</dt><dd>" + s[0] + "</dd></div>"; }).join("") + "</dl>" +
+        '<p class="record-sub">Últimas partidas</p><ul class="record-history">' + hist + "</ul>" +
+        '<button type="button" class="record-reset" data-reset="' + r.key + '">Reiniciar estadísticas</button>' +
+        "</article>";
+    }).join("");
+  }
+  function initRecords() {
+    var grid = $("#records-grid");
+    if (!grid) return;
+    renderRecords();
+    grid.addEventListener("click", function (e) {
+      var reset = e.target.closest("[data-reset]");
+      if (reset) {
+        var r = RECORDS.filter(function (x) { return x.key === reset.getAttribute("data-reset"); })[0];
+        if (!r || !confirm("¿Borrar las estadísticas e historial de " + r.title + "?")) return;
+        try {
+          /* Se conservan las preferencias (sonido, dificultad) y se borran los datos de juego */
+          var prev = JSON.parse(localStorage.getItem(r.key) || "{}") || {};
+          localStorage.setItem(r.key, JSON.stringify({ sound: prev.sound !== false, difficulty: prev.difficulty }));
+        } catch (err) { try { localStorage.removeItem(r.key); } catch (e2) {} }
+        renderRecords();
+        toast("Estadísticas de " + r.title + " reiniciadas.");
+        return;
+      }
+      var play = e.target.closest("[data-play]");
+      if (play) {
+        var g = GAMES.filter(function (x) { return x.id === play.getAttribute("data-play"); })[0];
+        if (g) playGame(g, e);
+      }
+    });
+    /* El juego corre en un iframe del mismo origen: el evento storage avisa de cada guardado */
+    addEventListener("storage", function (e) {
+      if (!e.key || RECORDS.some(function (r) { return r.key === e.key; })) renderRecords();
+    });
+    document.addEventListener("gameclosed", renderRecords);
+  }
+
   function initGames() {
     initPlayer();
     renderGames();
+    initRecords();
   }
 
   /* ---------------- Arranque ---------------- */

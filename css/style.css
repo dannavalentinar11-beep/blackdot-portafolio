@@ -306,6 +306,34 @@ html.has-cursor.cursor-hidden .cursor, html.has-cursor.cursor-hidden .cursor-dot
 .games-note { margin-top: 26px; display: flex; gap: 10px; align-items: flex-start; color: #8e8e93; font-size: .84rem; max-width: 80ch; }
 .games-note svg { width: 18px; height: 18px; flex: none; margin-top: 2px; color: var(--blue); }
 
+/* Salón de récords (LocalStorage) */
+.records { margin-top: clamp(48px, 6vw, 80px); padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid var(--line); }
+.records-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 28px; }
+.records-head .kicker { margin-bottom: 10px; }
+.records-head h3 { font: 700 clamp(1.6rem, 3vw, 2.3rem)/1.05 var(--f-display); letter-spacing: -.02em; margin: 0; color: var(--text-strong); }
+.records-intro { color: var(--muted); font-size: .9rem; max-width: 46ch; margin: 0; }
+.records-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(16px, 2vw, 24px); }
+.record-card { border: 1px solid var(--line); border-radius: var(--r-m); background: var(--surface); padding: clamp(18px, 2.4vw, 28px); display: flex; flex-direction: column; gap: 14px; }
+.record-card header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.record-card h4 { margin: 0; font: 700 1.15rem var(--f-display); color: var(--text-strong); display: flex; align-items: center; gap: 10px; }
+.record-card h4::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--gc); box-shadow: 0 0 12px var(--gc); }
+.record-play, .record-reset { font: 600 .8rem var(--f-display); letter-spacing: .04em; border-radius: 999px; cursor: pointer; padding: .6em 1.1em; }
+.record-play { background: var(--gc); color: #050505; border: 0; }
+.record-reset { align-self: flex-start; background: transparent; color: var(--muted); border: 1px solid var(--line-2); }
+.record-reset:hover { color: #fff; border-color: #ff6b61; }
+.record-play:focus-visible, .record-reset:focus-visible { outline: 2px solid var(--gc); outline-offset: 3px; }
+.record-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 0; }
+.record-stats div { background: rgba(255,255,255,.04); border-radius: 12px; padding: 12px 10px; }
+.record-stats dt { font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.record-stats dd { margin: 4px 0 0; font: 700 1.6rem var(--f-display); color: var(--gc); font-variant-numeric: tabular-nums; }
+.record-sub { margin: 4px 0 0; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.record-history { list-style: none; margin: 0; padding: 0; font-size: .84rem; }
+.record-history li { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); color: var(--text); }
+.record-history li.empty { display: block; color: var(--muted); }
+.record-history b { color: var(--text-strong); font-variant-numeric: tabular-nums; }
+@media (max-width: 920px) { .records-grid { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .record-stats { grid-template-columns: repeat(2, 1fr); } }
+
 /* Animaciones de portadas */
 .cv-dash { stroke-dasharray: 26 22; animation: dash 1.2s linear infinite; }
 @keyframes dash { to { stroke-dashoffset: -48; } }
