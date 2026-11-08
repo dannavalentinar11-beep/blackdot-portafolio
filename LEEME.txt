@@ -68,3 +68,29 @@ completo con las animaciones CSS.
 
 LOCALSTORAGE NUEVO
 blackdot-arcade-mode    Preferencia de la sala: "3d" o "flat" (modo ligero)
+
+==========================================================================
+BLACKDOT 2.1 — REFINAMIENTO VISUAL Y BLACKDOT HALL OF FAME
+==========================================================================
+js/halloffame.js     Sistema central de récords de los SEIS juegos (sección #records).
+                     Antes solo se leían blackdot-football y blackdot-pixelpong-v1.
+                     Cada juego guarda sus resultados con su propia clave; un adaptador
+                     por juego los lee sin modificar el código del juego:
+                       Cúcuta Open World   cow_save_v1_<nombre>  (misiones, dinero, vehículos)
+                       Dynasty FC          dynastyfc.progress    (partidos, resultados, goles)
+                       Sky Bound           skybound.profiles.v1 + skybound.save.v2.<piloto>
+                       Rally Rush          rallyrush_v1          (encuentros, victorias, nivel)
+                       Pixel Pong 2D       blackdot-pixelpong-v1
+                       Atari Football 2D   blackdot-football
+                     Registro central:     blackdot-hall-v1 (mejor marca por categoría,
+                                           fecha y últimos récords conseguidos).
+                     El juego corre en un iframe del mismo origen: al guardar dispara el
+                     evento `storage` en el portafolio, que actualiza el panel y avisa si
+                     hay un nuevo récord. Los récords son personales (de este navegador).
+Sala arcade 3D       Rediseñada: seis alcobas en un mismo salón (paredes, cabecera con
+                     señalización, plataforma), luz cenital al seleccionar, menos efectos.
+                     Cúcuta Open World y Sky Bound ocupan las posiciones centrales.
+Modo ligero          Las seis máquinas en un mismo salón en perspectiva, con imagen,
+                     nombre, descripción, indicador de selección y botón Jugar.
+Visual               Menos partículas, brillos y animaciones simultáneas; textos más
+                     grandes; se retiraron elementos decorativos sin función.

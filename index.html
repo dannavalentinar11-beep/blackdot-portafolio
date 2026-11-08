@@ -20,9 +20,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 
-<link rel="stylesheet" href="css/style.css?v=2.0">
+<link rel="stylesheet" href="css/style.css?v=2.1">
 <!-- BLACKDOT 2.0: nueva dirección artística, hero, arcade y secciones rediseñadas -->
-<link rel="stylesheet" href="css/blackdot2.css?v=2.0">
+<link rel="stylesheet" href="css/blackdot2.css?v=2.1">
 <!-- Three.js solo se descarga al entrar a BLACKDOT ARCADE (import dinámico en js/arcade.js) -->
 <script type="importmap">
 { "imports": {
@@ -62,6 +62,7 @@
       <a href="#inicio">Inicio</a>
       <a href="#sobre-mi">Sobre mí</a>
       <a href="#juegos">Arcade</a>
+      <a href="#records">Récords</a>
       <a href="#proyectos">Proyectos</a>
       <a href="#herramientas">Herramientas</a>
       <a href="#blog">Blog</a>
@@ -84,6 +85,7 @@
   <a href="#inicio" style="--i:0"><span><small>01</small>Inicio</span></a>
   <a href="#sobre-mi" style="--i:1"><span><small>02</small>Sobre mí</span></a>
   <a href="#juegos" style="--i:2"><span><small>03</small>BLACKDOT Arcade</span></a>
+  <a href="#records" style="--i:3"><span><small>·</small>Hall of Fame</span></a>
   <a href="#proyectos" style="--i:3"><span><small>04</small>Proyectos</span></a>
   <a href="#herramientas" style="--i:4"><span><small>05</small>Herramientas</span></a>
   <a href="#blog" style="--i:5"><span><small>06</small>Blog</span></a>
@@ -97,21 +99,13 @@
 <main id="contenido">
   <!-- HERO -->
   <section class="hero hero2 zone-dark" id="inicio" aria-labelledby="hero-title">
-    <!-- Capas de profundidad: partículas, rejilla en perspectiva, haces de luz y resplandores -->
+    <!-- Capas de profundidad: resplandores, partículas y rejilla en perspectiva -->
     <div class="hero-layer hero-layer--far" data-depth="0.2" aria-hidden="true">
       <div class="hero-glow"></div>
       <div class="hero-glow b"></div>
-      <p class="hero-bg-text">BLACKDOT</p>
     </div>
     <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
     <div class="hero-floor" aria-hidden="true"><div class="hero-floor-grid"></div></div>
-    <div class="hero-beams" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="hero-hud" aria-hidden="true">
-      <span class="hud-tl">BLACKDOT // SYS.ONLINE</span>
-      <span class="hud-tr">PORTFOLIO — 2026</span>
-      <span class="hud-bl">INGENIERÍA MULTIMEDIA</span>
-      <span class="hud-br">07°53′N · 72°30′W — CÚCUTA</span>
-    </div>
     <div class="wrap">
       <div class="hero-copy">
         <p class="hero-kicker hero-fade" style="--i:0"><span class="dot-live" aria-hidden="true"></span> ¡Hola! Soy Danna — disponible para proyectos</p>
@@ -136,8 +130,6 @@
         </ul>
       </div>
       <div class="hero-visual hero-fade" style="--i:1" id="hero-visual" data-depth="0.5">
-        <div class="holo-frame" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="holo-scan"></span></div>
-        <div class="holo-ring" aria-hidden="true"></div>
         <figure class="hero-card" id="hero-card">
           <div class="hero-card-top"><span><i></i><i></i><i></i></span><span>{BlackDot}</span></div>
           <div class="hero-card-media"><img src="assets/img/hero-danna-900.webp" srcset="assets/img/hero-danna-600.webp 600w, assets/img/hero-danna-900.webp 900w" sizes="(max-width: 920px) 80vw, 440px" fetchpriority="high" decoding="async" alt="Retrato de Danna Rueda" width="900" height="1350"></div>
@@ -162,13 +154,10 @@
 
   <!-- SOBRE MÍ -->
   <section class="section about2" id="sobre-mi" aria-labelledby="about-title">
-    <div class="about-techline" aria-hidden="true"><span></span></div>
     <div class="wrap about-grid">
       <div class="about-media">
         <figure class="about-figure rv-clip rv" id="about-figure">
           <img src="assets/img/sobre-mi-danna-900.webp" srcset="assets/img/sobre-mi-danna-600.webp 600w, assets/img/sobre-mi-danna-900.webp 900w" sizes="(max-width: 920px) 90vw, 45vw" decoding="async" alt="Danna Rueda durante una sesión de creación de contenido" width="900" height="1348" loading="lazy">
-          <span class="about-scan" aria-hidden="true"></span>
-          <span class="about-corners" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
           <figcaption><span>BLACKDOT / ABOUT</span><span>CÚCUTA — CO</span></figcaption>
         </figure>
         <dl class="profile-card rv" style="--d:160" aria-label="Perfil">
@@ -279,17 +268,29 @@
         <span>Tu progreso en cada juego se guarda en este navegador. Para vivirlos mejor usa el botón <b>Pantalla completa</b> del reproductor; en celular los juegos incluyen controles táctiles.</span>
       </p>
 
-      <!-- SALÓN DE RÉCORDS: lee LocalStorage de los juegos 2D (JSON) -->
-      <div class="records rv" id="records" aria-labelledby="records-title">
-        <div class="records-head">
-          <div>
-            <p class="kicker">Salón de récords</p>
-            <h3 id="records-title">High scores &amp; historial</h3>
-          </div>
-          <p class="records-intro">Récords guardados en este navegador con LocalStorage. Se actualizan solos al terminar cada partida.</p>
+    </div>
+  </section>
+
+  <!-- BLACKDOT HALL OF FAME: récords reales de los seis juegos (js/halloffame.js) -->
+  <section class="section hof" id="records" aria-labelledby="hof-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker rv">Salón de récords</p>
+          <h2 class="section-title" id="hof-title">BLACKDOT <span class="o">Hall of Fame</span></h2>
         </div>
-        <div class="records-grid" id="records-grid"><!-- Generado por JS --></div>
+        <p class="section-intro rv" style="--d:120">Every game has a story. Every player leaves a record.</p>
       </div>
+      <div class="hof-bar rv">
+        <div class="hof-filters" role="group" aria-label="Filtrar récords">
+          <button type="button" class="is-active" data-hof-filter="all" aria-pressed="true">Todos <b>6</b></button>
+          <button type="button" data-hof-filter="rec" aria-pressed="false">Con récord <b id="hof-count-rec">0</b></button>
+          <button type="button" data-hof-filter="empty" aria-pressed="false">Sin partidas <b id="hof-count-empty">6</b></button>
+        </div>
+        <p class="hof-note">Récords personales guardados en este navegador (LocalStorage). No es una clasificación global entre jugadores: se actualizan solos al terminar cada partida.</p>
+        <button class="btn btn-ghost btn-sm" type="button" id="hof-refresh">Actualizar récords <span class="arr" aria-hidden="true">↻</span></button>
+      </div>
+      <div class="hof-grid" id="hof-grid" aria-live="polite"><!-- Seis módulos generados por js/halloffame.js --></div>
     </div>
   </section>
 
@@ -382,11 +383,6 @@
           <h2 class="section-title" id="tools-title" data-split>Mi caja de <span class="o">herramientas</span></h2>
         </div>
         <p class="section-intro rv" style="--d:120">Tecnologías que utilizo para transformar ideas en experiencias digitales. Toca una para saber más.</p>
-      </div>
-      <div class="tools-orbit" aria-hidden="true">
-        <div class="to-core"><img src="assets/img/logo-blackdot-96.webp" alt="" width="56" height="56"></div>
-        <div class="to-ring r1"><i class="tile ai">Ai</i><i class="tile ps">Ps</i><i class="tile bl">Bl</i></div>
-        <div class="to-ring r2"><i class="tile pr">Pr</i><i class="tile ae">Ae</i><i class="tile vs">VS</i><i class="tile js">JS</i><i class="tile th">3D</i></div>
       </div>
       <div class="tools-groups" id="tools-grid">
         <div class="tool-group rv">
@@ -826,12 +822,13 @@
 </template>
 
 
-<script src="js/script.js?v=2.0"></script>
+<script src="js/script.js?v=2.1"></script>
 <!-- GSAP + ScrollTrigger para el motion design (si no cargan, el sitio funciona con las animaciones CSS) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="js/arcade.js?v=2.0.1" defer></script>
-<script src="js/motion.js?v=2.0" defer></script>
+<script src="js/arcade.js?v=2.1" defer></script>
+<script src="js/halloffame.js?v=2.1" defer></script>
+<script src="js/motion.js?v=2.1" defer></script>
 
 </body>
 </html>

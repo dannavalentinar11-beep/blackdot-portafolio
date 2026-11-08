@@ -15,7 +15,10 @@
     var section = document.getElementById("juegos");
     if (!B || !section || !document.getElementById("arcade-hall")) return;
 
-    var GAMES = B.GAMES;
+    /* Orden de la sala (izquierda → derecha): Cúcuta Open World y Sky Bound ocupan
+       las dos posiciones centrales; los otros cuatro quedan igual de visibles a los lados. */
+    var ORDER = ["dynasty", "rally", "cucuta", "skybound", "pixelpong", "atarifootball"];
+    var GAMES = ORDER.map(function (id) { return B.GAMES.filter(function (g) { return g.id === id; })[0]; }).filter(Boolean);
     var IMG = "assets/img/arcade/";
     var $ = function (s, c) { return (c || document).querySelector(s); };
     var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
@@ -25,7 +28,7 @@
     var info = $("#hall-info"), tip = $("#hall-tip"), canvas = $("#arcade-canvas");
     var sheet = $("#game-sheet"), modeBtn = $("#hall-mode"), overviewBtn = $("#hall-overview");
 
-    var cur = 0, entered = false, focused = false, mode = "flat", engine = null, loading = null, inView = false, pendingEnter = false, sheetIdx = 0, swallowClick = false;
+    var cur = Math.max(0, ORDER.indexOf("cucuta")), entered = false, focused = false, mode = "flat", engine = null, loading = null, inView = false, pendingEnter = false, sheetIdx = 0, swallowClick = false;
 
     function setFocused(v) { focused = v; hall.classList.toggle("is-overview", mode === "3d" && !v); }
     function pad(n) { return n < 10 ? "0" + n : String(n); }
@@ -65,8 +68,8 @@
         '<span class="st-screen"><img src="' + IMG + g.shots[0] + '-640.webp" alt="" width="640" height="360" loading="lazy" decoding="async"></span>' +
         '<span class="st-genre">' + esc(g.station) + " · " + esc(g.dim) + "</span>" +
         '<span class="st-short">' + esc(g.short) + "</span>" +
-        '<span class="st-deck" aria-hidden="true"><i class="joy"></i><i></i><i></i><i></i></span>' +
-        "</button></li>";
+        "</button>" +
+        '<button class="st-play" type="button" data-play="' + i + '" aria-label="Jugar ' + esc(g.name) + '"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg> Jugar</button></li>';
     }).join("");
     var items = $$("li", list), buttons = $$(".st", list);
 
@@ -82,12 +85,12 @@
       info.classList.remove("is-swap"); void info.offsetWidth; if (!reduced) info.classList.add("is-swap");
     }
     function layoutFlat() {
-      items.forEach(function (li, i) {
-        var off = i - cur, abs = Math.abs(off);
-        li.style.setProperty("--off", off);
-        li.style.setProperty("--abs", abs);
-        li.classList.toggle("is-far", abs > 3);
-      });
+      items.forEach(function (li, i) { li.classList.toggle("is-current", i === cur); });
+      /* En pantallas estrechas la fila de máquinas se desplaza: centra la seleccionada */
+      if (mode !== "3d" && list.scrollWidth > list.clientWidth + 4) {
+        var li = items[cur];
+        list.scrollTo({ left: Math.max(0, li.offsetLeft - (list.clientWidth - li.offsetWidth) / 2), behavior: reduced ? "auto" : "smooth" });
+      }
     }
     function scrollRail() {
       if (mode !== "3d") return;
@@ -158,26 +161,16 @@
     $("#hall-next").addEventListener("click", function () { select(cur + 1); });
     overviewBtn.addEventListener("click", function () { if (engine) { engine.overview(); setFocused(false); } });
     list.addEventListener("click", function (e) {
+      var p = e.target.closest(".st-play");
+      if (p) { var k = +p.getAttribute("data-play"); select(k, { noCamera: true }); B.playGame(GAMES[k], e); return; }
       var b = e.target.closest(".st"); if (!b) return;
       if (swallowClick) { swallowClick = false; return; }
       var i = +b.getAttribute("data-i");
-      if (i === cur && (mode !== "3d" || focused)) openSheet(i, b);
+      if (mode !== "3d") { select(i); openSheet(i, b); }
+      else if (i === cur && focused) openSheet(i, b);
       else select(i);
     });
 
-    /* Deslizar en modo ligero (táctil o arrastre con ratón) */
-    (function () {
-      var sx = 0, sy = 0, down = false;
-      stage.parentNode.addEventListener("pointerdown", function (e) {
-        if (mode === "3d" || e.target.closest(".hall-info, .hall-hud, .hall-arrow")) return;
-        down = true; sx = e.clientX; sy = e.clientY;
-      });
-      addEventListener("pointerup", function (e) {
-        if (!down) return; down = false;
-        var dx = e.clientX - sx, dy = e.clientY - sy;
-        if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.2) { swallowClick = true; setTimeout(function () { swallowClick = false; }, 80); select(cur + (dx < 0 ? 1 : -1)); }
-      });
-    })();
 
     /* ---------- Teclado ---------- */
     addEventListener("keydown", function (e) {
@@ -217,7 +210,7 @@
     function loadModule() {
       if (!loading) {
         try { dynImport = dynImport || new Function("u", "return import(u)"); } catch (e) { return Promise.reject(e); }
-        loading = dynImport(new URL("js/arcade3d.js?v=2.0", document.baseURI).href);
+        loading = dynImport(new URL("js/arcade3d.js?v=2.1", document.baseURI).href);
         loading.catch(function () { loading = null; });
       }
       return loading;
@@ -281,7 +274,7 @@
       if (mode === "3d") { if (entered && !engine) startEngine(); }
       else if (engine) { startEngine.token = null; engine.dispose(); engine = null; setFocused(false); }
       layoutFlat();
-      if (mode === "3d") scrollRail(); else list.scrollLeft = 0;
+      if (mode === "3d") scrollRail(); else requestAnimationFrame(layoutFlat);
     }
     modeBtn.addEventListener("click", function () { setMode(mode === "3d" ? "flat" : "3d", true); });
 
@@ -332,7 +325,7 @@
 
     /* Estado inicial (sin entrar todavía): modo ligero preparado, sin cargar 3D */
     setMode("flat", false);
-    select(0, { noCamera: true });
+    select(cur, { noCamera: true });
     if (location.hash === "#juegos") {
       pendingEnter = true;
       /* Llegada desde un juego (index.html#juegos): al terminar de cargar, corrige la

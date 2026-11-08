@@ -293,11 +293,11 @@
       W = hero.clientWidth; H = hero.clientHeight;
       canvas.width = W * dpr; canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var n = Math.round(Math.min(150, Math.max(50, W * H / 11000)));
+      var n = Math.round(Math.min(70, Math.max(28, W * H / 24000)));
       pts = [];
       for (var i = 0; i < n; i++) {
         var z = Math.random(); /* 0 = lejos, 1 = cerca */
-        pts.push({ x: Math.random() * W, y: Math.random() * H, z: z, r: 0.5 + z * 1.9, vy: -(0.06 + z * 0.32), vx: (Math.random() - 0.5) * 0.12, c: COLORS[i % 3], tw: Math.random() * 6.28 });
+        pts.push({ x: Math.random() * W, y: Math.random() * H, z: z, r: 0.5 + z * 1.4, vy: -(0.04 + z * 0.18), vx: (Math.random() - 0.5) * 0.08, c: COLORS[i % 3], tw: Math.random() * 6.28 });
       }
     }
     function draw(now) {
@@ -312,23 +312,11 @@
         if (p.x < -10) p.x = W + 10; else if (p.x > W + 10) p.x = -10;
         var ox = p.x + px * (p.z * 28), oy = p.y + py * (p.z * 18);
         p.sx = ox; p.sy = oy;
-        var a = (0.18 + p.z * 0.55) * (0.75 + 0.25 * Math.sin(t * 1.6 + p.tw));
+        var a = (0.1 + p.z * 0.32) * (0.8 + 0.2 * Math.sin(t * 1.2 + p.tw));
         var dx = ox - mx, dy = oy - my, d2 = dx * dx + dy * dy;
-        if (d2 < 22500) a = Math.min(1, a + (1 - d2 / 22500) * 0.6);
+        if (d2 < 22500) a = Math.min(0.7, a + (1 - d2 / 22500) * 0.3);
         ctx.fillStyle = "rgba(" + p.c + "," + a.toFixed(3) + ")";
         ctx.beginPath(); ctx.arc(ox, oy, p.r, 0, 6.2832); ctx.fill();
-      }
-      /* Constelación: une partículas cercanas al cursor */
-      if (mx > -999) {
-        ctx.lineWidth = 0.6;
-        for (var j = 0; j < pts.length; j++) {
-          var A = pts[j], ax = A.sx - mx, ay = A.sy - my;
-          if (ax * ax + ay * ay > 40000) continue;
-          for (var k = j + 1; k < pts.length; k++) {
-            var B = pts[k], bx = A.sx - B.sx, by = A.sy - B.sy, dd = bx * bx + by * by;
-            if (dd < 9000) { ctx.strokeStyle = "rgba(101,195,204," + (0.28 * (1 - dd / 9000)).toFixed(3) + ")"; ctx.beginPath(); ctx.moveTo(A.sx, A.sy); ctx.lineTo(B.sx, B.sy); ctx.stroke(); }
-          }
-        }
       }
     }
     function loop(now) { raf = 0; if (!visible || document.hidden) return; draw(now); raf = requestAnimationFrame(loop); }
@@ -808,92 +796,13 @@
     });
   }
 
-  /* ---------------- Salón de récords (LocalStorage, formato JSON) ----------------
-     Los juegos 2D guardan sus estadísticas en estas claves; el portafolio las lee,
-     las valida y permite reiniciarlas. Datos inexistentes o dañados = valores en 0. */
-  var RECORDS = [
-    {
-      key: "blackdot-football", gameId: "atarifootball", title: "Atari Football 2D", color: "#D9FF56",
-      stats: function (d) {
-        return [[d.played, "Partidos"], [d.won, "Victorias"], [d.best, "Mejor racha"], [d.bestGoals, "Récord de goles"]];
-      },
-      modes: { ai: "vs CPU", two: "2 jugadores" }
-    },
-    {
-      key: "blackdot-pixelpong-v1", gameId: "pixelpong", title: "Pixel Pong 2D", color: "#52E5FF",
-      stats: function (d) {
-        return [[d.games, "Partidas"], [d.wins, "Victorias"], [d.bestStreak, "Mejor racha"], [d.best, "Récord desafío"]];
-      },
-      modes: { ai: "vs IA", local: "2 jugadores", challenge: "Desafío" }
-    }
-  ];
-  function readRecord(key) {
-    var d = {};
-    try {
-      var v = JSON.parse(localStorage.getItem(key) || "{}");
-      if (v && typeof v === "object" && !Array.isArray(v)) d = v;
-    } catch (e) { d = {}; }
-    function num(n) { n = Number(n); return isFinite(n) && n >= 0 ? Math.floor(n) : 0; }
-    var out = {};
-    ["played", "won", "best", "bestGoals", "games", "wins", "bestStreak"].forEach(function (k) { out[k] = num(d[k]); });
-    out.history = Array.isArray(d.history) ? d.history.filter(function (h) { return h && isFinite(h.a) && isFinite(h.b); }).slice(0, 5) : [];
-    return out;
-  }
-  function fmtDate(iso) {
-    var d = iso ? new Date(iso) : null;
-    return d && !isNaN(d) ? d.toLocaleDateString("es-CO", { day: "2-digit", month: "short" }) : "—";
-  }
-  function renderRecords() {
-    var grid = $("#records-grid");
-    if (!grid) return;
-    grid.innerHTML = RECORDS.map(function (r) {
-      var d = readRecord(r.key);
-      var hist = d.history.length ? d.history.map(function (h) {
-        return "<li><span>" + esc(fmtDate(h.date)) + "</span><span>" + esc(r.modes[h.mode] || h.mode || "—") + "</span><b>" + esc(h.a + " – " + h.b) + "</b></li>";
-      }).join("") : '<li class="empty">Aún no hay partidas registradas.</li>';
-      return '<article class="record-card" style="--gc:' + r.color + '">' +
-        '<header><h4>' + esc(r.title) + '</h4><button type="button" class="record-play" data-play="' + r.gameId + '">Jugar <span aria-hidden="true">→</span></button></header>' +
-        '<dl class="record-stats">' + r.stats(d).map(function (s) { return "<div><dt>" + esc(s[1]) + "</dt><dd>" + s[0] + "</dd></div>"; }).join("") + "</dl>" +
-        '<p class="record-sub">Últimas partidas</p><ul class="record-history">' + hist + "</ul>" +
-        '<button type="button" class="record-reset" data-reset="' + r.key + '">Reiniciar estadísticas</button>' +
-        "</article>";
-    }).join("");
-  }
-  function initRecords() {
-    var grid = $("#records-grid");
-    if (!grid) return;
-    renderRecords();
-    grid.addEventListener("click", function (e) {
-      var reset = e.target.closest("[data-reset]");
-      if (reset) {
-        var r = RECORDS.filter(function (x) { return x.key === reset.getAttribute("data-reset"); })[0];
-        if (!r || !confirm("¿Borrar las estadísticas e historial de " + r.title + "?")) return;
-        try {
-          /* Se conservan las preferencias (sonido, dificultad) y se borran los datos de juego */
-          var prev = JSON.parse(localStorage.getItem(r.key) || "{}") || {};
-          localStorage.setItem(r.key, JSON.stringify({ sound: prev.sound !== false, difficulty: prev.difficulty }));
-        } catch (err) { try { localStorage.removeItem(r.key); } catch (e2) {} }
-        renderRecords();
-        toast("Estadísticas de " + r.title + " reiniciadas.");
-        return;
-      }
-      var play = e.target.closest("[data-play]");
-      if (play) {
-        var g = GAMES.filter(function (x) { return x.id === play.getAttribute("data-play"); })[0];
-        if (g) playGame(g, e);
-      }
-    });
-    /* El juego corre en un iframe del mismo origen: el evento storage avisa de cada guardado */
-    addEventListener("storage", function (e) {
-      if (!e.key || RECORDS.some(function (r) { return r.key === e.key; })) renderRecords();
-    });
-    document.addEventListener("gameclosed", renderRecords);
-  }
+  /* ---------------- Salón de récords ----------------
+     BLACKDOT 2.0: el salón de récords de los SEIS juegos vive en js/halloffame.js
+     (antes aquí solo se leían las dos claves de los juegos 2D). */
 
   function initGames() {
     initPlayer();
     renderGames();
-    initRecords();
   }
 
   /* ---------------- API pública para BLACKDOT ARCADE ----------------

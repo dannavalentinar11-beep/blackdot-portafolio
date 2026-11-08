@@ -37,11 +37,9 @@
       var st = { trigger: hero, start: "top top", end: "bottom top", scrub: 0.6 };
       gsap.to(".hero2 .hero-layer--far", { yPercent: 22, ease: "none", scrollTrigger: st });
       gsap.to(".hero2 .hero-floor", { yPercent: 18, opacity: 0.2, ease: "none", scrollTrigger: st });
-      gsap.to(".hero2 .hero-beams", { yPercent: -12, ease: "none", scrollTrigger: st });
-      gsap.to(".hero2 .hero-copy", { y: 90, opacity: 0.25, ease: "none", scrollTrigger: st });
+      gsap.to(".hero2 .hero-copy", { y: 70, opacity: 0.3, ease: "none", scrollTrigger: st });
       /* .hero-visual usa transform con !important (style.css): se mueve con la propiedad translate */
-      gsap.to(".hero2 .hero-visual", { "--py": "-80px", ease: "none", scrollTrigger: st });
-      gsap.to(".hero2 .hero-hud", { opacity: 0, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "40% top", scrub: true } });
+      gsap.to(".hero2 .hero-visual", { "--py": "-60px", ease: "none", scrollTrigger: st });
     }
 
     /* Entrada del arcade: la pared de pantallas gana profundidad al acercarse */
@@ -57,7 +55,6 @@
       document.querySelectorAll('.projects2 .p-card[data-cat="fotografia"], .projects2 .p-card[data-cat="juegos"], .projects2 .p-card[data-cat="motion"]').forEach(function (card) {
         gsap.fromTo(card, { "--py": "50px" }, { "--py": "-30px", ease: "none", scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 0.8 } });
       });
-      gsap.fromTo(".projects2 .p-card[data-cat='motion']", { "--prog": "0%" }, { "--prog": "100%", ease: "none", scrollTrigger: { trigger: ".projects2 .p-card[data-cat='motion']", start: "top 85%", end: "bottom 30%", scrub: true } });
     }
 
     /* Sobre mí: la tarjeta de perfil flota con un desfase de profundidad */
