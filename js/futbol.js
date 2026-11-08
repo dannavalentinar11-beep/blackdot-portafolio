@@ -222,7 +222,7 @@
   function chooseStart(m) {
     mode = m;
     show(`<p class="eyebrow">PREPARA EL PARTIDO</p><h2>${m === 'two' ? 'DOS JUGADORES' : 'PARTIDO RÁPIDO'}</h2>
-      <p>${m === 'two' ? 'Azul: W A S D + ESPACIO · Rojo: FLECHAS + ENTER. Los porteros se mueven solos.' : 'Elige dificultad, duración y límite de goles.'} El partido termina al agotarse el reloj o alcanzar el marcador.</p>
+      <p>${m === 'two' ? 'Azul: W A S D + ESPACIO · Rojo: FLECHAS + INTRO. Los porteros se mueven solos.' : 'Elige dificultad, duración y límite de goles.'} El partido termina al agotarse el reloj o alcanzar el marcador.</p>
       <div style="font:11px 'DM Mono';color:#a8b6aa;margin:18px 0 7px">DIFICULTAD ${m === 'two' ? '(PORTEROS)' : 'DE LA CPU'}</div>
       <div class="choices" id="diffs">${Object.keys(diff).map((x) => `<button class="choice ${difficulty === x ? 'active' : ''}" data-diff="${x}"><strong>${x}</strong><span>RIVAL ${x === 'FACIL' ? 'RELAJADO' : x === 'EXPERTO' ? 'IMPLACABLE' : 'COMPETITIVO'}</span></button>`).join('')}</div>
       <div class="row">
@@ -247,7 +247,7 @@
   function instructions() {
     show(`<p class="eyebrow">JUEGA A TU MANERA</p><h2>CONTROLES</h2>
       <p><b style="color:#d9ff56">JUGADOR 1 · AZUL</b><br>W A S D para correr · ESPACIO para chutar (mantén para cargar potencia)<br><br>
-      <b style="color:#ff7067">JUGADOR 2 · ROJO</b> (modo dos jugadores)<br>FLECHAS para correr · ENTER para chutar<br><br>
+      <b style="color:#ff7067">JUGADOR 2 · ROJO</b> (modo dos jugadores)<br>FLECHAS para correr · INTRO para chutar<br><br>
       <b style="color:#d9ff56">PARTIDO</b><br>ESC o P pausa y reanuda · R reinicia · F muestra los FPS · botón Ⅱ PAUSA en pantalla.<br>
       Los porteros (dorsal 1) defienden solos. El balón acelera a medida que avanza el partido.
       En móvil usa el pad táctil y el botón CHUTA.</p>
@@ -262,7 +262,7 @@
   }
   function statsScreen() {
     const rows = stats.history.length
-      ? stats.history.map((h) => `<tr><td>${fmtDate(h.date)}</td><td>${h.mode === 'two' ? '2 JUG.' : 'VS CPU'}</td><td><b style="color:#d9ff56">${h.a} – ${h.b}</b></td><td>${h.a > h.b ? 'Victoria azul' : h.a < h.b ? 'Victoria rival' : 'Empate'}</td></tr>`).join('')
+      ? stats.history.map((h) => `<tr><td>${fmtDate(h.date)}</td><td>${h.mode === 'two' ? '2 JUG.' : 'CONTRA CPU'}</td><td><b style="color:#d9ff56">${h.a} – ${h.b}</b></td><td>${h.a > h.b ? 'Victoria azul' : h.a < h.b ? 'Victoria rival' : 'Empate'}</td></tr>`).join('')
       : '<tr><td colspan="4">Juega tu primer partido.</td></tr>';
     show(`<p class="eyebrow">TU HISTORIAL</p><h2>ESTADÍSTICAS</h2>
       <div class="statgrid">
@@ -712,7 +712,7 @@
     $('#game').classList.add('show');
     $('#teamB').textContent = mode === 'two' ? 'ROJO' : 'CPU';
     $('#hint').textContent = mode === 'two'
-      ? 'AZUL: WASD + ESPACIO · ROJO: FLECHAS + ENTER · ESC/P PAUSA · R REINICIA'
+      ? 'AZUL: WASD + ESPACIO · ROJO: FLECHAS + INTRO · ESC/P PAUSA · R REINICIA'
       : 'WASD MOVER · ESPACIO CHUTAR (MANTÉN = POTENCIA) · ESC/P PAUSA · R REINICIA';
     $('#touch').style.display = 'ontouchstart' in window || navigator.maxTouchPoints > 0 ? 'flex' : 'none';
     $('#pause').textContent = 'Ⅱ PAUSA';

@@ -51,7 +51,7 @@
       controls: [["Ratón / dedo", "Mover tu paleta (arrastra en el celular)"], ["W / S", "Jugador 1 arriba / abajo"], ["↑ / ↓", "Jugador 2 (o también jugador 1 contra la IA)"], ["Esc / P", "Pausa"]],
       name: "Rally Rush", station: "Arena neón", dim: "3D", shots: ["rally-b", "rally-a"],
       short: "Ping-pong futurista en 3D contra la IA o un amigo.",
-      mechanics: ["Contra la IA por niveles, dos jugadores locales o el Rival Imparable", "Encuentros al mejor de 3: 7 puntos con 2 de ventaja, o líder a los 40 s", "La pelota gana velocidad durante el punto", "Rush Coins, niveles y experiencia (XP)", "Tienda con mesas y pelotas desbloqueables, perfil y progresión"]
+      mechanics: ["Contra la IA por niveles, dos jugadores locales o el Rival Imparable", "Encuentros al mejor de 3: 7 puntos con 2 de ventaja, o líder a los 40 s", "La pelota gana velocidad durante el punto", "Monedas Rush, niveles y experiencia (EXP)", "Tienda con mesas y pelotas desbloqueables, perfil y progresión"]
     },
     {
       id: "pixelpong", file: "pingpong.html", title: "Pixel", sub: "Pong 2D", genre: "Deportes · Arcade 2D", color: "#52E5FF", tag: "2D · Web",

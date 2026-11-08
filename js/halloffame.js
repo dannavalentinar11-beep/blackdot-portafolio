@@ -146,7 +146,7 @@
       metric: "wins",
       labels: { wins: "Encuentros ganados", level: "Nivel alcanzado" },
       show: { wins: fmt, level: fmt },
-      resetText: "Se borrarán los encuentros, victorias, partidas e historial de Rally Rush. Tus Rush Coins, nivel y objetos desbloqueados se conservan.",
+      resetText: "Se borrarán los encuentros, victorias, partidas e historial de Rally Rush. Tus monedas Rush, nivel y objetos desbloqueados se conservan.",
       level: function (xp) { var l = 1; xp = num(xp); while (xp >= 60 + 40 * l) { xp -= 60 + 40 * l; l++; } return l; },
       read: function () {
         var S = readJSON("rallyrush_v1");
@@ -155,7 +155,7 @@
         return {
           has: true, player: S.name,
           bests: { wins: num(S.wins), level: lv },
-          stats: [["Encuentros jugados", fmt(num(S.matches))], ["Encuentros ganados", fmt(num(S.wins))], ["Partidas jugadas", fmt(num(S.games))], ["Nivel", fmt(lv)], ["Rush Coins", fmt(num(S.coins))]],
+          stats: [["Encuentros jugados", fmt(num(S.matches))], ["Encuentros ganados", fmt(num(S.wins))], ["Partidas jugadas", fmt(num(S.games))], ["Nivel", fmt(lv)], ["Monedas Rush", fmt(num(S.coins))]],
           historyTitle: "Últimos encuentros",
           history: (Array.isArray(S.hist) ? S.hist : []).slice(0, 3).map(function (h) {
             h = String(h); var mark = h.charAt(0);

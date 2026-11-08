@@ -58,8 +58,10 @@ index.html                 Hero, sección #juegos (arcade), sobre mí, herramien
 js/script.js               Datos de los juegos ampliados (capturas, estación temática,
                            mecánicas verificadas), partículas del hero y API window.BLACKDOT.
 
-LOS JUEGOS NO SE MODIFICARON: juegos/*.html, futbol.html, pingpong.html y sus css/js
-son idénticos a la versión 2.1. PLAY NOW usa el mismo reproductor (iframe) de siempre.
+LOS JUEGOS NO SE MODIFICARON en su funcionamiento. En la versión 2.2 solo se tradujeron al
+español algunos textos visibles que estaban en inglés (subtítulos, nombres de teclas,
+"Rush Coins", "joystick", patrocinadores ficticios de Dynasty FC y "Short" en Cúcuta).
+"Jugar ahora" usa el mismo reproductor (iframe) de siempre.
 
 DEPENDENCIAS POR CDN (requieren Internet)
 Three.js 0.160.0 (cdn.jsdelivr.net) · GSAP 3.12.5 + ScrollTrigger (cdnjs.cloudflare.com)
