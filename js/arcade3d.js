@@ -120,7 +120,7 @@ export function createArcade(opts) {
     x.translate(w / 2, w / 2);
     x.strokeStyle = "rgba(101,195,204,.5)"; x.lineWidth = 3; x.beginPath(); x.arc(0, 0, 470, 0, 6.2832); x.stroke();
     x.strokeStyle = "rgba(101,195,204,.2)"; x.lineWidth = 2; x.beginPath(); x.arc(0, 0, 300, 0, 6.2832); x.stroke();
-    const txt = "BLACKDOT ARCADE · ENTER THE GAME UNIVERSE · ";
+    const txt = "BLACKDOT ARCADE · ENTRA AL UNIVERSO DEL JUEGO · ";
     x.font = `600 30px ${FONT}`; x.fillStyle = "rgba(170,225,235,.55)"; x.textAlign = "center"; x.textBaseline = "middle";
     const chars = (txt + txt).split("");
     chars.forEach((ch, i) => { x.save(); x.rotate((i / chars.length) * 6.2832); x.fillText(ch, 0, -390); x.restore(); });
@@ -399,7 +399,7 @@ export function createArcade(opts) {
     x.fillStyle = "#65C3CC"; x.font = `700 26px ${FONT}`; x.textBaseline = "middle"; x.textAlign = "left"; x.fillText("BLACKDOT ARCADE", 26, 29);
     x.textAlign = "right"; x.fillStyle = "rgba(255,255,255,.7)"; x.font = `600 22px ${FONT}`;
     if (sel < 0) {
-      x.fillText("CHOOSE YOUR GAME", w - 26, 29);
+      x.fillText("ELIGE TU JUEGO", w - 26, 29);
       const cw = 420, chh = 200, gx = (w - cw * 3 - 24) / 2;
       for (let k = 0; k < N; k++) {
         const cx = gx + (k % 3) * (cw + 12), cy = 74 + Math.floor(k / 3) * (chh + 12);

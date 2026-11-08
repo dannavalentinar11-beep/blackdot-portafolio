@@ -5,7 +5,7 @@
      galería pseudo-3D en modo ligero (sin WebGL, movimiento reducido o
      equipos de baja capacidad). La persona puede cambiar de modo.
    - Seis estaciones, panel de información, ficha de cada juego y
-     PLAY NOW con el reproductor original del portafolio (js/script.js).
+     «Jugar ahora» con el reproductor original del portafolio (js/script.js).
    ========================================================================== */
 (function () {
   "use strict";
@@ -210,7 +210,7 @@
     function loadModule() {
       if (!loading) {
         try { dynImport = dynImport || new Function("u", "return import(u)"); } catch (e) { return Promise.reject(e); }
-        loading = dynImport(new URL("js/arcade3d.js?v=2.1", document.baseURI).href);
+        loading = dynImport(new URL("js/arcade3d.js?v=2.2", document.baseURI).href);
         loading.catch(function () { loading = null; });
       }
       return loading;

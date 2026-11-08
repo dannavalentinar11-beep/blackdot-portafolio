@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BLACKDOT HALL OF FAME — sistema central de récords (vanilla JS)
+   SALÓN DE LA FAMA BLACKDOT — sistema central de récords (vanilla JS)
 
    Cada videojuego ya guarda sus resultados reales en LocalStorage con su propia
    clave y formato. Este módulo NO modifica el código de los juegos: un adaptador
@@ -319,7 +319,7 @@
       render(r.hall, r.news.map(function (n) { return n.g.id; }));
       if (r.news.length) {
         var n = r.news.filter(function (x) { return x.main; })[0] || r.news[0];
-        B.toast(n.firstGame ? "Primera partida registrada en " + n.g.name + ". Mira el Hall of Fame." : "¡Nuevo récord en " + n.g.name + "! " + n.text + (r.news.length > 1 ? " (+" + (r.news.length - 1) + ")" : ""));
+        B.toast(n.firstGame ? "Primera partida registrada en " + n.g.name + ". Míralo en el Salón de la fama." : "¡Nuevo récord en " + n.g.name + "! " + n.text + (r.news.length > 1 ? " (+" + (r.news.length - 1) + ")" : ""));
       } else if (announce) {
         B.toast("Récords actualizados desde este navegador.");
       }
