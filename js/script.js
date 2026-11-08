@@ -17,42 +17,61 @@
       desc: "Recorre una versión libre de Cúcuta: crea tu personaje, conduce, compra carros, escucha la radio y explora la ciudad.",
       tech: ["Three.js", "WebGL", "Audio generativo", "Guardado local"],
       help: "Crea tu personaje en el menú y pulsa «Partida nueva». Tu progreso se guarda en este navegador.",
-      controls: [["W A S D", "Caminar / conducir"], ["Arrastrar", "Girar la cámara"], ["E", "Subir o bajar del carro"], ["Espacio", "Freno de mano"], ["Clic", "Disparar (clic der. apunta)"], ["M", "Mapa y GPS"], ["R", "Cambiar emisora"], ["Esc", "Pausa"]]
+      controls: [["W A S D", "Caminar / conducir"], ["Arrastrar", "Girar la cámara"], ["E", "Subir o bajar del carro"], ["Espacio", "Freno de mano"], ["Clic", "Disparar (clic der. apunta)"], ["M", "Mapa y GPS"], ["R", "Cambiar emisora"], ["Esc", "Pausa"]],
+      /* BLACKDOT ARCADE: nombre, estación temática, capturas reales y mecánicas verificadas en el juego */
+      name: "Cúcuta Open World", station: "Distrito urbano", dim: "3D", shots: ["cucuta-a", "cucuta-b"],
+      short: "Mundo abierto urbano: explora la ciudad a pie o en carro.",
+      mechanics: ["Creación de personaje: nombre, tono de piel, camiseta y short", "Exploración libre de la ciudad a pie y en carro", "Misiones con objetivos (8 misiones; la primera es «Llegada a Cúcuta»)", "Concesionario AutoNorte, garaje y billetera para comprar y guardar carros", "Armas, vida, resistencia y nivel de búsqueda", "Radio con emisoras, mapa con GPS y minimapa", "Partida guardada en el navegador (opción «Continuar»)"]
     },
     {
       id: "dynasty", file: "juegos/dynasty.html", title: "Dynasty", sub: "FC", genre: "Deportes · Fútbol", color: "#C9A0DC",
       desc: "No heredes la gloria, constrúyela. Fútbol 3D con modo carrera, fichajes, repeticiones y celebraciones de gol.",
       tech: ["Three.js", "Modo carrera", "IA de jugadores", "Mando y táctil"],
       help: "Elige «Jugar partido» o «Modo carrera». Puedes cambiar las teclas en Ajustes → Controles; también se juega con mando o con controles táctiles en el celular.",
-      controls: [["W A S D", "Mover (o flechas)"], ["Espacio / Shift", "Sprint"], ["J", "Pase corto / presión"], ["K", "Disparo"], ["L", "Pase largo, centro / barrida"], ["U", "Entrada / pase al hueco"], ["Q / I", "Cambiar jugador"], ["E / H", "Regate / proteger"], ["1 – 8", "Celebración tras un gol"], ["Esc / P", "Pausa"]]
+      controls: [["W A S D", "Mover (o flechas)"], ["Espacio / Shift", "Sprint"], ["J", "Pase corto / presión"], ["K", "Disparo"], ["L", "Pase largo, centro / barrida"], ["U", "Entrada / pase al hueco"], ["Q / I", "Cambiar jugador"], ["E / H", "Regate / proteger"], ["1 – 8", "Celebración tras un gol"], ["Esc / P", "Pausa"]],
+      name: "Dynasty FC", station: "Estadio", dim: "3D", shots: ["dynasty-b", "dynasty-a"],
+      short: "Fútbol 3D con partido rápido y modo carrera.",
+      mechanics: ["Partido rápido y Modo carrera", "Elección de equipo, uniforme y formación (4-3-3, 4-4-2, 4-2-3-1 o 3-5-2)", "Duración de 2 a 10 minutos y dificultad de Fácil a Leyenda", "Horario de noche o atardecer; control local, visitante o CPU contra CPU", "Fichajes, repeticiones y celebraciones de gol", "Teclas configurables, mando y controles táctiles", "Marcador, reloj y minimapa durante el partido"]
     },
     {
       id: "skybound", file: "juegos/skybound.html", title: "Sky", sub: "Bound", genre: "Aviación · Arcade", color: "#F2C86B",
       desc: "Domina el cielo. Atraviesa aros, junta monedas y sobrevive a batallas aéreas contra el Barón Rojo.",
       tech: ["Three.js", "Física de vuelo", "Hangar y tienda", "Récords"],
       help: "Crea tu piloto con un nombre, elige mapa y despega. Atraviesa el centro de los aros para sumar más puntos.",
-      controls: [["W A S D", "Dirigir el avión (o flechas)"], ["Espacio", "Frenar para apuntar (entrenamiento)"], ["Espacio / J / clic", "Disparar (batalla)"], ["Esc", "Pausa"]]
+      controls: [["W A S D", "Dirigir el avión (o flechas)"], ["Espacio", "Frenar para apuntar (entrenamiento)"], ["Espacio / J / clic", "Disparar (batalla)"], ["Esc", "Pausa"]],
+      name: "Sky Bound", station: "Hangar de aviación", dim: "3D", shots: ["skybound-b", "skybound-a"],
+      short: "Aviación arcade: aros, monedas y batallas aéreas.",
+      mechanics: ["Perfiles de piloto: el progreso se guarda con tu nombre", "Entrenamiento en 3 niveles de aros: Amanecer, Reino de las nubes y Cielo celestial", "Batalla aérea por oleadas contra el Barón Rojo, con dificultades desbloqueables", "Monedas, regalos y puntuación por racha y precisión", "Hangar y tienda de aviones (empiezas con el SB-1 Aurora)", "Récords personales y calidad gráfica ajustable"]
     },
     {
       id: "rally", file: "juegos/rally.html", title: "Rally", sub: "Rush", genre: "Deportes · Arcade", color: "#24C8FF",
       desc: "Ping-pong futurista en 3D. Gana el punto a velocidad creciente, sube de nivel, desbloquea mesas y pelotas y reta al Rival Imparable.",
       tech: ["Three.js", "1 o 2 jugadores", "IA por niveles", "Tienda y progreso"],
       help: "Elige JUGAR (contra la IA) o DOS JUGADORES, escribe tu nombre y empieza. Gana quien llegue a 7 puntos con 2 de ventaja, o quien lidere a los 40 s; el encuentro es al mejor de 3 partidas.",
-      controls: [["Ratón / dedo", "Mover tu paleta (arrastra en el celular)"], ["W / S", "Jugador 1 arriba / abajo"], ["↑ / ↓", "Jugador 2 (o también jugador 1 contra la IA)"], ["Esc / P", "Pausa"]]
+      controls: [["Ratón / dedo", "Mover tu paleta (arrastra en el celular)"], ["W / S", "Jugador 1 arriba / abajo"], ["↑ / ↓", "Jugador 2 (o también jugador 1 contra la IA)"], ["Esc / P", "Pausa"]],
+      name: "Rally Rush", station: "Arena neón", dim: "3D", shots: ["rally-b", "rally-a"],
+      short: "Ping-pong futurista en 3D contra la IA o un amigo.",
+      mechanics: ["Contra la IA por niveles, dos jugadores locales o el Rival Imparable", "Encuentros al mejor de 3: 7 puntos con 2 de ventaja, o líder a los 40 s", "La pelota gana velocidad durante el punto", "Rush Coins, niveles y experiencia (XP)", "Tienda con mesas y pelotas desbloqueables, perfil y progresión"]
     },
     {
       id: "pixelpong", file: "pingpong.html", title: "Pixel", sub: "Pong 2D", genre: "Deportes · Arcade 2D", color: "#52E5FF", tag: "2D · Web",
       desc: "Tenis de mesa neón en 2D. Juega contra la IA, en modo local de dos jugadores o supera el desafío, con velocidad creciente, estadísticas y ajustes.",
       tech: ["Canvas 2D", "1 o 2 jugadores", "IA", "Guardado local"],
       help: "Elige el modo de juego en el menú (contra la IA, dos jugadores o desafío). Haz clic dentro del juego si no responde al teclado.",
-      controls: [["W / S", "Jugador 1 arriba / abajo"], ["↑ / ↓", "Jugador 2 (o jugador 1 contra la IA)"], ["Arrastrar", "Mover tu paleta en el celular"], ["Espacio", "Continuar"], ["Esc / P", "Pausa"], ["R", "Reiniciar"]]
+      controls: [["W / S", "Jugador 1 arriba / abajo"], ["↑ / ↓", "Jugador 2 (o jugador 1 contra la IA)"], ["Arrastrar", "Mover tu paleta en el celular"], ["Espacio", "Continuar"], ["Esc / P", "Pausa"], ["R", "Reiniciar"]],
+      name: "Pixel Pong 2D", station: "Sala retro neón", dim: "2D", shots: ["pong-b", "pong-a"],
+      short: "Tenis de mesa neón en 2D con modo desafío.",
+      mechanics: ["Modos: contra la IA, dos jugadores y Desafío arcade", "Dificultad de Fácil a Experto y partidos a 5, 7, 10 o 15 puntos", "La pelota acelera a medida que avanza el punto", "Estadísticas e historial guardados en el navegador", "Configuración y sonido activables"]
     },
     {
       id: "atarifootball", file: "futbol.html", title: "Atari", sub: "Football 2D", genre: "Deportes · Fútbol 2D", color: "#D9FF56", tag: "2D · Web",
       desc: "Un clásico reimaginado: fútbol rápido en un campo, dos porterías y cero excusas. Juega contra la CPU o con un amigo en la misma pantalla.",
       tech: ["Canvas 2D", "1 o 2 jugadores", "Estadísticas", "Controles táctiles"],
       help: "Pulsa JUGAR (contra la CPU) o DOS JUGADORES. Marca más goles que tu rival antes de que se acabe el tiempo; los porteros defienden solos y el balón acelera a medida que avanza el partido. En el celular aparecen controles táctiles.",
-      controls: [["W A S D", "Mover al jugador azul"], ["Espacio", "Chutar (mantén para cargar potencia)"], ["Flechas", "Jugador rojo (dos jugadores)"], ["Enter", "Chute del jugador rojo"], ["Esc / P", "Pausa (o botón Ⅱ PAUSA)"], ["R", "Reiniciar"], ["F", "Mostrar FPS"]]
+      controls: [["W A S D", "Mover al jugador azul"], ["Espacio", "Chutar (mantén para cargar potencia)"], ["Flechas", "Jugador rojo (dos jugadores)"], ["Enter", "Chute del jugador rojo"], ["Esc / P", "Pausa (o botón Ⅱ PAUSA)"], ["R", "Reiniciar"], ["F", "Mostrar FPS"]],
+      name: "Atari Football 2D", station: "Cancha clásica", dim: "2D", shots: ["football-b", "football-a"],
+      short: "Fútbol arcade 2D contra la CPU o en dúo local.",
+      mechanics: ["Partido rápido contra la CPU o dos jugadores en la misma pantalla", "Dificultad de la CPU de Fácil a Experto, tiempo y límite de goles", "Chute con carga de potencia", "Porteros automáticos y balón que acelera durante el partido", "Estadísticas e historial guardados en el navegador", "Controles táctiles en el celular"]
     }
   ];
 
@@ -154,12 +173,14 @@
       setTimeout(function () {
         pre.classList.add("is-done");
         document.body.classList.add("is-ready");
+        if (window.BLACKDOT) window.BLACKDOT.ready = true;
+        document.dispatchEvent(new CustomEvent("blackdot:ready"));
         done();
         setTimeout(function () { pre.style.display = "none"; }, 1200);
       }, reduced ? 0 : 260);
     }
     if (reduced) { finish(); return; }
-    var start = performance.now(), minTime = 1500;
+    var start = performance.now(), minTime = 1200;
     (function tick(now) {
       if (finished) return;
       var p = Math.min(1, (now - start) / minTime);
@@ -256,52 +277,73 @@
     addEventListener("resize", function () { if (innerWidth > 1080 && menu.classList.contains("is-open")) setMenu(false); });
   }
 
-  /* ---------------- Lienzo de puntos del hero ---------------- */
+  /* ---------------- Campo de partículas del hero (BLACKDOT 2.0) ----------------
+     Tres capas de profundidad con parallax del puntero, enlaces de constelación
+     cerca del cursor y pausa automática cuando el hero sale de pantalla. */
   function initDots() {
     var canvas = $("#hero-canvas");
+    if (!canvas) return;
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
     var hero = $("#inicio");
-    var dpr = Math.min(devicePixelRatio || 1, 2);
-    var W = 0, H = 0, pts = [], gap = 30, mx = -9999, my = -9999, visible = true, rgb = "255,255,255", t0 = performance.now();
-    function readColor() { rgb = getComputedStyle(root).getPropertyValue("--dot").trim() || "255,255,255"; }
+    var dpr = Math.min(devicePixelRatio || 1, 1.75);
+    var W = 0, H = 0, pts = [], mx = -9999, my = -9999, px = 0, py = 0, tx = 0, ty = 0, visible = true, raf = 0, last = performance.now();
+    var COLORS = ["101,195,204", "14,107,168", "190,230,240"];
     function build() {
       W = hero.clientWidth; H = hero.clientHeight;
       canvas.width = W * dpr; canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      gap = W < 640 ? 24 : 30;
+      var n = Math.round(Math.min(150, Math.max(50, W * H / 11000)));
       pts = [];
-      for (var y = gap / 2; y < H; y += gap) for (var x = gap / 2; x < W; x += gap) pts.push({ x: x, y: y, ox: x, oy: y });
-    }
-    function draw(now) {
-      ctx.clearRect(0, 0, W, H);
-      var t = (now - t0) / 1000;
-      for (var i = 0; i < pts.length; i++) {
-        var p = pts[i];
-        var dx = p.ox - mx, dy = p.oy - my, d = Math.sqrt(dx * dx + dy * dy), R = 150;
-        var tx = p.ox, ty = p.oy, s = 1.1, a = 0.16;
-        var wave = Math.sin(p.ox * 0.012 + t * 1.2) * Math.cos(p.oy * 0.014 + t * 0.9);
-        a += wave * 0.06;
-        if (d < R) {
-          var f = 1 - d / R;
-          tx += (dx / (d || 1)) * f * 26; ty += (dy / (d || 1)) * f * 26;
-          s += f * 2.4; a += f * 0.7;
-        }
-        p.x += (tx - p.x) * 0.16; p.y += (ty - p.y) * 0.16;
-        if (d < R * 0.6) ctx.fillStyle = "rgba(10,132,255," + Math.min(1, a + 0.15) + ")";
-        else ctx.fillStyle = "rgba(" + rgb + "," + Math.max(0.04, a) + ")";
-        ctx.beginPath(); ctx.arc(p.x, p.y, s, 0, 6.2832); ctx.fill();
+      for (var i = 0; i < n; i++) {
+        var z = Math.random(); /* 0 = lejos, 1 = cerca */
+        pts.push({ x: Math.random() * W, y: Math.random() * H, z: z, r: 0.5 + z * 1.9, vy: -(0.06 + z * 0.32), vx: (Math.random() - 0.5) * 0.12, c: COLORS[i % 3], tw: Math.random() * 6.28 });
       }
     }
-    function loop(now) { if (visible) draw(now); requestAnimationFrame(loop); }
-    readColor(); build();
-    document.addEventListener("themechange", function () { readColor(); if (reduced) draw(performance.now()); });
+    function draw(now) {
+      var dt = Math.min(48, now - last); last = now;
+      ctx.clearRect(0, 0, W, H);
+      px += (tx - px) * 0.05; py += (ty - py) * 0.05;
+      var t = now / 1000;
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i];
+        if (!reduced) { p.x += p.vx * dt * 0.06; p.y += p.vy * dt * 0.06; }
+        if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
+        if (p.x < -10) p.x = W + 10; else if (p.x > W + 10) p.x = -10;
+        var ox = p.x + px * (p.z * 28), oy = p.y + py * (p.z * 18);
+        p.sx = ox; p.sy = oy;
+        var a = (0.18 + p.z * 0.55) * (0.75 + 0.25 * Math.sin(t * 1.6 + p.tw));
+        var dx = ox - mx, dy = oy - my, d2 = dx * dx + dy * dy;
+        if (d2 < 22500) a = Math.min(1, a + (1 - d2 / 22500) * 0.6);
+        ctx.fillStyle = "rgba(" + p.c + "," + a.toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(ox, oy, p.r, 0, 6.2832); ctx.fill();
+      }
+      /* Constelación: une partículas cercanas al cursor */
+      if (mx > -999) {
+        ctx.lineWidth = 0.6;
+        for (var j = 0; j < pts.length; j++) {
+          var A = pts[j], ax = A.sx - mx, ay = A.sy - my;
+          if (ax * ax + ay * ay > 40000) continue;
+          for (var k = j + 1; k < pts.length; k++) {
+            var B = pts[k], bx = A.sx - B.sx, by = A.sy - B.sy, dd = bx * bx + by * by;
+            if (dd < 9000) { ctx.strokeStyle = "rgba(101,195,204," + (0.28 * (1 - dd / 9000)).toFixed(3) + ")"; ctx.beginPath(); ctx.moveTo(A.sx, A.sy); ctx.lineTo(B.sx, B.sy); ctx.stroke(); }
+          }
+        }
+      }
+    }
+    function loop(now) { raf = 0; if (!visible || document.hidden) return; draw(now); raf = requestAnimationFrame(loop); }
+    function start() { if (!raf && visible && !reduced) { last = performance.now(); raf = requestAnimationFrame(loop); } }
+    build();
     var rt; addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { build(); if (reduced) draw(performance.now()); }, 150); });
     if (reduced) { draw(performance.now()); return; }
-    hero.addEventListener("pointermove", function (e) { var r = hero.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; }, { passive: true });
-    hero.addEventListener("pointerleave", function () { mx = my = -9999; });
-    if ("IntersectionObserver" in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }).observe(hero);
-    requestAnimationFrame(loop);
+    hero.addEventListener("pointermove", function (e) {
+      var r = hero.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top;
+      tx = (mx / r.width - 0.5) * 2; ty = (my / r.height - 0.5) * 2;
+    }, { passive: true });
+    hero.addEventListener("pointerleave", function () { mx = my = -9999; tx = ty = 0; });
+    document.addEventListener("visibilitychange", start);
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; start(); }).observe(hero);
+    start();
   }
 
   /* ---------------- Inclinación de la tarjeta del hero ---------------- */
@@ -650,6 +692,7 @@
   }
   function renderGames() {
     var grid = $("#games-grid");
+    if (!grid) return; /* BLACKDOT 2.0: las estaciones del arcade las construye js/arcade.js */
     GAMES.forEach(function (g, i) {
       var card = gameCard(g, i);
       card.classList.add("rv");
@@ -853,6 +896,17 @@
     initRecords();
   }
 
+  /* ---------------- API pública para BLACKDOT ARCADE ----------------
+     El arcade (js/arcade.js) reutiliza los datos, el reproductor original y el
+     sistema de modales, así los juegos se abren exactamente igual que antes. */
+  window.BLACKDOT = {
+    GAMES: GAMES, playGame: function (g, ev) { playGame(g, ev); },
+    openModal: openModal, closeModal: closeModal, toast: toast, esc: esc,
+    reduced: reduced, finePointer: finePointer,
+    isPlayerOpen: function () { return !!(player && !player.hidden); },
+    hasOpenModal: function () { return openModals.length > 0; }
+  };
+
   /* ---------------- Arranque ---------------- */
   function boot() {
     initTheme();
@@ -871,6 +925,9 @@
     initHeroTilt();
     initScrollFx();
     initPreloader(function () {});
+    /* Entrada cinematográfica del hero (transiciones CSS en css/blackdot2.css) */
+    var heroEl = $("#inicio");
+    if (heroEl) requestAnimationFrame(function () { requestAnimationFrame(function () { heroEl.classList.add("is-in"); }); });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();

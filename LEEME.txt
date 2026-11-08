@@ -35,3 +35,36 @@ Los juegos 3D usan sus propias claves (skybound.save.v2, rallyrush_v1, dynastyfc
 PRUEBAS (modo QA)
 futbol.html?qa=1 y pingpong.html?qa=1 exponen un objeto de solo pruebas (__AF / __PP)
 que usan las pruebas automatizadas. Sin ?qa=1 no se expone nada.
+
+==========================================================================
+BLACKDOT 2.0 — REDISEÑO Y BLACKDOT ARCADE
+==========================================================================
+ARCHIVOS NUEVOS
+css/blackdot2.css          Nueva dirección artística (azul #0E6BA8, cian #65C3CC), hero,
+                           sala arcade, ficha de juego, proyectos, herramientas, footer
+                           y responsive. Se carga DESPUÉS de css/style.css (que no cambió).
+js/arcade.js               Controlador de BLACKDOT ARCADE: entrada, estaciones, panel,
+                           ficha, teclado/táctil y cambio entre sala 3D y modo ligero.
+js/arcade3d.js             Sala 3D con Three.js r160 (módulo ES). Solo se descarga al
+                           pulsar ENTER ARCADE. Geometría procedural, sin modelos externos.
+js/motion.js               GSAP + ScrollTrigger (parallax y animaciones de scroll) y luz
+                           dinámica que sigue al puntero.
+assets/img/arcade/         12 capturas reales (2 por juego) en WebP, 1280 px y 640 px.
+
+ARCHIVOS MODIFICADOS
+index.html                 Hero, sección #juegos (arcade), sobre mí, herramientas, footer
+                           y la ficha de videojuego. Se conservan todas las secciones,
+                           enlaces, modales y el reproductor original.
+js/script.js               Datos de los juegos ampliados (capturas, estación temática,
+                           mecánicas verificadas), partículas del hero y API window.BLACKDOT.
+
+LOS JUEGOS NO SE MODIFICARON: juegos/*.html, futbol.html, pingpong.html y sus css/js
+son idénticos a la versión 2.1. PLAY NOW usa el mismo reproductor (iframe) de siempre.
+
+DEPENDENCIAS POR CDN (requieren Internet)
+Three.js 0.160.0 (cdn.jsdelivr.net) · GSAP 3.12.5 + ScrollTrigger (cdnjs.cloudflare.com)
+Sin conexión o sin WebGL el arcade se muestra en modo ligero; sin GSAP el sitio queda
+completo con las animaciones CSS.
+
+LOCALSTORAGE NUEVO
+blackdot-arcade-mode    Preferencia de la sala: "3d" o "flat" (modo ligero)

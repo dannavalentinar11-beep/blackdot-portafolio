@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BLACKDOT — Danna Rueda | Ingeniería Multimedia</title>
 <meta name="description" content="BLACKDOT es el portafolio de Danna Rueda, estudiante de Ingeniería Multimedia: diseño digital, desarrollo web, narrativa audiovisual y videojuegos.">
-<meta name="theme-color" content="#0A0A0A">
+<meta name="theme-color" content="#03060B">
 <link rel="icon" type="image/png" href="assets/img/logo-blackdot.png">
 <script>
   (function () {
@@ -20,7 +20,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=2.0">
+<!-- BLACKDOT 2.0: nueva dirección artística, hero, arcade y secciones rediseñadas -->
+<link rel="stylesheet" href="css/blackdot2.css?v=2.0">
+<!-- Three.js solo se descarga al entrar a BLACKDOT ARCADE (import dinámico en js/arcade.js) -->
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
 
 <noscript>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap">
@@ -52,7 +61,7 @@
       <span class="nav-pill" id="nav-pill" aria-hidden="true"></span>
       <a href="#inicio">Inicio</a>
       <a href="#sobre-mi">Sobre mí</a>
-      <a href="#juegos">Videojuegos</a>
+      <a href="#juegos">Arcade</a>
       <a href="#proyectos">Proyectos</a>
       <a href="#herramientas">Herramientas</a>
       <a href="#blog">Blog</a>
@@ -74,7 +83,7 @@
 <nav class="mobile-menu" id="mobile-menu" aria-label="Menú móvil">
   <a href="#inicio" style="--i:0"><span><small>01</small>Inicio</span></a>
   <a href="#sobre-mi" style="--i:1"><span><small>02</small>Sobre mí</span></a>
-  <a href="#juegos" style="--i:2"><span><small>03</small>Videojuegos</span></a>
+  <a href="#juegos" style="--i:2"><span><small>03</small>BLACKDOT Arcade</span></a>
   <a href="#proyectos" style="--i:3"><span><small>04</small>Proyectos</span></a>
   <a href="#herramientas" style="--i:4"><span><small>05</small>Herramientas</span></a>
   <a href="#blog" style="--i:5"><span><small>06</small>Blog</span></a>
@@ -87,28 +96,48 @@
 
 <main id="contenido">
   <!-- HERO -->
-  <section class="hero" id="inicio" aria-labelledby="hero-title">
+  <section class="hero hero2 zone-dark" id="inicio" aria-labelledby="hero-title">
+    <!-- Capas de profundidad: partículas, rejilla en perspectiva, haces de luz y resplandores -->
+    <div class="hero-layer hero-layer--far" data-depth="0.2" aria-hidden="true">
+      <div class="hero-glow"></div>
+      <div class="hero-glow b"></div>
+      <p class="hero-bg-text">BLACKDOT</p>
+    </div>
     <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
-    <div class="hero-glow" aria-hidden="true"></div>
-    <p class="hero-bg-text" aria-hidden="true">DANNA</p>
+    <div class="hero-floor" aria-hidden="true"><div class="hero-floor-grid"></div></div>
+    <div class="hero-beams" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="hero-hud" aria-hidden="true">
+      <span class="hud-tl">BLACKDOT // SYS.ONLINE</span>
+      <span class="hud-tr">PORTFOLIO — 2026</span>
+      <span class="hud-bl">INGENIERÍA MULTIMEDIA</span>
+      <span class="hud-br">07°53′N · 72°30′W — CÚCUTA</span>
+    </div>
     <div class="wrap">
       <div class="hero-copy">
         <p class="hero-kicker hero-fade" style="--i:0"><span class="dot-live" aria-hidden="true"></span> ¡Hola! Soy Danna — disponible para proyectos</p>
-        <h1 class="hero-title" id="hero-title">
-          <span class="ln"><span style="--i:0">Diseño</span></span>
-          <span class="ln"><span style="--i:1" class="accent">Web</span></span>
-          <span class="ln"><span style="--i:2">&amp; Juegos</span></span>
-        </h1>
-        <p class="hero-sub hero-fade" style="--i:1">Construyo experiencias digitales claras — diseño, desarrollo, videojuegos y narrativa audiovisual en un mismo lugar.</p>
-        <div class="hero-cta hero-fade" style="--i:2">
-          <a class="btn btn-blue" href="#juegos" data-magnetic>Jugar mis juegos <span class="arr" aria-hidden="true">→</span></a>
-          <a class="btn btn-ghost" href="#proyectos" data-magnetic>Ver proyectos <span class="arr" aria-hidden="true">→</span></a>
+        <div class="hero-logo" id="hero-logo" aria-hidden="true">
+          <img class="hero-logo-badge" src="assets/img/logo-blackdot-96.webp" alt="" width="48" height="48">
+          <span class="hero-logo-word"><span>B</span><span>L</span><span>A</span><span>C</span><span>K</span><span>D</span><span>O</span><span>T</span><span class="hl-dot"></span></span>
         </div>
-        <ul class="hero-stack hero-fade" style="--i:3" aria-label="Herramientas">
+        <h1 class="hero-title" id="hero-title">
+          <span class="sr-only">BLACKDOT — </span>
+          <span class="ln"><span style="--i:0">Creativity</span></span>
+          <span class="ln"><span style="--i:1" class="accent">meets</span></span>
+          <span class="ln"><span style="--i:2">Technology<b class="t-dot">.</b></span></span>
+        </h1>
+        <p class="hero-sub hero-fade" style="--i:1">Exploring the intersection of design, technology and interactive experiences.</p>
+        <p class="hero-sub-es hero-fade" style="--i:2">Construyo experiencias digitales claras — diseño, desarrollo, videojuegos y narrativa audiovisual en un mismo lugar.</p>
+        <div class="hero-cta hero-fade" style="--i:3">
+          <a class="btn btn-blue" href="#proyectos" data-magnetic>Explore my work <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-arcade" href="#juegos" data-enter-arcade data-magnetic><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg> Enter BLACKDOT Arcade</a>
+        </div>
+        <ul class="hero-stack hero-fade" style="--i:4" aria-label="Herramientas">
           <li class="chip">HTML5</li><li class="chip">CSS3</li><li class="chip">JavaScript</li><li class="chip">Three.js</li><li class="chip">Illustrator</li><li class="chip">Photoshop</li>
         </ul>
       </div>
-      <div class="hero-visual hero-fade" style="--i:1" id="hero-visual">
+      <div class="hero-visual hero-fade" style="--i:1" id="hero-visual" data-depth="0.5">
+        <div class="holo-frame" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="holo-scan"></span></div>
+        <div class="holo-ring" aria-hidden="true"></div>
         <figure class="hero-card" id="hero-card">
           <div class="hero-card-top"><span><i></i><i></i><i></i></span><span>{BlackDot}</span></div>
           <div class="hero-card-media"><img src="assets/img/hero-danna-900.webp" srcset="assets/img/hero-danna-600.webp 600w, assets/img/hero-danna-900.webp 900w" sizes="(max-width: 920px) 80vw, 440px" fetchpriority="high" decoding="async" alt="Retrato de Danna Rueda" width="900" height="1350"></div>
@@ -118,7 +147,7 @@
         <div class="float-badge two"><b>6</b> áreas<br>creativas</div>
       </div>
     </div>
-    <div class="scroll-hint" aria-hidden="true"><span>Scroll</span><i></i></div>
+    <a class="scroll-hint" href="#sobre-mi" aria-label="Desplazarse a Sobre mí"><span>Scroll</span><i></i></a>
   </section>
 
   <!-- MARQUEE -->
@@ -132,12 +161,24 @@
   </div>
 
   <!-- SOBRE MÍ -->
-  <section class="section" id="sobre-mi" aria-labelledby="about-title">
+  <section class="section about2" id="sobre-mi" aria-labelledby="about-title">
+    <div class="about-techline" aria-hidden="true"><span></span></div>
     <div class="wrap about-grid">
-      <figure class="about-figure rv-clip rv" id="about-figure">
-        <img src="assets/img/sobre-mi-danna-900.webp" srcset="assets/img/sobre-mi-danna-600.webp 600w, assets/img/sobre-mi-danna-900.webp 900w" sizes="(max-width: 920px) 90vw, 45vw" decoding="async" alt="Danna Rueda durante una sesión de creación de contenido" width="900" height="1348" loading="lazy">
-        <figcaption><span>BLACKDOT / ABOUT</span><span>CÚCUTA — CO</span></figcaption>
-      </figure>
+      <div class="about-media">
+        <figure class="about-figure rv-clip rv" id="about-figure">
+          <img src="assets/img/sobre-mi-danna-900.webp" srcset="assets/img/sobre-mi-danna-600.webp 600w, assets/img/sobre-mi-danna-900.webp 900w" sizes="(max-width: 920px) 90vw, 45vw" decoding="async" alt="Danna Rueda durante una sesión de creación de contenido" width="900" height="1348" loading="lazy">
+          <span class="about-scan" aria-hidden="true"></span>
+          <span class="about-corners" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <figcaption><span>BLACKDOT / ABOUT</span><span>CÚCUTA — CO</span></figcaption>
+        </figure>
+        <dl class="profile-card rv" style="--d:160" aria-label="Perfil">
+          <div class="pc-head"><span>PROFILE.SYS</span><span class="dot-live" aria-hidden="true"></span></div>
+          <div><dt>Nombre</dt><dd>Danna Rueda</dd></div>
+          <div><dt>Programa</dt><dd>Ingeniería Multimedia</dd></div>
+          <div><dt>Ciudad</dt><dd>Cúcuta, Colombia</dd></div>
+          <div><dt>Estado</dt><dd>Disponible para proyectos</dd></div>
+        </dl>
+      </div>
       <div>
         <p class="kicker rv">Sobre mí</p>
         <h2 class="about-lead" id="about-title" data-split>Convierto ideas en experiencias digitales con <em>intención</em> — y ahora también en juegos.</h2>
@@ -155,23 +196,84 @@
           <li class="rv" style="--d:80"><small>02</small><strong>Desarrollo</strong><span>Interfaces web y juegos en JavaScript</span></li>
           <li class="rv" style="--d:160"><small>03</small><strong>Multimedia</strong><span>Edición audiovisual y motion</span></li>
         </ul>
+        <div class="interests rv" style="--d:120">
+          <p class="interests-title">Intereses &amp; áreas creativas</p>
+          <ul aria-label="Intereses">
+            <li>Diseño visual</li><li>Desarrollo web</li><li>Videojuegos</li><li>Contenido digital</li><li>Modelado 3D</li><li>Motion graphics</li><li>Fotografía</li><li>Ilustración</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- VIDEOJUEGOS -->
-  <section class="section games" id="juegos" aria-labelledby="games-title">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <p class="kicker rv">Arcade BlackDot</p>
-          <h2 class="section-title" id="games-title" data-split>Mis <span class="o">videojuegos</span></h2>
+  <!-- ================= BLACKDOT ARCADE ================= -->
+  <section class="arcade zone-dark" id="juegos" aria-labelledby="arcade-title">
+    <div class="arcade-room" id="arcade-room">
+      <!-- 1. Pantalla de entrada -->
+      <div class="arcade-gate" id="arcade-gate">
+        <div class="gate-wall" aria-hidden="true">
+          <div class="gate-screens">
+            <img src="assets/img/arcade/cucuta-a-640.webp" alt="" width="640" height="360" loading="lazy" decoding="async">
+            <img src="assets/img/arcade/dynasty-b-640.webp" alt="" width="640" height="360" loading="lazy" decoding="async">
+            <img src="assets/img/arcade/skybound-b-640.webp" alt="" width="640" height="360" loading="lazy" decoding="async">
+            <img src="assets/img/arcade/rally-b-640.webp" alt="" width="640" height="360" loading="lazy" decoding="async">
+            <img src="assets/img/arcade/pong-b-640.webp" alt="" width="640" height="360" loading="lazy" decoding="async">
+            <img src="assets/img/arcade/football-b-640.webp" alt="" width="640" height="360" loading="lazy" decoding="async">
+          </div>
         </div>
-        <p class="section-intro rv" style="--d:120">Juegos 3D y 2D creados con JavaScript. Haz clic en cualquiera para jugarlo aquí mismo, en pantalla completa — sin instalar nada.</p>
+        <div class="gate-floor" aria-hidden="true"></div>
+        <div class="gate-door l" aria-hidden="true"><span></span></div>
+        <div class="gate-door r" aria-hidden="true"><span></span></div>
+        <div class="gate-seam" aria-hidden="true"></div>
+        <div class="gate-content">
+          <p class="kicker">Arcade BlackDot · 06 juegos jugables</p>
+          <h2 class="arcade-title" id="arcade-title"><span class="at-1">BLACKDOT</span> <span class="at-2">ARCADE</span></h2>
+          <p class="gate-tag">Enter the game universe.</p>
+          <p class="gate-sub">Choose your game. Enter the experience.</p>
+          <button class="btn btn-arcade gate-btn" type="button" id="arcade-enter"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg> Enter arcade</button>
+          <p class="gate-note">Juegos 3D y 2D creados con JavaScript. Elige una estación y juégala aquí mismo, en pantalla completa — sin instalar nada.</p>
+        </div>
       </div>
-      <div class="games-grid" id="games-grid">
-        <!-- Tarjetas generadas por JS -->
+
+      <!-- 2. Sala arcade (3D con Three.js o galería pseudo-3D en modo ligero) -->
+      <div class="arcade-hall" id="arcade-hall" aria-label="Sala BLACKDOT ARCADE">
+        <div class="hall-stage" id="hall-stage">
+          <div class="hall-css" aria-hidden="true"><div class="hc-wall"></div><div class="hc-floor"></div><div class="hc-ceiling"></div></div>
+          <canvas class="hall-canvas" id="arcade-canvas" aria-hidden="true"></canvas>
+          <div class="hall-loading" id="hall-loading" aria-hidden="true"><span class="hl-ring"></span><b id="hall-load-txt">Encendiendo la sala…</b></div>
+          <div class="hall-tip" id="hall-tip" aria-hidden="true"><small></small><strong></strong><span></span><em>Clic para seleccionar</em></div>
+        </div>
+
+        <div class="hall-hud">
+          <p class="hud-title"><span class="dot-live" aria-hidden="true"></span> BLACKDOT ARCADE <span>/ Sala principal</span></p>
+          <p class="hud-count" aria-live="polite"><span>Estación</span> <b id="hall-num">01</b> / 06</p>
+          <div class="hud-actions">
+            <button class="hud-btn" type="button" id="hall-overview" title="Vista general de la sala" aria-label="Vista general de la sala"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 9V5a2 2 0 0 1 2-2h4M21 9V5a2 2 0 0 0-2-2h-4M3 15v4a2 2 0 0 0 2 2h4M21 15v4a2 2 0 0 1-2 2h-4"/></svg><span>Vista general</span></button>
+            <button class="hud-btn" type="button" id="hall-mode" aria-pressed="false" title="Cambiar entre sala 3D y modo ligero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 2 3 7l9 5 9-5-9-5zM3 17l9 5 9-5M3 12l9 5 9-5"/></svg><span id="hall-mode-txt">Modo ligero</span></button>
+          </div>
+        </div>
+
+        <div class="hall-info" id="hall-info" aria-live="polite">
+          <p class="hi-kicker"><b id="hi-num">01</b> <span id="hi-station">Distrito urbano</span></p>
+          <h3 class="hi-name" id="hi-name">Cúcuta Open World</h3>
+          <p class="hi-genre" id="hi-genre">Mundo abierto · Acción</p>
+          <p class="hi-desc" id="hi-desc"></p>
+          <div class="hi-actions">
+            <button class="btn btn-arcade btn-sm" type="button" id="hi-play"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg> Play now</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="hi-open">Ver ficha <span class="arr" aria-hidden="true">→</span></button>
+          </div>
+        </div>
+
+        <button class="hall-arrow prev" type="button" id="hall-prev" aria-label="Estación anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="hall-arrow next" type="button" id="hall-next" aria-label="Estación siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+
+        <ol class="stations" id="stations" aria-label="Estaciones del arcade"><!-- Generadas por js/arcade.js --></ol>
+        <p class="hall-hint" aria-hidden="true"><kbd>←</kbd><kbd>→</kbd> recorrer · <kbd>Enter</kbd> abrir ficha · arrastra para moverte</p>
       </div>
+    </div>
+
+    <div class="wrap arcade-after">
       <p class="games-note rv">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
         <span>Tu progreso en cada juego se guarda en este navegador. Para vivirlos mejor usa el botón <b>Pantalla completa</b> del reproductor; en celular los juegos incluyen controles táctiles.</span>
@@ -192,7 +294,7 @@
   </section>
 
   <!-- PROYECTOS -->
-  <section class="section" id="proyectos" aria-labelledby="projects-title">
+  <section class="section projects2" id="proyectos" aria-labelledby="projects-title">
     <div class="wrap">
       <div class="section-head">
         <div>
@@ -202,7 +304,7 @@
         <p class="section-intro rv" style="--d:120">Una selección de proyectos donde diseño, tecnología y narrativa visual se encuentran.</p>
       </div>
       <div class="projects-grid" id="projects-grid">
-        <div class="p-card wide rv" data-project="0" tabindex="0" role="button" aria-label="Ver proyecto: Personaje ilustrado" data-cursor="Ver">
+        <div class="p-card wide rv" data-project="0" data-cat="ilustracion" tabindex="0" role="button" aria-label="Ver proyecto: Personaje ilustrado" data-cursor="Ver">
           <div class="p-thumb">
             <span class="num">01</span>
             <div class="duo"><div><img src="assets/img/proyecto-pixel-auto.jpg" alt="Ilustración pixel art de un automóvil" loading="lazy" width="1400" height="785"></div><div><img src="assets/img/proyecto-spiderman.jpg" alt="Ilustración de Spider-Man" loading="lazy" width="800" height="1488"></div></div>
@@ -210,7 +312,7 @@
           </div>
           <div class="p-body"><div class="p-row"><span>01 / Ilustración</span><span class="ptool"><i class="tile ai">Ai</i> Illustrator</span></div><h3>Personaje ilustrado</h3><p>Creación de un personaje digital mediante ilustración vectorial, trabajando formas, composición y detalles visuales.</p></div>
         </div>
-        <div class="p-card narrow rv" style="--d:120" data-project="1" tabindex="0" role="button" aria-label="Ver proyecto: Fotografía y retoque digital" data-cursor="Ver">
+        <div class="p-card narrow rv" style="--d:120" data-project="1" data-cat="fotografia" tabindex="0" role="button" aria-label="Ver proyecto: Fotografía y retoque digital" data-cursor="Ver">
           <div class="p-thumb">
             <span class="num">02</span>
             <div class="duo"><div><img src="assets/img/proyecto-concha.jpg" alt="Fotografía de una concha decorativa con un anillo y perlas" loading="lazy" width="1200" height="783"></div><div><img src="assets/img/proyecto-reposteria.jpg" alt="Fotografía de repostería en composición rosada" loading="lazy" width="900" height="1350"></div></div>
@@ -218,7 +320,7 @@
           </div>
           <div class="p-body"><div class="p-row"><span>02 / Fotografía</span><span class="ptool"><i class="tile ps">Ps</i> Photoshop</span></div><h3>Fotografía y retoque digital</h3><p>Edición y retoque fotográfico enfocados en mejorar composición, color, iluminación y narrativa visual.</p></div>
         </div>
-        <div class="p-card rv" data-project="2" tabindex="0" role="button" aria-label="Ver proyecto: Diseño y desarrollo web, Divinevanity.co" data-cursor="Ver">
+        <div class="p-card rv" data-project="2" data-cat="web" tabindex="0" role="button" aria-label="Ver proyecto: Diseño y desarrollo web, Divinevanity.co" data-cursor="Ver">
           <div class="p-thumb p-thumb--web">
             <span class="num">03</span>
             <div class="browser">
@@ -229,7 +331,7 @@
           </div>
           <div class="p-body"><div class="p-row"><span>03 / Desarrollo web</span><span class="ptool"><i class="tile vs">VS</i> VS Code</span></div><h3>Diseño y desarrollo web</h3><p>Diseñé Divinevanity.co, una tienda online de belleza: estructura, colecciones y experiencia de compra responsive.</p><a class="p-link" href="https://divinevanity.co" target="_blank" rel="noopener">Visitar Divinevanity.co <span aria-hidden="true">↗</span></a></div>
         </div>
-        <div class="p-card rv" style="--d:100" data-project="3" tabindex="0" role="button" aria-label="Ver proyecto: Animación y motion graphics" data-cursor="Play">
+        <div class="p-card rv" style="--d:100" data-project="3" data-cat="motion" tabindex="0" role="button" aria-label="Ver proyecto: Animación y motion graphics" data-cursor="Play">
           <div class="p-thumb">
             <span class="num">04</span>
             <video class="p-video" src="assets/video/motion-pelota.mp4" poster="assets/img/motion-pelota-poster.webp" muted loop playsinline preload="none" aria-label="Animación de pelota creada en After Effects"></video>
@@ -238,7 +340,7 @@
           </div>
           <div class="p-body"><div class="p-row"><span>04 / Motion graphics</span><span class="ptool"><i class="tile ae">Ae</i> After Effects</span></div><h3>Animación y motion graphics</h3><p>Animaciones y composiciones audiovisuales mediante movimiento, efectos y narrativa visual.</p></div>
         </div>
-        <div class="p-card rv" style="--d:200" data-project="4" tabindex="0" role="button" aria-label="Ver proyecto: Edición de video" data-cursor="Play">
+        <div class="p-card rv" style="--d:200" data-project="4" data-cat="video" tabindex="0" role="button" aria-label="Ver proyecto: Edición de video" data-cursor="Play">
           <div class="p-thumb">
             <span class="num">05</span>
             <video class="p-video" src="assets/video/edicion-video.mp4" poster="assets/img/edicion-video-poster.webp" muted loop playsinline preload="none" aria-label="Video editado en Premiere Pro"></video>
@@ -247,7 +349,7 @@
           </div>
           <div class="p-body"><div class="p-row"><span>05 / Edición audiovisual</span><span class="ptool"><i class="tile pr">Pr</i> Premiere Pro</span></div><h3>Edición de video</h3><p>Edición y montaje de contenido audiovisual, trabajando ritmo, transiciones, sonido y narrativa.</p></div>
         </div>
-        <div class="p-card wide rv" data-project="5" tabindex="0" role="button" aria-label="Ver proyecto: Personajes 3D" data-cursor="Ver">
+        <div class="p-card wide rv" data-project="5" data-cat="3d" tabindex="0" role="button" aria-label="Ver proyecto: Personajes 3D" data-cursor="Ver">
           <div class="p-thumb p-thumb--3d">
             <span class="num">06</span>
             <div class="duo trio">
@@ -259,7 +361,7 @@
           </div>
           <div class="p-body"><div class="p-row"><span>06 / Modelado 3D</span><span class="ptool"><i class="tile bl">Bl</i> Blender</span></div><h3>Personajes 3D</h3><p>Gato, dálmata BlackDot y ninja: personajes modelados explorando formas, proporciones, materiales y composición.</p></div>
         </div>
-        <div class="p-card narrow rv" style="--d:120" data-project="6" tabindex="0" role="button" aria-label="Ver proyecto: Videojuegos para web" data-cursor="Jugar">
+        <div class="p-card narrow rv" style="--d:120" data-project="6" data-cat="juegos" tabindex="0" role="button" aria-label="Ver proyecto: Videojuegos para web" data-cursor="Jugar">
           <div class="p-thumb">
             <span class="num">07</span>
             <div class="fan" id="games-fan" aria-hidden="true"></div>
@@ -281,15 +383,40 @@
         </div>
         <p class="section-intro rv" style="--d:120">Tecnologías que utilizo para transformar ideas en experiencias digitales. Toca una para saber más.</p>
       </div>
-      <div class="tools-grid" id="tools-grid">
-        <button class="tool rv" type="button" data-tool="0" style="--tc:#FF9A00;--d:0"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile ai">Ai</i><span><h3>Illustrator</h3><small>Vector · Branding</small></span></button>
-        <button class="tool rv" type="button" data-tool="1" style="--tc:#31A8FF;--d:60"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile ps">Ps</i><span><h3>Photoshop</h3><small>Retoque · Composición</small></span></button>
-        <button class="tool rv" type="button" data-tool="2" style="--tc:#5b5bd6;--d:120"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile pr">Pr</i><span><h3>Premiere Pro</h3><small>Edición de video</small></span></button>
-        <button class="tool rv" type="button" data-tool="3" style="--tc:#7b5cff;--d:180"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile ae">Ae</i><span><h3>After Effects</h3><small>Motion graphics</small></span></button>
-        <button class="tool rv" type="button" data-tool="4" style="--tc:#E87D0D;--d:0"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile bl">Bl</i><span><h3>Blender</h3><small>Modelado 3D</small></span></button>
-        <button class="tool rv" type="button" data-tool="5" style="--tc:#007ACC;--d:60"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile vs">VS</i><span><h3>VS Code</h3><small>Desarrollo web</small></span></button>
-        <button class="tool rv" type="button" data-tool="6" style="--tc:#c9a800;--d:120"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile js">JS</i><span><h3>JavaScript</h3><small>Interacción · Lógica</small></span></button>
-        <button class="tool rv" type="button" data-tool="7" style="--tc:#111;--d:180"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile th">3D</i><span><h3>Three.js</h3><small>WebGL · Videojuegos</small></span></button>
+      <div class="tools-orbit" aria-hidden="true">
+        <div class="to-core"><img src="assets/img/logo-blackdot-96.webp" alt="" width="56" height="56"></div>
+        <div class="to-ring r1"><i class="tile ai">Ai</i><i class="tile ps">Ps</i><i class="tile bl">Bl</i></div>
+        <div class="to-ring r2"><i class="tile pr">Pr</i><i class="tile ae">Ae</i><i class="tile vs">VS</i><i class="tile js">JS</i><i class="tile th">3D</i></div>
+      </div>
+      <div class="tools-groups" id="tools-grid">
+        <div class="tool-group rv">
+          <header class="tg-head"><small>01</small><h3>Diseño gráfico</h3><span>2 herramientas</span></header>
+          <div class="tg-list">
+            <button class="tool" type="button" data-tool="0" style="--tc:#FF9A00"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile ai">Ai</i><span><h3>Illustrator</h3><small>Vector · Branding</small><em class="used">Usado en: Personaje ilustrado</em></span></button>
+            <button class="tool" type="button" data-tool="1" style="--tc:#31A8FF"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile ps">Ps</i><span><h3>Photoshop</h3><small>Retoque · Composición</small><em class="used">Usado en: Fotografía y retoque digital</em></span></button>
+          </div>
+        </div>
+        <div class="tool-group rv" style="--d:80">
+          <header class="tg-head"><small>02</small><h3>Audiovisual &amp; motion</h3><span>2 herramientas</span></header>
+          <div class="tg-list">
+            <button class="tool" type="button" data-tool="2" style="--tc:#5b5bd6"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile pr">Pr</i><span><h3>Premiere Pro</h3><small>Edición de video</small><em class="used">Usado en: Edición de video</em></span></button>
+            <button class="tool" type="button" data-tool="3" style="--tc:#7b5cff"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile ae">Ae</i><span><h3>After Effects</h3><small>Motion graphics</small><em class="used">Usado en: Animación y motion graphics</em></span></button>
+          </div>
+        </div>
+        <div class="tool-group rv" style="--d:160">
+          <header class="tg-head"><small>03</small><h3>3D &amp; tiempo real</h3><span>2 herramientas</span></header>
+          <div class="tg-list">
+            <button class="tool" type="button" data-tool="4" style="--tc:#E87D0D"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile bl">Bl</i><span><h3>Blender</h3><small>Modelado 3D</small><em class="used">Usado en: Personajes 3D</em></span></button>
+            <button class="tool" type="button" data-tool="7" style="--tc:#0E6BA8"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile th">3D</i><span><h3>Three.js</h3><small>WebGL · Videojuegos</small><em class="used">Usado en: 4 videojuegos 3D y BLACKDOT Arcade</em></span></button>
+          </div>
+        </div>
+        <div class="tool-group rv" style="--d:240">
+          <header class="tg-head"><small>04</small><h3>Desarrollo</h3><span>2 herramientas</span></header>
+          <div class="tg-list">
+            <button class="tool" type="button" data-tool="5" style="--tc:#007ACC"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile vs">VS</i><span><h3>VS Code</h3><small>Desarrollo web</small><em class="used">Usado en: Divinevanity.co y este portafolio</em></span></button>
+            <button class="tool" type="button" data-tool="6" style="--tc:#c9a800"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><i class="tile js">JS</i><span><h3>JavaScript</h3><small>Interacción · Lógica</small><em class="used">Usado en: los 6 videojuegos y este portafolio</em></span></button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -433,10 +560,15 @@
   </section>
 </main>
 
-<footer class="footer">
+<footer class="footer footer2 zone-dark">
+  <div class="footer-glow" aria-hidden="true"></div>
   <div class="wrap">
+    <p class="footer-kicker"><span class="dot-live" aria-hidden="true"></span> Fin de la transmisión — gracias por explorar BLACKDOT</p>
     <div class="footer-cta">
-      <h2 class="footer-big" data-split>Hablemos</h2>
+      <div>
+        <h2 class="footer-big" data-split>Hablemos</h2>
+        <p class="footer-msg">Diseño, tecnología y experiencias interactivas. Si tienes una idea, construyámosla juntos.</p>
+      </div>
       <a class="btn btn-blue" href="mailto:dannarb0444@gmail.com" data-magnetic>dannarb0444@gmail.com <span class="arr" aria-hidden="true">→</span></a>
     </div>
     <div class="footer-grid">
@@ -445,8 +577,16 @@
       <div><small>CIUDAD</small><p>Cúcuta, Colombia</p></div>
       <div><small>NAVEGAR</small><a href="#juegos">Videojuegos</a><br><a href="#proyectos">Proyectos</a><br><a href="#manual" aria-label="Ir a la sección Manual de Identidad Corporativa de BlackDot">Manual de identidad <span aria-hidden="true">↗</span></a></div>
     </div>
+    <div class="footer-grid footer-grid--links">
+      <div><small>SECCIONES</small><a href="#sobre-mi">Sobre mí</a><br><a href="#herramientas">Herramientas</a><br><a href="#blog">Blog</a><br><a href="#manual-tecnico">Manual técnico</a><br><a href="#contacto">Contacto</a></div>
+      <div class="fg-games"><small>BLACKDOT ARCADE</small><a href="juegos/cucuta.html" target="_blank" rel="noopener">Cúcuta Open World ↗</a><br><a href="juegos/dynasty.html" target="_blank" rel="noopener">Dynasty FC ↗</a><br><a href="juegos/skybound.html" target="_blank" rel="noopener">Sky Bound ↗</a><br><a href="juegos/rally.html" target="_blank" rel="noopener">Rally Rush ↗</a><br><a href="pingpong.html" target="_blank" rel="noopener">Pixel Pong 2D ↗</a><br><a href="futbol.html" target="_blank" rel="noopener">Atari Football 2D ↗</a></div>
+      <div><small>DOCUMENTOS</small><a href="assets/manual-identidad-blackdot.pdf" target="_blank" rel="noopener noreferrer">Manual de identidad (PDF) ↗</a><br><a href="assets/manual-tecnico-blackdot.pdf" target="_blank" rel="noopener noreferrer">Manual técnico (PDF) ↗</a></div>
+      <div><small>CÓDIGO</small><a href="https://github.com/dannavalentinar11-beep/blackdot-portafolio" target="_blank" rel="noopener noreferrer">Repositorio en GitHub ↗</a></div>
+    </div>
+    <p class="footer-word" aria-hidden="true">BLACKDOT<span>.</span></p>
     <div class="footer-bottom">
       <p>© 2026 BLACKDOT — Danna Rueda · Ingeniería Multimedia</p>
+      <p class="footer-credits">Diseño y desarrollo: Danna Rueda · HTML, CSS, JavaScript, Three.js y GSAP</p>
       <a class="to-top" href="#inicio">Volver arriba <i aria-hidden="true">↑</i></a>
     </div>
   </div>
@@ -494,6 +634,43 @@
   <section class="modal-panel md" role="dialog" aria-modal="true" aria-labelledby="bm-title">
     <button class="modal-close" type="button" data-close aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     <div class="bm-body"><p class="kicker" id="bm-cat" style="margin:0"></p><h2 id="bm-title">Artículo</h2><p class="bm-meta" id="bm-meta"></p><div class="bm-text" id="bm-text"></div></div>
+  </section>
+</div>
+
+<!-- FICHA DE VIDEOJUEGO (BLACKDOT ARCADE) -->
+<div class="modal sheet zone-dark" id="game-sheet" hidden>
+  <div class="modal-backdrop sheet-backdrop" data-close><img id="gs-bg" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></div>
+  <section class="modal-panel sheet-panel" role="dialog" aria-modal="true" aria-labelledby="gs-title">
+    <button class="modal-close sheet-close" type="button" data-close aria-label="Volver a la sala del arcade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="sheet-grid">
+      <div class="sheet-media">
+        <figure class="sheet-shot">
+          <img id="gs-img" alt="" width="1280" height="720">
+          <figcaption><span class="badge-real">Captura real del juego</span><span id="gs-dim">3D</span></figcaption>
+        </figure>
+        <div class="sheet-thumbs" id="gs-thumbs" role="group" aria-label="Capturas"></div>
+        <div class="sheet-tech"><p class="sheet-h">Tecnologías</p><div class="sheet-chips" id="gs-tech"></div></div>
+      </div>
+      <div class="sheet-body">
+        <p class="kicker" id="gs-kicker">Estación 01 · Distrito urbano</p>
+        <h2 class="sheet-title" id="gs-title">Juego</h2>
+        <p class="sheet-genre" id="gs-genre"></p>
+        <p class="sheet-desc" id="gs-desc"></p>
+        <div class="sheet-actions">
+          <button class="btn btn-arcade" type="button" id="gs-play"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg> Play now</button>
+          <a class="btn btn-ghost btn-sm" id="gs-tab" href="#" target="_blank" rel="noopener">Abrir en pestaña nueva <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="sheet-h">Mecánicas principales</p>
+        <ul class="sheet-mech" id="gs-mech"></ul>
+        <p class="sheet-h">Controles</p>
+        <ul class="sheet-ctrl" id="gs-ctrl"></ul>
+        <p class="sheet-help" id="gs-help"></p>
+        <div class="sheet-nav">
+          <button class="btn btn-ghost btn-sm" type="button" data-close>← Back to arcade</button>
+          <span class="sheet-nav-r"><button class="hud-btn" type="button" id="gs-prev" aria-label="Juego anterior">←</button><button class="hud-btn" type="button" id="gs-next" aria-label="Juego siguiente">→</button></span>
+        </div>
+      </div>
+    </div>
   </section>
 </div>
 
@@ -649,7 +826,12 @@
 </template>
 
 
-<script src="js/script.js"></script>
+<script src="js/script.js?v=2.0"></script>
+<!-- GSAP + ScrollTrigger para el motion design (si no cargan, el sitio funciona con las animaciones CSS) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="js/arcade.js?v=2.0" defer></script>
+<script src="js/motion.js?v=2.0" defer></script>
 
 </body>
 </html>
