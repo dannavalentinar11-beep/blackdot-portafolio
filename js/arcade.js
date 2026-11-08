@@ -333,7 +333,18 @@
     /* Estado inicial (sin entrar todavía): modo ligero preparado, sin cargar 3D */
     setMode("flat", false);
     select(0, { noCamera: true });
-    if (location.hash === "#juegos") pendingEnter = true;
+    if (location.hash === "#juegos") {
+      pendingEnter = true;
+      /* Llegada desde un juego (index.html#juegos): al terminar de cargar, corrige la
+         posición si el diseño cambió de altura y entra sin depender solo del observador */
+      addEventListener("load", function () {
+        if (!pendingEnter) return;
+        var top = room.getBoundingClientRect().top;
+        if (Math.abs(top) > 40) room.scrollIntoView({ block: "start" });
+        inView = true;
+        setTimeout(function () { if (pendingEnter) enter(); }, 300);
+      }, { once: true });
+    }
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
