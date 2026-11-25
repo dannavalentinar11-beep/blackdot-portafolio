@@ -1,3 +1,17 @@
+==========================================================================
+BLACKDOT PORTFOLIO 2.0 (25 nov 2026) — LEER PRIMERO README.md
+==========================================================================
+- El arcade tiene 4 juegos: Cúcuta Open World, Dynasty FC, Sky Bound y Rally Rush.
+  Pixel Pong 2D y Atari Football 2D se retiraron del sitio y se archivaron en
+  archivo/juegos-retirados/ (futbol.html, pingpong.html, sus CSS/JS y live-coding/).
+  Lo que se describe más abajo sobre esos dos juegos corresponde a versiones anteriores.
+- Tema claro/oscuro global: css/tokens.css (única fuente de verdad).
+- Nueva capa de estilos: css/blackdot-v2.css.
+- Nuevo: BLACKDOT 3D LAB (js/lab3d.js, js/lab3d-characters.js, assets/models/*.glb)
+  y cinemática final (assets/video/blackdot-cinematic-final.mp4).
+- Se retiraron de la raíz 36 copias duplicadas que ninguna página usaba.
+- Informes: docs/INFORME-TECNICO.md, docs/INFORME-PRUEBAS.md, docs/RECURSOS-PENDIENTES.md.
+
 BLACKDOT — Portafolio de Ingeniería Multimedia · versión 2.1 (Segundo Previo)
 Autora: Danna Rueda · Ingeniería Web
 Sitio: https://dannavalentinar11-beep.github.io/blackdot-portafolio/

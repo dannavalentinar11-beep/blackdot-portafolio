@@ -7,55 +7,7 @@
    ========================================================================== */
 
 /* 1. TOKENS ---------------------------------------------------------------- */
-:root {
-  --black: #050505;
-  --ink: #0A0A0A;
-  --blue: #0A84FF;
-  --blue-2: #2563EB;
-  --blue-glow: rgba(10, 132, 255, .35);
-
-  --bg: #0A0A0A;
-  --bg-2: #101010;
-  --surface: #141414;
-  --surface-2: #1B1B1B;
-  --text: #F2F2F2;
-  --text-strong: #FFFFFF;
-  --muted: #8E8E93;
-  --line: rgba(255, 255, 255, .09);
-  --line-2: rgba(255, 255, 255, .16);
-  --header: rgba(10, 10, 10, .62);
-  --dot: 255, 255, 255;
-  --accent-text: #3D9BFF;
-  --shadow: 0 30px 80px -30px rgba(0, 0, 0, .8);
-  color-scheme: dark;
-
-  --f-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
-  --f-body: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --wrap: min(1280px, 100% - 2 * clamp(16px, 4vw, 48px));
-  --ease: cubic-bezier(.22, 1, .36, 1);
-  --ease-io: cubic-bezier(.76, 0, .24, 1);
-  --r-s: 10px;
-  --r-m: 18px;
-  --r-l: 28px;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --bg: #F4F4F1; --bg-2: #ECECE8; --surface: #FFFFFF; --surface-2: #F7F7F5;
-    --text: #1A1A1A; --text-strong: #050505; --muted: #5E5E62;
-    --line: rgba(10, 10, 10, .09); --line-2: rgba(10, 10, 10, .17);
-    --header: rgba(244, 244, 241, .7); --dot: 10, 10, 10; --accent-text: #1D5FE0;
-    --shadow: 0 30px 70px -35px rgba(10, 20, 40, .35);
-    color-scheme: light;
-  }
-}
-:root[data-theme="light"] {
-  --bg: #F4F4F1; --bg-2: #ECECE8; --surface: #FFFFFF; --surface-2: #F7F7F5;
-  --text: #1A1A1A; --text-strong: #050505; --muted: #5E5E62;
-  --line: rgba(10, 10, 10, .09); --line-2: rgba(10, 10, 10, .17);
-  --header: rgba(244, 244, 241, .7); --dot: 10, 10, 10; --accent-text: #1D5FE0;
-  --shadow: 0 30px 70px -35px rgba(10, 20, 40, .35);
-  color-scheme: light;
-}
+/* BLACKDOT 2.0: todos los tokens (colores, tipografía, medidas) viven en css/tokens.css */
 
 /* 2. BASE ------------------------------------------------------------------ */
 *, *::before, *::after { box-sizing: border-box; }
@@ -160,7 +112,6 @@ html.has-cursor.cursor-hidden .cursor, html.has-cursor.cursor-hidden .cursor-dot
 .theme-btn .i-moon { display: none; }
 :root[data-theme="light"] .theme-btn .i-sun { display: none; }
 :root[data-theme="light"] .theme-btn .i-moon { display: block; }
-@media (prefers-color-scheme: light) { :root:not([data-theme]) .theme-btn .i-sun { display: none; } :root:not([data-theme]) .theme-btn .i-moon { display: block; } }
 .theme-btn:active svg { transform: rotate(90deg); }
 .theme-btn svg { transition: transform .5s var(--ease); }
 .menu-btn { display: none; }

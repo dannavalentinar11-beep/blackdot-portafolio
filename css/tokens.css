@@ -1,0 +1,151 @@
+/* ==========================================================================
+   BLACKDOT 2.0 — TOKENS DE DISEÑO (única fuente de verdad del tema)
+   --------------------------------------------------------------------------
+   · El tema activo lo fija <html data-theme="dark|light"> (script del <head>
+     en index.html + js/script.js → initTheme). Sin JavaScript se usa "dark".
+   · Los componentes SOLO deben usar estas variables. Los nombres heredados
+     de versiones anteriores (--bg, --surface, --muted, --line…) se mapean
+     aquí a los tokens semánticos para no romper css/style.css ni
+     css/blackdot2.css.
+   · Identidad: azul #0E6BA8 y cian #65C3CC son ACENTOS. En el tema claro el
+     cian no se usa como color de texto (contraste insuficiente sobre blanco).
+   ========================================================================== */
+
+:root {
+  /* Marca (no cambian con el tema) */
+  --brand-blue: #0E6BA8;
+  --brand-blue-deep: #0B4F7D;
+  --brand-cyan: #65C3CC;
+  --brand-cyan-soft: #A6E3E8;
+  --brand-navy: #071422;
+  --grad: linear-gradient(120deg, #0E6BA8 0%, #2C93C2 48%, #65C3CC 100%);
+
+  /* Tipografía, medidas y movimiento */
+  --f-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --gutter: clamp(16px, 4vw, 48px);
+  --wrap: min(1280px, 100% - 2 * var(--gutter));
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --ease-io: cubic-bezier(.76, 0, .24, 1);
+  --r-s: 10px;
+  --r-m: 18px;
+  --r-l: 28px;
+  --focus-ring: 0 0 0 3px var(--accent-soft-strong);
+
+  /* ---------- TEMA OSCURO (predeterminado) ---------- */
+  --bg-primary: #03060B;
+  --bg-secondary: #060C15;
+  --surface: #07101B;
+  --surface-hover: #0C1826;
+  --card-background: linear-gradient(180deg, #0C1826, #07101B);
+  --text-primary: #D9E4EE;
+  --text-strong: #FFFFFF;
+  --text-secondary: #8FA2B5;
+  --border-color: rgba(101, 195, 204, .12);
+  --border-strong: rgba(101, 195, 204, .24);
+  --accent: #0E6BA8;
+  --accent-text: #65C3CC;
+  --accent-soft: rgba(101, 195, 204, .10);
+  --accent-soft-strong: rgba(101, 195, 204, .35);
+  --shadow: 0 30px 80px -30px rgba(0, 0, 0, .85);
+  --shadow-soft: 0 18px 40px -24px rgba(0, 0, 0, .8);
+  --header-bg: rgba(3, 6, 11, .66);
+  --media-mat: #0A1522;
+  --input-bg: #03080F;
+  --dot-rgb: 220, 236, 245;          /* para rgba(var(--dot-rgb), α) */
+  --danger: #FF7A7F;
+  --success: #34D399;
+
+  /* Superficies compuestas que dependen del tema */
+  --hero-bg:
+    radial-gradient(70% 60% at 78% 18%, rgba(14, 107, 168, .32), transparent 60%),
+    radial-gradient(60% 50% at 10% 90%, rgba(101, 195, 204, .12), transparent 60%),
+    linear-gradient(180deg, #02050A 0%, #040A13 60%, #03060B 100%);
+  --zone-bg: #02050A;                 /* arcade, entrada y sala ligera */
+  --gate-bg: radial-gradient(80% 65% at 50% 38%, #0A2038, #03070D 72%);
+  --glass-bg: rgba(4, 9, 16, .82);    /* paneles sobre imagen o 3D */
+  --glass-border: rgba(255, 255, 255, .10);
+  --glass-text: #E6F1F7;
+  --glass-muted: #A9BBCB;
+  --footer-bg: radial-gradient(90% 60% at 50% 0%, #0A2240, #03060B 62%);
+  --lab-stage-bg: radial-gradient(90% 70% at 50% 28%, #0E2740 0%, #061220 48%, #02060C 100%);
+  --lab-floor-rgb: 101, 195, 204;
+  --grid-line: rgba(101, 195, 204, .08);
+  --tile-ring: rgba(255, 255, 255, .08);
+  color-scheme: dark;
+}
+
+/* ---------- TEMA CLARO ---------- */
+:root[data-theme="light"] {
+  --bg-primary: #F3F6F9;
+  --bg-secondary: #E9EFF4;
+  --surface: #FFFFFF;
+  --surface-hover: #F5F8FB;
+  --card-background: linear-gradient(180deg, #FFFFFF, #F7FAFC);
+  --text-primary: #1B2B3B;
+  --text-strong: #06121F;
+  --text-secondary: #4A5D70;
+  --border-color: rgba(14, 79, 125, .14);
+  --border-strong: rgba(14, 79, 125, .26);
+  --accent: #0E6BA8;
+  --accent-text: #0B5C91;
+  --accent-soft: rgba(14, 107, 168, .08);
+  --accent-soft-strong: rgba(14, 107, 168, .30);
+  --shadow: 0 30px 70px -35px rgba(7, 20, 34, .30);
+  --shadow-soft: 0 16px 36px -24px rgba(7, 20, 34, .28);
+  --header-bg: rgba(243, 246, 249, .78);
+  --media-mat: #E7EDF2;
+  --input-bg: #FFFFFF;
+  --dot-rgb: 6, 18, 31;
+  --danger: #C6283A;
+  --success: #12804F;
+
+  --hero-bg:
+    radial-gradient(70% 60% at 80% 12%, rgba(101, 195, 204, .30), transparent 62%),
+    radial-gradient(60% 50% at 8% 92%, rgba(14, 107, 168, .12), transparent 60%),
+    linear-gradient(180deg, #F7FAFC 0%, #EEF3F7 60%, #F3F6F9 100%);
+  --zone-bg: #E6EDF3;
+  --gate-bg: radial-gradient(80% 65% at 50% 38%, #FFFFFF, #DDE7EF 75%);
+  --glass-bg: rgba(255, 255, 255, .86);
+  --glass-border: rgba(14, 79, 125, .14);
+  --glass-text: #10202F;
+  --glass-muted: #4A5D70;
+  --footer-bg: radial-gradient(90% 60% at 50% 0%, #DCEBF5, #F3F6F9 62%);
+  --lab-stage-bg: radial-gradient(90% 70% at 50% 26%, #FFFFFF 0%, #E6EEF4 52%, #CBD8E3 100%);
+  --lab-floor-rgb: 14, 107, 168;
+  --grid-line: rgba(14, 107, 168, .10);
+  --tile-ring: rgba(6, 18, 31, .08);
+  color-scheme: light;
+}
+
+/* ---------- Alias de compatibilidad (no editar: cambiar los tokens de arriba) ---------- */
+:root, :root[data-theme="light"] {
+  --bg: var(--bg-primary);
+  --bg-2: var(--bg-secondary);
+  --surface-2: var(--surface-hover);
+  --text: var(--text-primary);
+  --muted: var(--text-secondary);
+  --line: var(--border-color);
+  --line-2: var(--border-strong);
+  --header: var(--header-bg);
+  --dot: var(--dot-rgb);
+  --blue: var(--brand-blue);
+  --blue-2: var(--brand-blue-deep);
+  --cyan: var(--brand-cyan);
+  --cyan-2: var(--brand-cyan-soft);
+  --navy: var(--brand-navy);
+  --blue-glow: rgba(14, 107, 168, .45);
+  --cyan-glow: rgba(101, 195, 204, .42);
+  --black: #050505;
+  --ink: #0A0A0A;
+}
+
+/* Superficies de medios que SIEMPRE son oscuras (reproductor de juegos y
+   barra del reproductor de video): no son secciones del sitio sino pantallas. */
+.media-dark {
+  --surface: #0A121C; --surface-hover: #101B28; --text-primary: #E6F1F7; --text-strong: #FFFFFF;
+  --text-secondary: #A9BBCB; --border-color: rgba(255, 255, 255, .10); --border-strong: rgba(255, 255, 255, .18);
+  --accent-text: #65C3CC;
+  --text: var(--text-primary); --muted: var(--text-secondary); --line: var(--border-color); --line-2: var(--border-strong);
+  color-scheme: dark;
+}

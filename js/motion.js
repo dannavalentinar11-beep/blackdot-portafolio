@@ -2,7 +2,7 @@
    BLACKDOT 2.0 — motion design
    - Luz dinámica que sigue al puntero en el hero y en la entrada del arcade.
    - GSAP + ScrollTrigger (si cargan desde el CDN): parallax por capas,
-     profundidad en la entrada del arcade, columnas asimétricas de proyectos
+     profundidad en la entrada del arcade
      y cierre del footer. Sin GSAP o con movimiento reducido, el sitio queda
      completo con sus transiciones CSS.
    ========================================================================== */
@@ -37,7 +37,8 @@
       var st = { trigger: hero, start: "top top", end: "bottom top", scrub: 0.6 };
       gsap.to(".hero2 .hero-layer--far", { yPercent: 22, ease: "none", scrollTrigger: st });
       gsap.to(".hero2 .hero-floor", { yPercent: 18, opacity: 0.2, ease: "none", scrollTrigger: st });
-      gsap.to(".hero2 .hero-copy", { y: 70, opacity: 0.3, ease: "none", scrollTrigger: st });
+      /* BLACKDOT 2.0: solo desplazamiento; sin desvanecer el texto (en modo claro se veía opaco) */
+      gsap.to(".hero2 .hero-copy", { y: 70, ease: "none", scrollTrigger: st });
       /* .hero-visual usa transform con !important (style.css): se mueve con la propiedad translate */
       gsap.to(".hero2 .hero-visual", { "--py": "-60px", ease: "none", scrollTrigger: st });
     }
@@ -50,18 +51,13 @@
       gsap.fromTo(".gate-content .arcade-title", { letterSpacing: "0.04em" }, { letterSpacing: "-0.05em", ease: "none", scrollTrigger: { trigger: "#juegos", start: "top 85%", end: "top 15%", scrub: 0.8 } });
     }
 
-    /* Proyectos: columnas asimétricas con velocidades diferentes */
-    if (window.matchMedia("(min-width: 1101px)").matches) {
-      document.querySelectorAll('.projects2 .p-card[data-cat="fotografia"], .projects2 .p-card[data-cat="juegos"], .projects2 .p-card[data-cat="motion"]').forEach(function (card) {
-        gsap.fromTo(card, { "--py": "50px" }, { "--py": "-30px", ease: "none", scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 0.8 } });
-      });
-    }
+    /* BLACKDOT 2.0: las tarjetas de proyectos ya no tienen parallax (se mantienen alineadas). */
 
     /* Sobre mí: la tarjeta de perfil flota con un desfase de profundidad */
     gsap.fromTo(".profile-card", { "--py": "40px" }, { "--py": "-20px", ease: "none", scrollTrigger: { trigger: ".about2", start: "top bottom", end: "bottom top", scrub: 0.8 } });
 
     /* Herramientas: aparición escalonada de las fichas dentro de cada grupo */
-    document.querySelectorAll(".tool-group").forEach(function (grp) {
+    document.querySelectorAll(".tool-cat").forEach(function (grp) {
       gsap.from(grp.querySelectorAll(".tool"), { y: 26, opacity: 0, duration: 0.8, stagger: 0.08, ease: "power3.out", scrollTrigger: { trigger: grp, start: "top 85%", once: true } });
     });
 

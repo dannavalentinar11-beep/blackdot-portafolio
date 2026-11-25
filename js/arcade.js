@@ -4,7 +4,7 @@
    - Sala 3D (js/arcade3d.js + Three.js, cargado solo al entrar) o
      galería pseudo-3D en modo ligero (sin WebGL, movimiento reducido o
      equipos de baja capacidad). La persona puede cambiar de modo.
-   - Seis estaciones, panel de información, ficha de cada juego y
+   - Cuatro estaciones, panel de información, ficha de cada juego y
      «Jugar ahora» con el reproductor original del portafolio (js/script.js).
    ========================================================================== */
 (function () {
@@ -15,9 +15,10 @@
     var section = document.getElementById("juegos");
     if (!B || !section || !document.getElementById("arcade-hall")) return;
 
-    /* Orden de la sala (izquierda → derecha): Cúcuta Open World y Sky Bound ocupan
-       las dos posiciones centrales; los otros cuatro quedan igual de visibles a los lados. */
-    var ORDER = ["dynasty", "rally", "cucuta", "skybound", "pixelpong", "atarifootball"];
+    /* BLACKDOT 2.0: el arcade tiene cuatro juegos y el mismo orden en todas las
+       interfaces (sala 3D, modo ligero, fichas, récords y footer):
+       01 Cúcuta Open World · 02 Dynasty FC · 03 Sky Bound · 04 Rally Rush. */
+    var ORDER = ["cucuta", "dynasty", "skybound", "rally"];
     var GAMES = ORDER.map(function (id) { return B.GAMES.filter(function (g) { return g.id === id; })[0]; }).filter(Boolean);
     var IMG = "assets/img/arcade/";
     var $ = function (s, c) { return (c || document).querySelector(s); };
@@ -82,6 +83,7 @@
       $("#hi-genre").textContent = g.genre;
       $("#hi-desc").textContent = g.desc;
       $("#hall-num").textContent = pad(i + 1);
+      var tot = $("#hall-total"); if (tot) tot.textContent = pad(GAMES.length);
       info.classList.remove("is-swap"); void info.offsetWidth; if (!reduced) info.classList.add("is-swap");
     }
     function layoutFlat() {
@@ -210,7 +212,7 @@
     function loadModule() {
       if (!loading) {
         try { dynImport = dynImport || new Function("u", "return import(u)"); } catch (e) { return Promise.reject(e); }
-        loading = dynImport(new URL("js/arcade3d.js?v=2.3", document.baseURI).href);
+        loading = dynImport(new URL("js/arcade3d.js?v=3.0", document.baseURI).href);
         loading.catch(function () { loading = null; });
       }
       return loading;
@@ -232,6 +234,7 @@
         if (startEngine.token !== token || mode !== "3d") return;
         engine = mod.createArcade({
           canvas: canvas, container: stage, games: GAMES, imgBase: IMG, tier: tier(), reduced: reduced,
+          theme: B.getTheme ? B.getTheme() : "dark",
           getLayout: layout, shouldRender: shouldRender,
           onHover: onHover,
           onPick: function (i) {
@@ -318,6 +321,8 @@
       }, { threshold: [0, 0.15, 0.6, 1] }).observe(room);
     } else { inView = true; }
     document.addEventListener("visibilitychange", syncActive);
+    /* BLACKDOT 2.0: la sala 3D sigue el tema global del sitio */
+    document.addEventListener("themechange", function (e) { if (engine && engine.setTheme) engine.setTheme((e.detail && e.detail.theme) || (B.getTheme && B.getTheme())); });
     document.addEventListener("gameclosed", function () {
       syncActive();
       if (entered && buttons[cur]) buttons[cur].focus({ preventScroll: true });

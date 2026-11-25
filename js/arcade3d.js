@@ -2,11 +2,13 @@
    BLACKDOT ARCADE — sala 3D (Three.js r160, módulo ES)
    Se carga bajo demanda desde js/arcade.js solo cuando la persona entra.
 
-   Composición (v2.1): un salón circular con seis alcobas iguales —paredes laterales,
+   Composición (v2.1 → 2.0 portafolio): un salón circular con una alcoba por juego (cuatro) —paredes laterales,
    panel de fondo, cabecera con señalización y plataforma en el suelo— en las que se
    instala cada máquina con su escenografía. Iluminación ambiental azul/cian, luz
    cenital suave sobre la estación seleccionada y efectos contenidos.
    Geometría 100 % procedural (sin modelos externos).
+   BLACKDOT 2.0: setTheme("light"|"dark") adapta fondo, niebla, suelo, muros y luces
+   al tema global del sitio sin recrear la escena.
    ========================================================================== */
 import * as THREE from "three";
 import { Reflector } from "three/addons/objects/Reflector.js";
@@ -64,20 +66,25 @@ export function createArcade(opts) {
 
   /* ---------------- Entorno para reflejos (azul/cian BLACKDOT) ---------------- */
   const pmrem = new THREE.PMREMGenerator(renderer);
-  {
+  let envRT = null;
+  function buildEnv(light) {
     const envScene = new THREE.Scene();
     const envTex = canvasTex(512, 256, (x, w, h) => {
       const g = x.createLinearGradient(0, 0, 0, h);
-      g.addColorStop(0, "#0a2440"); g.addColorStop(0.4, "#04101e"); g.addColorStop(0.55, "#02060c"); g.addColorStop(1, "#010306");
+      if (light) { g.addColorStop(0, "#ffffff"); g.addColorStop(0.45, "#e3ebf2"); g.addColorStop(0.6, "#c9d6e1"); g.addColorStop(1, "#aebdcb"); }
+      else { g.addColorStop(0, "#0a2440"); g.addColorStop(0.4, "#04101e"); g.addColorStop(0.55, "#02060c"); g.addColorStop(1, "#010306"); }
       x.fillStyle = g; x.fillRect(0, 0, w, h);
       x.fillStyle = "rgba(101,195,204,.6)"; x.fillRect(0, h * 0.2, w, 3);
-      for (let i = 0; i < 6; i++) { x.fillStyle = "rgba(170,220,235,.45)"; x.fillRect(i * (w / 6) + 30, h * 0.08, 30, h * 0.24); }
+      for (let i = 0; i < 6; i++) { x.fillStyle = light ? "rgba(255,255,255,.9)" : "rgba(170,220,235,.45)"; x.fillRect(i * (w / 6) + 30, h * 0.08, 30, h * 0.24); }
     });
     const sph = new THREE.Mesh(new THREE.SphereGeometry(10, 32, 16), new THREE.MeshBasicMaterial({ map: envTex, side: THREE.BackSide }));
     envScene.add(sph);
-    scene.environment = pmrem.fromScene(envScene, 0.02).texture;
+    const rt = pmrem.fromScene(envScene, 0.02);
     sph.geometry.dispose(); sph.material.dispose(); envTex.dispose();
+    if (envRT) envRT.dispose();
+    envRT = rt; scene.environment = rt.texture;
   }
+  buildEnv(false);
 
   /* ---------------- Luz ambiental ---------------- */
   const hemi = new THREE.HemisphereLight(0x7aa6d6, 0x05080e, 1.5);
@@ -113,7 +120,7 @@ export function createArcade(opts) {
   floor.rotation.x = -Math.PI / 2; floor.position.y = 0.004;
   scene.add(floor);
   /* Anillo de circulación frente a las alcobas */
-  const aisle = new THREE.Mesh(new THREE.RingGeometry(9.15, 9.2, 160, 1, Math.PI * 0.5 - STEP * 3.2, STEP * 6.4), glowMat(CYAN, 0.55));
+  const aisle = new THREE.Mesh(new THREE.RingGeometry(9.15, 9.2, 160, 1, Math.PI * 0.5 - STEP * (N / 2 + 0.2), STEP * (N + 0.4)), glowMat(CYAN, 0.55));
   aisle.rotation.x = -Math.PI / 2; aisle.position.y = 0.01;
   scene.add(aisle);
   const emblemTex = canvasTex(1024, 1024, (x, w) => {
@@ -155,6 +162,31 @@ export function createArcade(opts) {
   const ceiling = new THREE.Mesh(new THREE.CircleGeometry(17, 96), new THREE.MeshStandardMaterial({ color: 0x03070d, roughness: 0.9, metalness: 0.1, emissive: 0xffffff, emissiveMap: ceilTex, emissiveIntensity: 0.7, side: THREE.DoubleSide }));
   ceiling.rotation.x = Math.PI / 2; ceiling.position.y = 9.4;
   scene.add(ceiling);
+
+  /* ---------------- Tema (BLACKDOT 2.0) ---------------- */
+  const gridTexLight = canvasTex(256, 256, (x, w) => {
+    x.fillStyle = "rgba(232,239,245,0.84)"; x.fillRect(0, 0, w, w);
+    x.strokeStyle = "rgba(14,107,168,0.16)"; x.lineWidth = 2; x.strokeRect(0, 0, w, w);
+  });
+  gridTexLight.wrapS = gridTexLight.wrapT = THREE.RepeatWrapping; gridTexLight.repeat.set(30, 30);
+  const PALETTE = {
+    dark: { bg: 0x02050a, fog: 0.026, sky: 0x7aa6d6, ground: 0x05080e, hemiI: 1.5, keyI: 1.1, metal: 0x18222f, panel: 0x0f1a28, body: 0x141e2c, floor: 0x0a1320, grid: gridTex, wall: 0x060c16, wallE: 0.6, ceil: 0x03070d, ceilE: 0.7, refl: 0x6f869c, exposure: 1.0 },
+    light: { bg: 0xdfe7ee, fog: 0.018, sky: 0xffffff, ground: 0x8fa3b6, hemiI: 2.1, keyI: 1.5, metal: 0xb7c4d1, panel: 0xedf2f6, body: 0x1d2938, floor: 0xd3dee8, grid: gridTexLight, wall: 0xe8eef3, wallE: 0.22, ceil: 0xf3f6f9, ceilE: 0.22, refl: 0xc4d1dc, exposure: 1.05 }
+  };
+  let pal = PALETTE.dark;
+  function setTheme(theme) {
+    pal = theme === "light" ? PALETTE.light : PALETTE.dark;
+    renderer.setClearColor(pal.bg, 1);
+    scene.background.setHex(pal.bg);
+    scene.fog.color.setHex(pal.bg); scene.fog.density = pal.fog;
+    hemi.color.setHex(pal.sky); hemi.groundColor.setHex(pal.ground);
+    metal.color.setHex(pal.metal); panelMat.color.setHex(pal.panel); bodyMat.color.setHex(pal.body);
+    floorMat.color.setHex(pal.floor); floorMat.map = pal.grid; floorMat.needsUpdate = true;
+    wall.material.color.setHex(pal.wall); ceiling.material.color.setHex(pal.ceil);
+    if (reflector && reflector.material.uniforms && reflector.material.uniforms.color) reflector.material.uniforms.color.value.setHex(pal.refl);
+    renderer.toneMappingExposure = pal.exposure;
+    buildEnv(theme === "light");
+  }
 
   /* Pantalla principal sobre las alcobas centrales */
   const bigTex = canvasTex(1344, 504, () => {});
@@ -278,40 +310,6 @@ export function createArcade(opts) {
       tbl.add(top, l1, l2, net, p1, p2, ball);
       tbl.position.set(0, 3.25, -1.2); tbl.rotation.x = 0.45; add(tbl);
       return (t) => { ball.position.set(Math.sin(t * 1.8) * 0.75, 0.07 + Math.abs(Math.sin(t * 3.6)) * 0.16, 0); };
-    },
-    pixelpong(g, add) {
-      const wallT = canvasTex(512, 360, (x, w, h) => {
-        x.fillStyle = "#070b16"; x.fillRect(0, 0, w, h);
-        x.strokeStyle = "rgba(82,229,255,.35)"; x.lineWidth = 3; x.strokeRect(10, 10, w - 20, h - 20);
-        x.setLineDash([14, 12]); x.strokeStyle = "rgba(255,255,255,.35)"; x.beginPath(); x.moveTo(w / 2, 14); x.lineTo(w / 2, h - 14); x.stroke(); x.setLineDash([]);
-        x.font = `700 70px ${FONT}`; x.textAlign = "center"; x.fillStyle = "rgba(82,229,255,.6)"; x.fillText("0", w / 2 - 80, 96); x.fillStyle = "rgba(255,79,154,.6)"; x.fillText("1", w / 2 + 80, 96);
-      });
-      const board = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.83), new THREE.MeshBasicMaterial({ map: wallT, toneMapped: false, color: new THREE.Color(0.8, 0.8, 0.8) })); board.position.set(0, 3.2, -1.72); add(board);
-      const pa = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.4, 0.06), glowMat(0x52e5ff, 1)); pa.position.set(-1.05, 3.2, -1.6);
-      const pb = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.4, 0.06), glowMat(0xff4f9a, 1)); pb.position.set(1.05, 3.2, -1.6);
-      const ball = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.09, 0.09), glowMat(0xffffff, 1.1)); add(pa, pb, ball);
-      return (t) => {
-        const bx = Math.asin(Math.sin(t * 1.4)) / (Math.PI / 2) * 0.92, by = 3.2 + Math.asin(Math.sin(t * 1.9)) / (Math.PI / 2) * 0.62;
-        ball.position.set(bx, by, -1.6); pa.position.y += (by - pa.position.y) * 0.06; pb.position.y += (by - pb.position.y) * 0.06;
-      };
-    },
-    atarifootball(g, add) {
-      const fieldT = canvasTex(512, 350, (x, w, h) => {
-        const gr = x.createRadialGradient(w / 2, h / 2, 10, w / 2, h / 2, w * 0.6); gr.addColorStop(0, "#1d3428"); gr.addColorStop(1, "#06100d");
-        x.fillStyle = gr; x.fillRect(0, 0, w, h);
-        x.strokeStyle = "rgba(217,255,86,.65)"; x.lineWidth = 4; x.strokeRect(24, 20, w - 48, h - 40);
-        x.beginPath(); x.moveTo(w / 2, 20); x.lineTo(w / 2, h - 20); x.stroke(); x.beginPath(); x.arc(w / 2, h / 2, 46, 0, 6.2832); x.stroke();
-        x.strokeRect(24, h / 2 - 70, 64, 140); x.strokeRect(w - 88, h / 2 - 70, 64, 140);
-      });
-      const board = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.78), new THREE.MeshBasicMaterial({ map: fieldT, toneMapped: false, color: new THREE.Color(0.85, 0.85, 0.85) })); board.position.set(0, 3.2, -1.72); add(board);
-      const mk = (c) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.05, 20), glowMat(c, 0.9)); m.rotation.x = Math.PI / 2; return m; };
-      const blue = mk(0x4aa8ff), red = mk(0xff5b55), ball = new THREE.Mesh(new THREE.SphereGeometry(0.05, 12, 8), glowMat(0xffffff, 1));
-      add(blue, red, ball);
-      return (t) => {
-        blue.position.set(-0.5 + Math.sin(t * 0.9) * 0.2, 3.2 + Math.cos(t * 1.1) * 0.25, -1.62);
-        red.position.set(0.55 + Math.sin(t * 1.0 + 1) * 0.2, 3.2 + Math.cos(t * 0.9 + 2) * 0.25, -1.62);
-        ball.position.lerpVectors(blue.position, red.position, (Math.sin(t) + 1) / 2); ball.position.z = -1.58;
-      };
     }
   };
 
@@ -400,9 +398,9 @@ export function createArcade(opts) {
     x.textAlign = "right"; x.fillStyle = "rgba(255,255,255,.7)"; x.font = `600 22px ${FONT}`;
     if (sel < 0) {
       x.fillText("ELIGE TU JUEGO", w - 26, 29);
-      const cw = 420, chh = 200, gx = (w - cw * 3 - 24) / 2;
+      const cols = N <= 4 ? 2 : 3, cw = cols === 2 ? 420 : 420, chh = 200, gx = (w - cw * cols - 12 * (cols - 1)) / 2;
       for (let k = 0; k < N; k++) {
-        const cx = gx + (k % 3) * (cw + 12), cy = 74 + Math.floor(k / 3) * (chh + 12);
+        const cx = gx + (k % cols) * (cw + 12), cy = 74 + Math.floor(k / cols) * (chh + 12);
         const img = shotTex[k] && shotTex[k].image;
         if (img) x.drawImage(img, 0, 0, img.width, img.height, cx, cy, cw, chh);
         x.fillStyle = games[k].color; x.fillRect(cx, cy + chh - 4, cw, 4);
@@ -529,9 +527,9 @@ export function createArcade(opts) {
     /* Encendido progresivo de la sala */
     let powerAll = 1;
     if (introT >= 0) { introT += dt; powerAll = Math.min(1, introT / 1.4); }
-    hemi.intensity = 1.5 * powerAll; key.intensity = 1.1 * powerAll;
-    wall.material.emissiveIntensity = 0.6 * powerAll;
-    ceiling.material.emissiveIntensity = 0.7 * powerAll;
+    hemi.intensity = pal.hemiI * powerAll; key.intensity = pal.keyI * powerAll;
+    wall.material.emissiveIntensity = pal.wallE * powerAll;
+    ceiling.material.emissiveIntensity = pal.ceilE * powerAll;
     bigDim += ((focusedMode ? 0.22 : 0.9) - bigDim) * Math.min(1, dt * 3);
     bigMat.color.setScalar(powerAll > 0.5 ? bigDim : 0);
 
@@ -618,9 +616,12 @@ export function createArcade(opts) {
     renderer.compile(scene, camera);
   });
 
+  setTheme(opts.theme || "dark");
+
   /* ---------------- API ---------------- */
   return {
     ready,
+    setTheme,
     intro() {
       started = true;
       introT = reduced ? 99 : 0;
@@ -651,8 +652,8 @@ export function createArcade(opts) {
       });
       if (reflector) reflector.dispose();
       if (composer) composer.dispose();
-      if (scene.environment) scene.environment.dispose();
-      pmrem.dispose(); radialTex.dispose(); gridTex.dispose(); bigTex.dispose(); cabGeo.dispose();
+      if (envRT) envRT.dispose();
+      pmrem.dispose(); radialTex.dispose(); gridTex.dispose(); gridTexLight.dispose(); bigTex.dispose(); cabGeo.dispose();
       renderer.dispose();
       renderer.forceContextLoss();
     }

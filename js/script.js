@@ -52,26 +52,6 @@
       name: "Rally Rush", station: "Arena neón", dim: "3D", shots: ["rally-b", "rally-a"],
       short: "Ping-pong futurista en 3D contra la IA o un amigo.",
       mechanics: ["Contra la IA por niveles, dos jugadores locales o el Rival Imparable", "Encuentros al mejor de 3: 7 puntos con 2 de ventaja, o líder a los 40 s", "La pelota gana velocidad durante el punto", "Monedas Rush, niveles y experiencia (EXP)", "Tienda con mesas y pelotas desbloqueables, perfil y progresión"]
-    },
-    {
-      id: "pixelpong", file: "pingpong.html", title: "Pixel", sub: "Pong 2D", genre: "Deportes · Arcade 2D", color: "#52E5FF", tag: "2D · Web",
-      desc: "Tenis de mesa neón en 2D. Juega contra la IA, en modo local de dos jugadores o supera el desafío, con velocidad creciente, estadísticas y ajustes.",
-      tech: ["Canvas 2D", "1 o 2 jugadores", "IA", "Guardado local"],
-      help: "Elige el modo de juego en el menú (contra la IA, dos jugadores o desafío). Haz clic dentro del juego si no responde al teclado.",
-      controls: [["W / S", "Jugador 1 arriba / abajo"], ["↑ / ↓", "Jugador 2 (o jugador 1 contra la IA)"], ["Arrastrar", "Mover tu paleta en el celular"], ["Espacio", "Continuar"], ["Esc / P", "Pausa"], ["R", "Reiniciar"]],
-      name: "Pixel Pong 2D", station: "Sala retro neón", dim: "2D", shots: ["pong-b", "pong-a"],
-      short: "Tenis de mesa neón en 2D con modo desafío.",
-      mechanics: ["Modos: contra la IA, dos jugadores y Desafío arcade", "Dificultad de Fácil a Experto y partidos a 5, 7, 10 o 15 puntos", "La pelota acelera a medida que avanza el punto", "Estadísticas e historial guardados en el navegador", "Configuración y sonido activables"]
-    },
-    {
-      id: "atarifootball", file: "futbol.html", title: "Atari", sub: "Football 2D", genre: "Deportes · Fútbol 2D", color: "#D9FF56", tag: "2D · Web",
-      desc: "Un clásico reimaginado: fútbol rápido en un campo, dos porterías y cero excusas. Juega contra la CPU o con un amigo en la misma pantalla.",
-      tech: ["Canvas 2D", "1 o 2 jugadores", "Estadísticas", "Controles táctiles"],
-      help: "Pulsa JUGAR (contra la CPU) o DOS JUGADORES. Marca más goles que tu rival antes de que se acabe el tiempo; los porteros defienden solos y el balón acelera a medida que avanza el partido. En el celular aparecen controles táctiles.",
-      controls: [["W A S D", "Mover al jugador azul"], ["Espacio", "Chutar (mantén para cargar potencia)"], ["Flechas", "Jugador rojo (dos jugadores)"], ["Intro", "Chute del jugador rojo"], ["Esc / P", "Pausa (o botón Ⅱ PAUSA)"], ["R", "Reiniciar"], ["F", "Mostrar FPS"]],
-      name: "Atari Football 2D", station: "Cancha clásica", dim: "2D", shots: ["football-b", "football-a"],
-      short: "Fútbol arcade 2D contra la CPU o en dúo local.",
-      mechanics: ["Partido rápido contra la CPU o dos jugadores en la misma pantalla", "Dificultad de la CPU de Fácil a Experto, tiempo y límite de goles", "Chute con carga de potencia", "Porteros automáticos y balón que acelera durante el partido", "Estadísticas e historial guardados en el navegador", "Controles táctiles en el celular"]
     }
   ];
 
@@ -81,20 +61,25 @@
     { cat: "03 / Desarrollo web", title: "Diseño y desarrollo web", tool: ["vs", "VS", "Visual Studio Code"], url: "https://divinevanity.co", urlLabel: "Divinevanity.co", desc: "Diseñé Divinevanity.co, una tienda en línea de belleza: estructura, colecciones, ofertas y una experiencia de compra pensada para escritorio y celular.", extra: "Desplázate dentro de la vista previa para recorrer la página, o visítala en vivo con el botón." },
     { cat: "04 / Motion graphics", title: "Animación y motion graphics", tool: ["ae", "Ae", "Adobe After Effects"], desc: "Creación de animaciones y composiciones audiovisuales mediante movimiento, efectos y narrativa visual.", extra: "Principios de animación aplicados: anticipación, squash & stretch y timing." },
     { cat: "05 / Edición audiovisual", title: "Edición de video", tool: ["pr", "Pr", "Adobe Premiere Pro"], desc: "Edición y montaje de contenido audiovisual, trabajando ritmo, transiciones, sonido y narrativa.", extra: "Montaje con intención: cada corte acompaña el ritmo de la música y la historia." },
-    { cat: "06 / Modelado 3D", title: "Personajes 3D", tool: ["bl", "Bl", "Blender"], desc: "Modelado y creación de personajes tridimensionales explorando formas, proporciones, materiales y composición.", extra: "Tres personajes modelados en Blender: un gato negro, el dálmata de BlackDot y un ninja. Del model sheet al volumen: blocking, proporción y materiales." },
-    { cat: "07 / Videojuegos", title: "Videojuegos para web", tool: ["js", "JS", "JavaScript · Three.js · Canvas 2D"], desc: "Seis juegos completos que corren directamente en el navegador: Cúcuta Open World, Dynasty FC, SkyBound, Rally Rush, Pixel Pong 2D y Atari Football 2D.", extra: "Pulsa «Ir a jugar» para ir al arcade y probarlos ahora mismo.", games: true }
+    { cat: "06 / Modelado 3D", title: "Personajes 3D", tool: ["bl", "Bl", "Blender"], desc: "Modelado y creación de personajes tridimensionales explorando formas, proporciones, materiales y composición.", extra: "Tres personajes modelados en Blender: un gato negro, el dálmata de BlackDot y un ninja. Del model sheet al volumen: blocking, proporción y materiales. Ahora también puedes rotarlos y ver sus animaciones en BLACKDOT 3D LAB.", lab: true },
+    { cat: "07 / Videojuegos", title: "Videojuegos para web", tool: ["js", "JS", "JavaScript · Three.js"], desc: "Cuatro juegos 3D completos que corren directamente en el navegador: Cúcuta Open World, Dynasty FC, Sky Bound y Rally Rush.", extra: "Pulsa «Ir a jugar» para ir al arcade y probarlos ahora mismo.", games: true }
   ];
 
-  var TOOLS = [
-    { cls: "ai", t: "Ai", title: "Adobe Illustrator", desc: "Herramienta de diseño vectorial para crear logotipos, ilustraciones, piezas gráficas, iconos e identidades visuales.", uses: ["Diseño de logotipos", "Ilustración vectorial", "Identidad visual", "Iconos y piezas gráficas"] },
-    { cls: "ps", t: "Ps", title: "Adobe Photoshop", desc: "Herramienta de edición y composición de imágenes para crear y transformar contenido visual.", uses: ["Retoque fotográfico", "Composición digital", "Edición de imágenes", "Diseño gráfico"] },
-    { cls: "pr", t: "Pr", title: "Adobe Premiere Pro", desc: "Herramienta profesional de edición de video para crear y montar contenido audiovisual.", uses: ["Edición de video", "Montaje audiovisual", "Corrección de color", "Contenido para redes"] },
-    { cls: "ae", t: "Ae", title: "Adobe After Effects", desc: "Herramienta enfocada en motion graphics y efectos visuales.", uses: ["Motion graphics", "Animaciones", "Efectos visuales", "Títulos y composiciones"] },
-    { cls: "bl", t: "Bl", title: "Blender", desc: "Plataforma de creación 3D para modelado, animación, materiales y renderizado.", uses: ["Modelado 3D", "Animación", "Texturizado", "Renderizado"] },
-    { cls: "vs", t: "VS", title: "Visual Studio Code", desc: "Editor de código para desarrollar sitios web, aplicaciones y videojuegos.", uses: ["HTML", "CSS", "JavaScript", "Depuración"] },
-    { cls: "js", t: "JS", title: "JavaScript", desc: "El lenguaje que da vida a la web: interacción, lógica y videojuegos en el navegador.", uses: ["Interacciones", "Lógica de juego", "Animaciones", "APIs del navegador"] },
-    { cls: "th", t: "3D", title: "Three.js", desc: "Librería WebGL para crear gráficos 3D en tiempo real. Es el motor de mis cuatro videojuegos.", uses: ["Escenas 3D", "Iluminación y sombras", "Cámaras y física", "Videojuegos web"] }
-  ];
+  /* Herramientas (BLACKDOT 2.0): se identifican por clave (data-tool="ps").
+     Solo se muestran las herramientas que aparecen en el proyecto; para añadir
+     otra basta con crear su entrada aquí y su botón en la sección #herramientas. */
+  var TOOLS = {
+    ps: { cls: "ps", t: "Ps", title: "Adobe Photoshop", desc: "Herramienta de edición y composición de imágenes para crear y transformar contenido visual.", uses: ["Retoque fotográfico", "Composición digital", "Edición de imágenes", "Diseño gráfico"] },
+    ai: { cls: "ai", t: "Ai", title: "Adobe Illustrator", desc: "Herramienta de diseño vectorial para crear logotipos, ilustraciones, piezas gráficas, iconos e identidades visuales.", uses: ["Diseño de logotipos", "Ilustración vectorial", "Identidad visual", "Iconos y piezas gráficas"] },
+    ae: { cls: "ae", t: "Ae", title: "Adobe After Effects", desc: "Herramienta enfocada en motion graphics y efectos visuales.", uses: ["Motion graphics", "Animaciones", "Efectos visuales", "Títulos y composiciones"] },
+    pr: { cls: "pr", t: "Pr", title: "Adobe Premiere Pro", desc: "Herramienta profesional de edición de video para crear y montar contenido audiovisual.", uses: ["Edición de video", "Montaje audiovisual", "Corrección de color", "Contenido para redes"] },
+    bl: { cls: "bl", t: "Bl", title: "Blender", desc: "Plataforma de creación 3D para modelado, animación, materiales y renderizado.", uses: ["Modelado 3D", "Animación", "Texturizado", "Renderizado"] },
+    vs: { cls: "vs", t: "VS", title: "Visual Studio Code", desc: "Editor de código para desarrollar sitios web, aplicaciones y videojuegos.", uses: ["HTML", "CSS", "JavaScript", "Depuración"] },
+    html: { cls: "html", t: "H5", title: "HTML5", desc: "Lenguaje de marcado con el que se estructura el contenido de la web.", uses: ["Estructura semántica", "Formularios", "Contenido multimedia", "Accesibilidad"] },
+    css: { cls: "css", t: "C3", title: "CSS3", desc: "Lenguaje de estilos para el diseño visual, el diseño responsive y las animaciones de la web.", uses: ["Diseño responsive", "Variables y temas", "Animaciones", "Maquetación con Grid y Flexbox"] },
+    js: { cls: "js", t: "JS", title: "JavaScript", desc: "El lenguaje que da vida a la web: interacción, lógica y videojuegos en el navegador.", uses: ["Interacciones", "Lógica de juego", "Animaciones", "APIs del navegador"] },
+    th: { cls: "th", t: "3D", title: "Three.js", desc: "Librería WebGL para crear gráficos 3D en tiempo real. Es el motor de mis cuatro videojuegos, de la sala BLACKDOT Arcade y del visor de BLACKDOT 3D LAB.", uses: ["Escenas 3D", "Iluminación y sombras", "Cámaras y animación", "Videojuegos web"] }
+  };
 
   var ARTICLES = [
     { filter: "web", category: "Desarrollo web", meta: "12 AGO 2026 · 6 MIN", title: "Cómo construí BLACKDOT: de una idea visual a un portafolio funcional", excerpt: "", body: ["BLACKDOT nació como una dirección visual y fue creciendo hasta convertirse en un portafolio funcional. El primer paso fue definir una jerarquía clara: presentación, proyectos, herramientas, blog y contacto.", "Después llevé esa estructura a una interfaz responsive. Cada decisión debía funcionar en escritorio y también en una pantalla pequeña, donde la navegación cambia y los elementos necesitan áreas de toque más cómodas.", "La parte más importante fue conectar estética e interacción: tarjetas que responden al toque, modales que pueden desplazarse y un sistema de tema que recuerda la elección de la persona. El resultado es una experiencia que no depende únicamente de verse bien, sino de sentirse fácil de usar."] },
@@ -138,26 +123,36 @@
   }
 
   /* ---------------- Tema ---------------- */
+  /* BLACKDOT 2.0: tema global. Única fuente de verdad: <html data-theme>.
+     - El script del <head> lo fija antes de pintar (preferencia guardada o la del sistema).
+     - El botón alterna y guarda la elección en LocalStorage (clave original "blackdot-theme").
+     - Si la persona nunca eligió, se sigue el tema del sistema en tiempo real.
+     - Se emite "themechange" (detail.theme) para los lienzos 2D/3D que pintan colores propios. */
+  function getTheme() { return root.getAttribute("data-theme") === "light" ? "light" : "dark"; }
   function initTheme() {
     var btn = $("#theme-btn");
     var meta = $('meta[name="theme-color"]');
-    function current() {
-      var t = root.getAttribute("data-theme");
-      if (t) return t;
-      return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    var mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: light)") : null;
+    function stored() { try { var t = localStorage.getItem("blackdot-theme"); return t === "light" || t === "dark" ? t : null; } catch (e) { return null; } }
+    function apply(t, persist) {
+      root.setAttribute("data-theme", t);
+      if (persist) { try { localStorage.setItem("blackdot-theme", t); } catch (e) {} }
+      sync();
     }
     function sync() {
-      var c = current();
+      var c = getTheme();
       btn.setAttribute("aria-label", c === "light" ? "Cambiar a modo oscuro" : "Cambiar a modo claro");
-      if (meta) meta.setAttribute("content", c === "light" ? "#F4F4F1" : "#0A0A0A");
-      document.dispatchEvent(new CustomEvent("themechange"));
+      btn.setAttribute("aria-pressed", c === "light" ? "true" : "false");
+      btn.title = c === "light" ? "Modo claro activo" : "Modo oscuro activo";
+      if (meta) meta.setAttribute("content", c === "light" ? "#F3F6F9" : "#03060B");
+      document.dispatchEvent(new CustomEvent("themechange", { detail: { theme: c } }));
     }
-    btn.addEventListener("click", function () {
-      var next = current() === "light" ? "dark" : "light";
-      root.setAttribute("data-theme", next);
-      try { localStorage.setItem("blackdot-theme", next); } catch (e) {}
-      sync();
-    });
+    if (!root.getAttribute("data-theme")) root.setAttribute("data-theme", stored() || (mq && mq.matches ? "light" : "dark"));
+    btn.addEventListener("click", function () { apply(getTheme() === "light" ? "dark" : "light", true); });
+    if (mq) {
+      var onSys = function (e) { if (!stored()) apply(e.matches ? "light" : "dark", false); };
+      if (mq.addEventListener) mq.addEventListener("change", onSys); else if (mq.addListener) mq.addListener(onSys);
+    }
     sync();
   }
 
@@ -288,7 +283,14 @@
     var hero = $("#inicio");
     var dpr = Math.min(devicePixelRatio || 1, 1.75);
     var W = 0, H = 0, pts = [], mx = -9999, my = -9999, px = 0, py = 0, tx = 0, ty = 0, visible = true, raf = 0, last = performance.now();
-    var COLORS = ["101,195,204", "14,107,168", "190,230,240"];
+    /* Paleta de partículas según el tema (en claro, las partículas pálidas no se verían) */
+    var PALETTES = { dark: ["101,195,204", "14,107,168", "190,230,240"], light: ["14,107,168", "11,79,125", "60,160,175"] };
+    var COLORS = PALETTES[getTheme()], alphaK = getTheme() === "light" ? 1.5 : 1;
+    document.addEventListener("themechange", function () {
+      COLORS = PALETTES[getTheme()]; alphaK = getTheme() === "light" ? 1.5 : 1;
+      pts.forEach(function (p, i) { p.c = COLORS[i % 3]; });
+      if (reduced) draw(performance.now());
+    });
     function build() {
       W = hero.clientWidth; H = hero.clientHeight;
       canvas.width = W * dpr; canvas.height = H * dpr;
@@ -315,6 +317,7 @@
         var a = (0.1 + p.z * 0.32) * (0.8 + 0.2 * Math.sin(t * 1.2 + p.tw));
         var dx = ox - mx, dy = oy - my, d2 = dx * dx + dy * dy;
         if (d2 < 22500) a = Math.min(0.7, a + (1 - d2 / 22500) * 0.3);
+        a = Math.min(0.85, a * alphaK);
         ctx.fillStyle = "rgba(" + p.c + "," + a.toFixed(3) + ")";
         ctx.beginPath(); ctx.arc(ox, oy, p.r, 0, 6.2832); ctx.fill();
       }
@@ -514,7 +517,9 @@
       if (vid) {
         var v = document.createElement("video");
         v.src = vid.getAttribute("src"); v.poster = vid.getAttribute("poster");
-        v.controls = true; v.playsInline = true; v.autoplay = true; v.loop = true;
+        v.controls = true; v.playsInline = true; v.autoplay = true; v.loop = true; v.muted = true;
+        v.setAttribute("aria-label", vid.getAttribute("aria-label") || p.title);
+        if (vid.hasAttribute("data-vertical")) media.classList.add("vertical");
         media.appendChild(v);
         var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
       } else if (p.games) {
@@ -535,10 +540,12 @@
       link.hidden = !p.url;
       if (p.url) { link.href = p.url; $("#pm-link-text").textContent = "Visitar " + p.urlLabel; }
       $("#pm-play").hidden = !p.games;
+      var lab = $("#pm-lab"); if (lab) lab.hidden = !p.lab;
     }
     var fanEl = $("#games-fan");
     if (fanEl) fanEl.innerHTML = fanHtml();
     $("#pm-play").addEventListener("click", function () { closeModal(modal); });
+    if ($("#pm-lab")) $("#pm-lab").addEventListener("click", function () { closeModal(modal); });
     cards.forEach(function (card, i) {
       activate(card, function () { show(i); openModal(modal, card); });
       bindTilt(card);
@@ -559,7 +566,8 @@
     var modal = $("#tool-modal");
     $$(".tool").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        var t = TOOLS[+btn.getAttribute("data-tool")];
+        var t = TOOLS[btn.getAttribute("data-tool")];
+        if (!t) return;
         var tile = $("#tm-tile"); tile.className = "tile " + t.cls; tile.textContent = t.t;
         $("#tm-title").textContent = t.title;
         $("#tm-desc").textContent = t.desc;
@@ -797,8 +805,7 @@
   }
 
   /* ---------------- Salón de récords ----------------
-     BLACKDOT 2.0: el salón de récords de los SEIS juegos vive en js/halloffame.js
-     (antes aquí solo se leían las dos claves de los juegos 2D). */
+     El salón de récords de los CUATRO juegos del arcade vive en js/halloffame.js. */
 
   function initGames() {
     initPlayer();
@@ -811,7 +818,7 @@
   window.BLACKDOT = {
     GAMES: GAMES, playGame: function (g, ev) { playGame(g, ev); },
     openModal: openModal, closeModal: closeModal, toast: toast, esc: esc,
-    reduced: reduced, finePointer: finePointer,
+    reduced: reduced, finePointer: finePointer, getTheme: getTheme,
     isPlayerOpen: function () { return !!(player && !player.hidden); },
     hasOpenModal: function () { return openModals.length > 0; }
   };
