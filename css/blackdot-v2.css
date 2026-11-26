@@ -392,3 +392,24 @@ body { background: var(--bg-primary); color: var(--text-primary); }
 .form-status { min-height: 1.2em; }
 .link-btn { padding: 0; font: inherit; color: var(--accent-text); text-decoration: underline; text-underline-offset: 3px; }
 .form-status a { color: var(--accent-text); text-decoration: underline; }
+
+/* Menú móvil (BLACKDOT 2.0): tipografía proporcionada, números en columna y separadores */
+.mobile-menu { justify-content: flex-start; padding: 96px var(--gutter) 28px; overflow-y: auto; overscroll-behavior: contain; }
+.mobile-menu a { display: block; overflow: hidden; border-bottom: 1px solid var(--border-color); font: 600 clamp(1.15rem, 5.2vw, 1.5rem)/1.2 var(--f-display); letter-spacing: -.02em; color: var(--text-strong); transition: color .3s; }
+.mobile-menu a:first-of-type { border-top: 1px solid var(--border-color); }
+.mobile-menu a span { display: grid; grid-template-columns: 2.4em 1fr auto; align-items: center; padding: .72em 0; }
+.mobile-menu a span::after { content: "→"; font-size: .8em; color: var(--text-secondary); opacity: .6; transition: transform .35s var(--ease), color .3s, opacity .3s; }
+.mobile-menu a small { margin: 0; font: 600 .68rem var(--f-display); letter-spacing: .12em; color: var(--accent-text); vertical-align: baseline; }
+.mobile-menu a:hover, .mobile-menu a:focus-visible { color: var(--accent-text); }
+.mobile-menu a:hover span::after, .mobile-menu a:focus-visible span::after { transform: translateX(4px); color: var(--accent-text); opacity: 1; }
+.mobile-menu .mm-foot { margin-top: 24px; font-size: .82rem; }
+/* Botón de menú: hamburguesa centrada y X limpia al abrir */
+.menu-btn > span { position: relative; display: block; width: 18px; height: 12px; }
+.menu-btn > span > span { position: absolute; left: 0; width: 18px; height: 1.6px; margin: 0; border-radius: 2px; background: currentColor; transition: transform .4s var(--ease), top .4s var(--ease); }
+.menu-btn > span > span:first-child { top: 2px; }
+.menu-btn > span > span:last-child { top: 8.4px; }
+.menu-btn[aria-expanded="true"] > span > span:first-child { top: 5.2px; transform: rotate(45deg); }
+.menu-btn[aria-expanded="true"] > span > span:last-child { top: 5.2px; transform: rotate(-45deg); }
+.menu-btn > span { background: none; }
+.menu-btn[aria-expanded="true"] > span { transform: none; }
+#menu-btn[aria-expanded="true"] > span { transform: none; }
