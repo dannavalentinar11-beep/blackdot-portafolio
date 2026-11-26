@@ -381,3 +381,14 @@ body { background: var(--bg-primary); color: var(--text-primary); }
 .projects2 .p-media--mosaic { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: 1fr; }
 .projects2 .p-media--mosaic .m-main { grid-row: auto; grid-column: auto; }
 @media (max-width: 640px) { .projects2 .p-card[data-cat="3d"] { --mh: 72vw; } .projects2 .p-media--mosaic { gap: 6px; padding: 8px; } }
+
+/* Contacto: envío directo + WhatsApp */
+.form-note { margin-bottom: 18px; color: var(--text-secondary); font-size: .9rem; }
+.hp-field { position: absolute !important; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.btn-wa:hover, .btn-wa:focus-visible { border-color: #25D366; }
+.btn-wa::before { background: #25D366; }
+.btn-wa:hover, .btn-wa:focus-visible { color: #06210F; }
+.form-actions button[aria-busy="true"] { opacity: .7; cursor: progress; }
+.form-status { min-height: 1.2em; }
+.link-btn { padding: 0; font: inherit; color: var(--accent-text); text-decoration: underline; text-underline-offset: 3px; }
+.form-status a { color: var(--accent-text); text-decoration: underline; }
