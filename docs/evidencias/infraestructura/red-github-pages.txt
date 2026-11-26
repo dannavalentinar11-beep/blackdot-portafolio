@@ -1,0 +1,40 @@
+== DNS (nslookup)
+	  2606:50c0:8001::153
+	  2606:50c0:8002::153
+	  2606:50c0:8003::153
+	  185.199.108.153
+	  185.199.109.153
+	  185.199.110.153
+	  185.199.111.153
+
+
+== HTTP -> HTTPS
+HTTP/1.1 301 Moved Permanently
+Server: GitHub.com
+Location: https://dannavalentinar11-beep.github.io/blackdot-portafolio/
+
+== HTTPS cabeceras
+HTTP/1.1 200 OK
+Server: GitHub.com
+Content-Type: text/html; charset=utf-8
+Last-Modified: Thu, 26 Nov 2026 00:23:24 GMT
+Strict-Transport-Security: max-age=31556952
+Cache-Control: max-age=600
+X-GitHub-Request-Id: CE60:EC93D:4CF90A:54D015:6B079110
+x-github-edge-region: iad
+Age: 0
+Via: 1.1 varnish
+
+== Certificado
+subject=CN=*.github.io
+issuer=C=US, O=Let's Encrypt, CN=YR1
+notBefore=Sep 30 23:44:46 2026 GMT
+notAfter=Dec 29 23:44:45 2026 GMT
+X509v3 Subject Alternative Name: 
+    DNS:*.github.com, DNS:*.github.io, DNS:*.githubusercontent.com, DNS:github.com, DNS:github.io, DNS:githubusercontent.com
+
+== Protocolo TLS
+New, TLSv1.3, Cipher is TLS_AES_128_GCM_SHA256
+Protocol: TLSv1.3
+    Protocol  : TLSv1.3
+== Fecha consulta: 2026-11-26T01:53Z

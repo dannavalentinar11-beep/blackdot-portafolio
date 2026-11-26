@@ -1,0 +1,59 @@
+/* BLACKDOT AR EXPERIENCE — estilos de la vista ar-experience.html (usa los tokens de css/tokens.css) */
+.ar { padding-top: clamp(36px, 5vw, 60px); }
+.ar-layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr); gap: clamp(16px, 2vw, 24px); align-items: start; }
+.ar-shell { position: relative; border-radius: 24px; overflow: hidden; border: 1px solid var(--border-color); background: var(--surface); box-shadow: var(--shadow-soft); }
+.ar-stage { position: relative; aspect-ratio: 16 / 11; min-height: 360px; background: var(--lab-stage-bg); overflow: hidden; }
+.ar-stage .ar-scene, .ar-stage a-scene { position: absolute; inset: 0; z-index: 1; display: block; width: 100%; height: 100%; }
+.ar-shell.is-camera .ar-stage { background: #000; }
+.ar-video { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; }
+.ar-video[hidden] { display: none; }
+.ar-overlay { position: absolute; inset: 0; z-index: 3; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 12px; padding: clamp(18px, 3vw, 36px); }
+.ar-overlay[hidden] { display: none; }
+.ar-overlay-img { width: 100%; max-height: 92%; object-fit: contain; filter: drop-shadow(0 24px 30px rgba(0, 0, 0, .35)); }
+.ar-overlay-cta { display: grid; gap: 12px; justify-items: start; }
+.ar-overlay-cta .kicker { margin: 0; }
+.ar-overlay-title { font: 700 clamp(1.8rem, 3.6vw, 3rem)/1 var(--f-display); letter-spacing: -.04em; color: var(--text-strong); }
+.ar-overlay-cta small { max-width: 34ch; color: var(--text-secondary); font-size: .82rem; }
+.ar-overlay.is-loading .btn { opacity: .6; pointer-events: none; }
+.ar-overlay.is-loading .btn::after { content: "…"; }
+.ar-xr-ui { position: absolute; inset: auto 0 0 0; pointer-events: none; }
+.ar-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 14px; padding: 12px 14px; border-top: 1px solid var(--border-color); background: var(--surface); }
+.ar-group { display: flex; flex-wrap: wrap; gap: 6px; }
+.ar-toolbar .hud-btn { font-size: .8rem; }
+.ar-status { padding: 10px 14px 14px; color: var(--text-secondary); font-size: .9rem; background: var(--surface); }
+.ar-status.is-err { color: var(--danger); }
+.ar-info { position: sticky; top: 96px; padding: clamp(20px, 2.4vw, 28px); border-radius: 24px; border: 1px solid var(--border-color); background: var(--card-background); }
+.ar-parts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.ar-parts button { padding: .5em .9em; border-radius: 999px; border: 1px solid var(--border-strong); font: 600 .82rem var(--f-display); color: var(--text-primary); transition: background-color .3s, border-color .3s, color .3s; }
+.ar-parts button:hover, .ar-parts button:focus-visible { background: var(--accent); border-color: var(--accent); color: #fff; }
+.ar-part { margin-top: 14px; padding: 14px 16px; border-radius: 14px; background: var(--accent-soft); border: 1px solid var(--border-color); }
+.ar-part[hidden] { display: none; }
+.ar-part-title { font: 700 1.05rem var(--f-display); color: var(--text-strong); margin-bottom: 4px; }
+.ar-counter { margin-top: 14px; color: var(--text-secondary); font-size: .9rem; }
+.ar-counter b { color: var(--text-strong); }
+.ar-support { display: grid; gap: 8px; }
+.ar-support li { display: grid; gap: 2px; padding: 10px 12px 10px 30px; position: relative; border-radius: 12px; border: 1px solid var(--border-color); font-size: .86rem; }
+.ar-support li::before { content: "●"; position: absolute; left: 12px; top: 10px; color: var(--text-secondary); }
+.ar-support li.ok::before { color: var(--success); }
+.ar-support li.no::before { color: var(--danger); }
+.ar-support span { color: var(--text-secondary); }
+.ar-support b { color: var(--text-strong); font-weight: 600; }
+.ar-docs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: clamp(24px, 3vw, 36px); }
+.ar-docs article { padding: 20px; border-radius: 20px; border: 1px solid var(--border-color); background: var(--card-background); }
+.ar-docs h3 { font-size: 1.1rem; margin-bottom: 10px; }
+.ar-docs li { position: relative; padding-left: 16px; margin-top: 8px; color: var(--text-primary); font-size: .92rem; }
+.ar-docs li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-text); }
+.ar-docs code { font-size: .85em; padding: 1px 5px; border-radius: 5px; background: var(--accent-soft); color: var(--text-strong); }
+.ar-shell:fullscreen { display: flex; flex-direction: column; border-radius: 0; }
+.ar-shell:fullscreen .ar-stage { flex: 1; aspect-ratio: auto; }
+.ar-shell.is-pseudo-full { position: fixed; inset: 0; z-index: 700; display: flex; flex-direction: column; border-radius: 0; }
+.ar-shell.is-pseudo-full .ar-stage { flex: 1; aspect-ratio: auto; }
+.a-enter-vr, .a-enter-ar, .a-orientation-modal { display: none !important; }
+@media (max-width: 1000px) { .ar-layout { grid-template-columns: 1fr; } .ar-info { position: static; } .ar-docs { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  .ar-stage { aspect-ratio: 3 / 4; min-height: 380px; max-height: 76svh; }
+  .ar-overlay { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .ar-overlay-img { max-height: 36vh; }
+  .ar-overlay-cta { justify-items: center; }
+  .ar-toolbar .hud-btn { flex: 1 1 auto; }
+}

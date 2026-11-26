@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>BLACKDOT — Manual técnico de auditoría e infraestructura (3er previo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+@page { size: 1920px 1080px; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --bg:#04080F; --panel:#0A1422; --panel2:#0E1B2C; --line:rgba(101,195,204,.18); --line2:rgba(101,195,204,.35); --cy:#65C3CC; --bl:#0E6BA8; --tx:#DCE7F0; --mut:#8FA2B5; --wh:#fff; --ok:#34D399; --warn:#F4B740; }
+html, body { background: var(--bg); color: var(--tx); font-family: Inter, Arial, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.s { position: relative; width: 1920px; height: 1080px; padding: 96px 120px 90px; overflow: hidden; page-break-after: always; break-after: page;
+  background: radial-gradient(1100px 700px at 88% -10%, rgba(14,107,168,.28), transparent 60%), radial-gradient(900px 600px at -5% 110%, rgba(101,195,204,.10), transparent 60%), var(--bg); }
+.s::after { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(101,195,204,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(101,195,204,.035) 1px, transparent 1px); background-size: 96px 96px; }
+.s > * { position: relative; z-index: 1; }
+.hd { position: absolute; top: 40px; left: 120px; right: 120px; display: flex; justify-content: space-between; font: 600 15px 'Space Grotesk', sans-serif; letter-spacing: .24em; color: var(--mut); text-transform: uppercase; }
+.hd b { color: var(--cy); }
+.ft { position: absolute; bottom: 36px; left: 120px; right: 120px; display: flex; justify-content: space-between; font: 500 14px Inter, sans-serif; color: var(--mut); }
+.k { font: 600 18px 'Space Grotesk', sans-serif; letter-spacing: .28em; text-transform: uppercase; color: var(--cy); display: flex; align-items: center; gap: 16px; }
+.k::before { content: ""; width: 48px; height: 2px; background: var(--cy); }
+h1 { font: 700 150px/.9 'Space Grotesk', sans-serif; letter-spacing: -.05em; color: var(--wh); text-transform: uppercase; }
+h2 { font: 700 72px/1 'Space Grotesk', sans-serif; letter-spacing: -.04em; color: var(--wh); margin: 18px 0 34px; }
+h2 .o, h1 .o { color: transparent; -webkit-text-stroke: 2px var(--wh); }
+h3 { font: 600 28px 'Space Grotesk', sans-serif; color: var(--wh); margin-bottom: 12px; }
+p, li { font-size: 24px; line-height: 1.5; color: var(--tx); }
+.lead { font-size: 30px; line-height: 1.45; max-width: 1400px; color: var(--tx); }
+.mut { color: var(--mut); }
+.grid { display: grid; gap: 28px; }
+.g2 { grid-template-columns: 1fr 1fr; } .g3 { grid-template-columns: repeat(3, 1fr); } .g4 { grid-template-columns: repeat(4, 1fr); } .g5 { grid-template-columns: repeat(5, 1fr); }
+.card { background: linear-gradient(180deg, var(--panel2), var(--panel)); border: 1px solid var(--line); border-radius: 24px; padding: 28px 30px; }
+.card p, .card li { font-size: 21px; }
+.card ul { list-style: none; } .card li { position: relative; padding-left: 22px; margin-top: 8px; }
+.card li::before { content: ""; position: absolute; left: 0; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--cy); }
+code, .mono { font-family: 'JetBrains Mono', monospace; font-size: .88em; color: #A6E3E8; }
+.tag { display: inline-block; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--line2); font: 600 15px 'Space Grotesk', sans-serif; letter-spacing: .08em; color: var(--cy); margin: 0 6px 6px 0; }
+.big { font: 700 96px/1 'Space Grotesk', sans-serif; color: var(--wh); letter-spacing: -.04em; }
+.ok { color: var(--ok); }
+table { width: 100%; border-collapse: collapse; font-size: 22px; }
+th, td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+th { font: 600 16px 'Space Grotesk', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--mut); }
+td b { color: var(--wh); }
+.shot { width: 100%; border-radius: 16px; border: 1px solid var(--line2); display: block; }
+.cap { margin-top: 10px; font-size: 17px; color: var(--mut); }
+svg text { font-family: 'Space Grotesk', Arial, sans-serif; }
+.score { display: inline-grid; place-items: center; width: 74px; height: 74px; border-radius: 50%; border: 5px solid var(--ok); font: 700 26px 'Space Grotesk'; color: var(--ok); }
+.toc li { font-size: 25px; margin: 6px 0; color: var(--tx); } .toc li span { color: var(--cy); font-family: 'JetBrains Mono', monospace; margin-right: 14px; }
+.note { border-left: 4px solid var(--warn); padding: 14px 20px; background: rgba(244,183,64,.08); border-radius: 0 14px 14px 0; font-size: 20px; }
+</style>
+</head>
+<body>
+
+<!-- 1 PORTADA -->
+<section class="s" style="display:flex;flex-direction:column;justify-content:center;">
+  <div class="hd"><span>Universidad Simón Bolívar · Ingeniería Web</span><span>Tercer previo · <b>Componente técnico</b></span></div>
+  <p class="k">Manual técnico de auditoría e infraestructura</p>
+  <h1 style="margin-top:34px">BLACKDOT<br><span class="o">Portfolio 2.0</span></h1>
+  <p class="lead" style="margin-top:40px">Portafolio web profesional multimedia interactivo: maquetación semántica y accesible, arcade en Canvas 2D y Three.js, experiencia WebAR con A-Frame/WebXR, almacenamiento local y despliegue continuo con HTTPS.</p>
+  <div style="margin-top:46px;display:flex;gap:60px;align-items:flex-end">
+    <div><p class="mut" style="font-size:18px;letter-spacing:.2em;text-transform:uppercase">Autora</p><p style="font:600 34px 'Space Grotesk';color:#fff">Danna Rueda</p><p class="mut">Ingeniería Multimedia</p></div>
+    <div><p class="mut" style="font-size:18px;letter-spacing:.2em;text-transform:uppercase">Producción</p><p class="mono" style="font-size:24px">https://dannavalentinar11-beep.github.io/blackdot-portafolio/</p></div>
+    <div><p class="mut" style="font-size:18px;letter-spacing:.2em;text-transform:uppercase">Fecha</p><p style="font:600 30px 'Space Grotesk';color:#fff">Noviembre 2026</p></div>
+  </div>
+  <div class="ft"><span>Formato 1920 × 1080 px</span><span>01</span></div>
+</section>
+
+<!-- 2 INTRODUCCIÓN -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>02 · <b>Introducción</b></span></div>
+  <p class="k">Introducción</p>
+  <h2>Qué se construyó y <span class="o">cómo se verificó</span></h2>
+  <div class="grid g2" style="gap:60px">
+    <div>
+      <p class="lead" style="font-size:27px">BLACKDOT es un sitio estático (HTML5, CSS3 y JavaScript sin frameworks) publicado en GitHub Pages. Integra cinco vistas, seis videojuegos, un visor 3D de personajes y un showroom WebAR.</p>
+      <p style="margin-top:26px">Este manual documenta la arquitectura real del código, las auditorías ejecutadas (W3C y Lighthouse móvil) y la infraestructura de red que permite usar la cámara de forma segura en el teléfono.</p>
+      <p class="note" style="margin-top:30px">Todas las cifras de este documento salen de pruebas ejecutadas el 25-26/11/2026; los informes originales están en <code>docs/evidencias/</code>.</p>
+    </div>
+    <div class="card">
+      <h3>Contenido</h3>
+      <ol class="toc" style="list-style:none;columns:2;column-gap:40px">
+        <li><span>03</span>Arquitectura de software</li><li><span>04</span>Mapa de navegación</li><li><span>05</span>Funciones JavaScript</li><li><span>06</span>Componentes A-Frame</li><li><span>07</span>Arquitectura WebAR</li><li><span>08</span>LocalStorage</li><li><span>09</span>Arcade 2D/3D</li><li><span>10</span>Validación W3C</li><li><span>11</span>Lighthouse móvil</li><li><span>12</span>Infraestructura de red</li><li><span>13</span>Hosting</li><li><span>14</span>HTTP y HTTPS</li><li><span>15</span>DNS</li><li><span>16</span>Certificado SSL</li><li><span>17</span>CI/CD</li><li><span>18</span>Pruebas funcionales</li><li><span>19</span>Conclusiones</li>
+      </ol>
+    </div>
+  </div>
+  <div class="ft"><span>Danna Rueda · Ingeniería Multimedia</span><span>02</span></div>
+</section>
+
+<!-- 3 ARQUITECTURA -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>03 · <b>Arquitectura de software</b></span></div>
+  <p class="k">Arquitectura de software</p>
+  <h2>Sitio estático en <span class="o">tres capas</span></h2>
+  <svg width="1680" height="660" viewBox="0 0 1680 660">
+    <defs><marker id="a" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#65C3CC"/></marker></defs>
+    <g font-size="22">
+      <rect x="0" y="0" width="1680" height="150" rx="22" fill="#0E1B2C" stroke="rgba(101,195,204,.35)"/>
+      <text x="30" y="44" fill="#65C3CC" font-size="18" letter-spacing="4">CAPA 1 · VISTAS HTML5 (semánticas, validadas W3C)</text>
+      <g fill="#fff" font-size="26" font-weight="600">
+        <rect x="30" y="66" width="300" height="62" rx="14" fill="#0A1422" stroke="#0E6BA8"/><text x="58" y="106">index.html</text>
+        <rect x="360" y="66" width="300" height="62" rx="14" fill="#0A1422" stroke="#0E6BA8"/><text x="388" y="106">arcade.html</text>
+        <rect x="690" y="66" width="300" height="62" rx="14" fill="#0A1422" stroke="#0E6BA8"/><text x="718" y="106">ar-experience.html</text>
+        <rect x="1020" y="66" width="300" height="62" rx="14" fill="#0A1422" stroke="#0E6BA8"/><text x="1048" y="106">blog.html</text>
+        <rect x="1350" y="66" width="300" height="62" rx="14" fill="#0A1422" stroke="#0E6BA8"/><text x="1378" y="106">contacto.html</text>
+      </g>
+      <rect x="0" y="200" width="520" height="440" rx="22" fill="#0E1B2C" stroke="rgba(101,195,204,.35)"/>
+      <text x="30" y="244" fill="#65C3CC" font-size="18" letter-spacing="4">CAPA 2 · PRESENTACIÓN (CSS3)</text>
+      <g fill="#DCE7F0"><text x="30" y="300">tokens.css · única fuente del tema</text><text x="30" y="345">style.css · base y componentes</text><text x="30" y="390">blackdot2.css · hero, arcade, récords</text><text x="30" y="435">blackdot-v2.css · vistas 2.0, 3D Lab</text><text x="30" y="480">ar-experience.css · showroom</text><text x="30" y="545" fill="#8FA2B5">data-theme="dark | light" en &lt;html&gt;</text><text x="30" y="585" fill="#8FA2B5">Responsive: Grid / Flexbox, 375 px → 1920 px</text></g>
+      <rect x="560" y="200" width="1120" height="440" rx="22" fill="#0E1B2C" stroke="rgba(101,195,204,.35)"/>
+      <text x="590" y="244" fill="#65C3CC" font-size="18" letter-spacing="4">CAPA 3 · LÓGICA (JavaScript vanilla + módulos ES)</text>
+      <g fill="#DCE7F0" font-size="21">
+        <text x="590" y="296">storage.js — BDStore: lectura/escritura validada, métricas</text>
+        <text x="590" y="336">script.js — tema, navegación, modales, proyectos, contacto, reproductor</text>
+        <text x="590" y="376">arcade.js + arcade3d.js — sala 3D (Three.js r160) o modo ligero</text>
+        <text x="590" y="416">halloffame.js · metrics-panel.js — récords e historial de marcadores</text>
+        <text x="590" y="456">lab3d.js + lab3d-characters.js — visor GLB (Draco), AnimationMixer</text>
+        <text x="590" y="496">ar-experience.js — A-Frame 1.6, raycaster, WebXR hit-test, cámara</text>
+        <text x="590" y="536">pingpong.js · futbol.js — juegos Canvas 2D · juegos/*.html (Three.js)</text>
+        <text x="590" y="590" fill="#8FA2B5">Carga diferida: Three.js, A-Frame, GSAP y modelos solo cuando se necesitan</text>
+      </g>
+      <line x1="260" y1="150" x2="260" y2="196" stroke="#65C3CC" stroke-width="3" marker-end="url(#a)"/>
+      <line x1="1120" y1="150" x2="1120" y2="196" stroke="#65C3CC" stroke-width="3" marker-end="url(#a)"/>
+    </g>
+  </svg>
+  <div class="ft"><span>Sin frameworks ni compilación · compatible con alojamiento estático</span><span>03</span></div>
+</section>
+
+<!-- 4 MAPA DE NAVEGACIÓN -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>04 · <b>Mapa de navegación</b></span></div>
+  <p class="k">Mapa de navegación</p>
+  <h2>Cinco vistas, <span class="o">una identidad</span></h2>
+  <div class="grid g5" style="gap:22px">
+    <div><img class="shot" src="../evidencias/capturas/vista-index.png" alt=""><p class="cap"><b style="color:#fff">index.html</b> · Inicio, sobre mí, proyectos, 3D Lab, cinemática, herramientas, manuales</p></div>
+    <div><img class="shot" src="../evidencias/capturas/vista-arcade-sala.png" alt=""><p class="cap"><b style="color:#fff">arcade.html</b> · Sala 3D, métricas, Salón de la fama</p></div>
+    <div><img class="shot" src="../evidencias/capturas/vista-ar-experience.png" alt=""><p class="cap"><b style="color:#fff">ar-experience.html</b> · Showroom WebAR</p></div>
+    <div><img class="shot" src="../evidencias/capturas/vista-blog.png" alt=""><p class="cap"><b style="color:#fff">blog.html</b> · Artículos con filtros</p></div>
+    <div><img class="shot" src="../evidencias/capturas/vista-contacto.png" alt=""><p class="cap"><b style="color:#fff">contacto.html</b> · Formulario + WhatsApp</p></div>
+  </div>
+  <svg width="1680" height="330" viewBox="0 0 1680 330" style="margin-top:22px">
+    <defs><marker id="b" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#65C3CC"/></marker></defs>
+    <rect x="620" y="10" width="440" height="70" rx="16" fill="#0E6BA8"/><text x="840" y="55" text-anchor="middle" fill="#fff" font-size="26" font-weight="700">Cabecera común + menú móvil (9 enlaces)</text>
+    <g stroke="#65C3CC" stroke-width="2.5" fill="none" marker-end="url(#b)"><path d="M840 80 C 840 140, 180 120, 170 190"/><path d="M840 80 C 840 140, 520 130, 510 190"/><path d="M840 80 L 840 190"/><path d="M840 80 C 840 140, 1160 130, 1170 190"/><path d="M840 80 C 840 140, 1500 120, 1510 190"/></g>
+    <g font-size="22" fill="#DCE7F0" text-anchor="middle">
+      <rect x="40" y="190" width="260" height="120" rx="14" fill="#0A1422" stroke="rgba(101,195,204,.35)"/><text x="170" y="228" fill="#fff" font-weight="600">Inicio</text><text x="170" y="262" font-size="18">#sobre-mi #proyectos</text><text x="170" y="290" font-size="18">#lab #herramientas #manual</text>
+      <rect x="380" y="190" width="260" height="120" rx="14" fill="#0A1422" stroke="rgba(101,195,204,.35)"/><text x="510" y="228" fill="#fff" font-weight="600">Arcade</text><text x="510" y="262" font-size="18">#juegos → reproductor iframe</text><text x="510" y="290" font-size="18">#metricas #records</text>
+      <rect x="710" y="190" width="260" height="120" rx="14" fill="#0A1422" stroke="rgba(101,195,204,.35)"/><text x="840" y="228" fill="#fff" font-weight="600">WebAR</text><text x="840" y="262" font-size="18">3D · WebXR AR · cámara</text>
+      <rect x="1040" y="190" width="260" height="120" rx="14" fill="#0A1422" stroke="rgba(101,195,204,.35)"/><text x="1170" y="228" fill="#fff" font-weight="600">Blog</text><text x="1170" y="262" font-size="18">modal de lectura</text>
+      <rect x="1380" y="190" width="260" height="120" rx="14" fill="#0A1422" stroke="rgba(101,195,204,.35)"/><text x="1510" y="228" fill="#fff" font-weight="600">Contacto</text><text x="1510" y="262" font-size="18">FormSubmit · wa.me</text>
+    </g>
+  </svg>
+  <div class="ft"><span>Generador <code>docs/pipeline/construir_paginas.py</code>: cabecera, footer y tema idénticos en todas las vistas</span><span>04</span></div>
+</section>
+
+<!-- 5 FUNCIONES JS -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>05 · <b>Diagrama de funciones JavaScript</b></span></div>
+  <p class="k">Mapa de funciones JavaScript</p>
+  <h2>Módulos y <span class="o">flujo de arranque</span></h2>
+  <div class="grid g3" style="gap:24px">
+    <div class="card"><h3>storage.js <span class="mut" style="font-size:18px">92 líneas</span></h3><p><code>read()</code> · <code>write()</code> · <code>validMetrics()</code> · <code>getMetrics()</code> · <code>track()</code> · <code>resetMetrics()</code></p><p class="mut" style="margin-top:8px">Se carga primero: cuenta la visita y expone <code>window.BDStore</code>.</p></div>
+    <div class="card"><h3>script.js <span class="mut" style="font-size:18px">941 líneas</span></h3><p><code>boot()</code> → <code>initTheme()</code> <code>initHeader()</code> <code>initModals()</code> <code>initReveal()</code> <code>initProjects()</code> <code>initTools()</code> <code>initBlog()</code> <code>initContact()</code> <code>initGames()</code> → <code>playGame()</code> <code>mountFrame()</code> <code>closePlayer()</code></p></div>
+    <div class="card"><h3>arcade.js / arcade3d.js</h3><p><code>init()</code> <code>select()</code> <code>openSheet()</code> <code>setMode()</code> <code>startEngine()</code> → <code>createArcade()</code> <code>frame()</code> <code>focusTarget()</code> <code>setTheme()</code> <code>dispose()</code></p></div>
+    <div class="card"><h3>halloffame.js / metrics-panel.js</h3><p><code>sync()</code> lee el guardado de cada juego con un adaptador · <code>render()</code> · <code>refresh()</code> (evento <code>storage</code>) · panel: <code>render()</code></p></div>
+    <div class="card"><h3>lab3d.js</h3><p><code>loadLibs()</code> <code>createViewer()</code> <code>setModel()</code> <code>makeSegment()</code> <code>play()</code> <code>keepInPlace()</code> <code>disposeModel()</code> <code>initCinematic()</code></p></div>
+    <div class="card"><h3>ar-experience.js</h3><p><code>checkSupport()</code> <code>loadAFrame()</code> <code>registerComponents()</code> <code>start()</code> <code>setMode()</code> <code>startCamera()</code> <code>enterAR()</code> <code>showPart()</code> <code>doAction()</code></p></div>
+  </div>
+  <div class="card" style="margin-top:24px"><p><b style="color:#fff">Juegos Canvas 2D</b> — <code>pingpong.js</code>: <code>start()</code> <code>update()</code> <code>aiUpdate()</code> <code>render()</code> <code>loop()</code> <code>endMatch()</code> · <code>futbol.js</code>: <code>startGame()</code> <code>readInput()</code> <code>aiUpdate()</code> <code>keeperUpdate()</code> <code>updateBall()</code> <code>collideBallPlayers()</code> <code>scoreGoal()</code> <code>loop()</code> <code>save()</code></p></div>
+  <div class="ft"><span>Funciones listadas a partir del código fuente (inventario automático)</span><span>05</span></div>
+</section>
+
+<!-- 6 COMPONENTES A-FRAME -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>06 · <b>Componentes A-Frame</b></span></div>
+  <p class="k">Componentes A-Frame</p>
+  <h2>Escena del <span class="o">showroom</span></h2>
+  <div class="grid g2" style="gap:40px">
+    <div>
+      <img class="shot" src="../evidencias/capturas/vista-ar-escena.png" alt="">
+      <p class="cap">Escena real: linterna en el pedestal, puntos interactivos, botones 3D y ficha de la pieza seleccionada.</p>
+    </div>
+    <div class="card">
+      <h3>Árbol de la escena (<code>&lt;template id="ar-scene-tpl"&gt;</code>)</h3>
+      <p class="mono" style="font-size:19px;line-height:1.6">a-scene  <span class="mut">webxr · ar-hit-test · cursor · raycaster · shadow</span><br>
+      ├─ a-assets › a-asset-item <span class="mut">linterna-blackdot.glb</span><br>
+      ├─ #bd-rig › a-entity camera <span class="mut">look-controls · wasd-controls</span><br>
+      │   └─ #bd-gaze <span class="mut">cursor (fuse) · raycaster</span><br>
+      ├─ luces <span class="mut">ambient · directional · 2 × point</span><br>
+      ├─ #bd-environment <span class="mut">hide-on-enter-ar</span> › a-sky · a-circle · a-ring · a-text<br>
+      └─ #bd-product-root <span class="mut">(objetivo del hit-test)</span><br>
+          ├─ #bd-product <span class="mut">gltf-model · bd-product · animation__spin</span><br>
+          │   ├─ 5 × a-sphere.bd-click <span class="mut">bd-hotspot</span><br>
+          │   └─ #bd-beam · #bd-beam-light<br>
+          └─ 3 × a-plane.bd-click <span class="mut">bd-button</span></p>
+      <h3 style="margin-top:22px">Componentes propios</h3>
+      <ul><li><code>bd-product</code>: sombras y control de los materiales emisivos al cargar el modelo.</li><li><code>bd-hotspot</code>: ancla cada punto al centro real de una pieza (Lente_Frontal, Boton_Encendido…).</li><li><code>bd-button</code>: botón 3D con estados hover/click que ejecuta encender, girar o reiniciar.</li></ul>
+    </div>
+  </div>
+  <div class="ft"><span>A-Frame 1.6.0 (Three.js integrado) · cargado bajo demanda</span><span>06</span></div>
+</section>
+
+<!-- 7 ARQUITECTURA WEBAR -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>07 · <b>Arquitectura de la experiencia WebAR</b></span></div>
+  <p class="k">Arquitectura WebAR</p>
+  <h2>Tres modos según <span class="o">el dispositivo</span></h2>
+  <svg width="1680" height="520" viewBox="0 0 1680 520">
+    <defs><marker id="c" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#65C3CC"/></marker></defs>
+    <g font-size="22">
+      <rect x="0" y="190" width="300" height="130" rx="18" fill="#0E6BA8"/><text x="150" y="240" text-anchor="middle" fill="#fff" font-weight="700" font-size="26">checkSupport()</text><text x="150" y="276" text-anchor="middle" fill="#DCEBF5" font-size="18">isSecureContext · mediaDevices</text><text x="150" y="302" text-anchor="middle" fill="#DCEBF5" font-size="18">navigator.xr (immersive-ar)</text>
+      <g stroke="#65C3CC" stroke-width="3" fill="none" marker-end="url(#c)"><path d="M300 255 C 380 255, 380 70, 470 70"/><path d="M300 255 L 470 255"/><path d="M300 255 C 380 255, 380 440, 470 440"/></g>
+      <rect x="470" y="10" width="560" height="120" rx="18" fill="#0A1422" stroke="rgba(101,195,204,.4)"/><text x="500" y="52" fill="#fff" font-weight="700" font-size="26">1 · Explorar en 3D (sin permisos)</text><text x="500" y="88" fill="#DCE7F0" font-size="19">Ratón / táctil · cursor rayOrigin: mouse · rueda = zoom</text><text x="500" y="116" fill="#8FA2B5" font-size="18">Disponible en todos los navegadores con WebGL</text>
+      <rect x="470" y="195" width="560" height="120" rx="18" fill="#0A1422" stroke="rgba(101,195,204,.4)"/><text x="500" y="237" fill="#fff" font-weight="700" font-size="26">2 · Ver en AR (WebXR)</text><text x="500" y="273" fill="#DCE7F0" font-size="19">scene.enterAR() · hit-test coloca el showroom</text><text x="500" y="301" fill="#8FA2B5" font-size="18">Chrome Android + ARCore · cursor rayOrigin: xrselect</text>
+      <rect x="470" y="380" width="560" height="120" rx="18" fill="#0A1422" stroke="rgba(101,195,204,.4)"/><text x="500" y="422" fill="#fff" font-weight="700" font-size="26">3 · Usar la cámara (alternativa)</text><text x="500" y="458" fill="#DCE7F0" font-size="19">getUserMedia(environment) + giroscopio</text><text x="500" y="486" fill="#8FA2B5" font-size="18">Safari iOS · selección por mirada (fuse 1,3 s)</text>
+      <g stroke="#65C3CC" stroke-width="3" fill="none" marker-end="url(#c)"><path d="M1030 70 C 1110 70, 1110 255, 1180 255"/><path d="M1030 255 L 1180 255"/><path d="M1030 440 C 1110 440, 1110 255, 1180 255"/></g>
+      <rect x="1180" y="150" width="500" height="210" rx="18" fill="#0E1B2C" stroke="#65C3CC"/><text x="1210" y="196" fill="#65C3CC" font-size="18" letter-spacing="3">RAYCASTER → .bd-click</text><text x="1210" y="240" fill="#fff" font-size="23">click en hotspot → showPart()</text><text x="1210" y="280" fill="#fff" font-size="23">click en botón 3D → doAction()</text><text x="1210" y="320" fill="#8FA2B5" font-size="19">track('ar-interaction') → localStorage</text>
+    </g>
+  </svg>
+  <div class="grid g3" style="margin-top:6px"><p class="note">La cámara solo se pide al pulsar «Usar la cámara» o «Ver en AR», y se apaga al salir de la pestaña.</p><p class="note">Sin HTTPS, sin permiso o sin WebXR, la experiencia continúa en el modo 3D con un mensaje claro.</p><p class="note">El modo 3 es una superposición: no ancla el modelo a superficies reales (documentado en la página).</p></div>
+  <div class="ft"><span>Producto: Linterna BLACKDOT (32 mallas, 0,7 MB) modelada en Blender</span><span>07</span></div>
+</section>
+
+<!-- 8 LOCALSTORAGE -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>08 · <b>Persistencia LocalStorage</b></span></div>
+  <p class="k">Persistencia local</p>
+  <h2>Claves aisladas por <span class="o">módulo</span></h2>
+  <div class="grid g2" style="gap:40px">
+    <table>
+      <tr><th>Clave</th><th>Contenido</th></tr>
+      <tr><td><code>blackdot-theme</code></td><td>tema elegido</td></tr>
+      <tr><td><code>blackdot-metrics-v1</code></td><td>visitas, páginas, partidas por juego, modelos 3D, sesiones e interacciones WebAR, envíos</td></tr>
+      <tr><td><code>blackdot-hall-v1</code></td><td>mejor marca por juego y fecha</td></tr>
+      <tr><td><code>blackdot-pixelpong-v1</code></td><td>Ping-Pong 2D: estadísticas e historial de marcadores</td></tr>
+      <tr><td><code>blackdot-football</code></td><td>Fútbol 2D Atari: estadísticas e historial</td></tr>
+      <tr><td><code>skybound.*</code> · <code>rallyrush_v1</code> · <code>dynastyfc.progress</code> · <code>cow_save_v1_*</code></td><td>guardado propio de cada juego 3D</td></tr>
+      <tr><td><code>blackdot-arcade-mode</code></td><td>sala 3D o modo ligero</td></tr>
+    </table>
+    <div>
+      <div class="card"><h3>Validación y errores</h3><ul><li><code>read(key, validate, fallback)</code>: JSON.parse protegido + validación de forma; si falla, se usan valores por defecto y se avisa en consola.</li><li><code>write()</code> captura cuota llena / modo privado.</li><li>Números saneados (<code>n()</code>): nunca negativos ni NaN.</li><li>No se guardan datos personales del formulario.</li></ul></div>
+      <div class="card" style="margin-top:24px"><h3>Prueba de persistencia</h3><p>Tres arranques independientes de Chrome con el mismo perfil: juego guardado → tema cambiado → al reabrir: <b class="ok">tema claro recordado, 2 visitas, marcador 0–0 en el historial y «Récord registrado»</b>.</p></div>
+    </div>
+  </div>
+  <div class="ft"><span>Panel «Tus métricas» en arcade.html muestra estos datos en vivo</span><span>08</span></div>
+</section>
+
+<!-- 9 ARCADE -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>09 · <b>Colección Arcade 2D/3D</b></span></div>
+  <p class="k">Arcade de la asignatura</p>
+  <h2>Ping-Pong 2D · Fútbol 2D · <span class="o">Aviones 3D</span></h2>
+  <div class="grid g3" style="gap:24px">
+    <div><img class="shot" src="../evidencias/capturas/juego-pingpong-2d.png" alt=""><p class="cap"><b style="color:#fff">Ping-Pong 2D</b> (Canvas 2D) · vs IA, 2 jugadores, desafío · R reinicia</p></div>
+    <div><img class="shot" src="../evidencias/capturas/juego-futbol-2d.png" alt=""><p class="cap"><b style="color:#fff">Fútbol 2D Atari</b> (Canvas 2D) · vs CPU y 2 jugadores · marcador · R reinicia</p></div>
+    <div><img class="shot" src="../evidencias/capturas/juego-aviones-3d.png" alt=""><p class="cap"><b style="color:#fff">Sky Bound</b> (Three.js r160) · vuelo entre aros y batalla aérea</p></div>
+  </div>
+  <div class="grid g2" style="gap:24px;margin-top:24px">
+    <div class="card"><h3>Bucle a 60 FPS</h3><p><code>requestAnimationFrame</code> con <code>dt</code> acotado (≤ 33 ms) para que la física no salte; dibujo y lógica separados (<code>update()</code> / <code>render()</code>); la sala 3D se detiene fuera de pantalla y baja la resolución si no alcanza ~35 FPS.</p></div>
+    <div class="card"><h3>Memoria</h3><p>Cada juego vive en un iframe que se destruye al cerrar (<code>about:blank</code>); el visor 3D libera geometrías, materiales y texturas (<code>dispose()</code>) al cambiar de modelo; Three.js y A-Frame se cargan solo bajo demanda.</p></div>
+  </div>
+  <div class="ft"><span>Colección BLACKDOT adicional: Cúcuta Open World · Dynasty FC · Rally Rush</span><span>09</span></div>
+</section>
+
+<!-- 10 W3C -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>10 · <b>Evidencia de validación W3C</b></span></div>
+  <p class="k">Certificado de calidad · W3C</p>
+  <h2><span class="ok">0 errores</span> en las <span class="o">5 vistas</span></h2>
+  <div class="grid g3" style="gap:24px">
+    <div><img class="shot" src="../evidencias/capturas/w3c-index.png" alt=""><p class="cap">index.html · «No errors or warnings to show»</p></div>
+    <div><img class="shot" src="../evidencias/capturas/w3c-arcade.png" alt=""><p class="cap">arcade.html</p></div>
+    <div><img class="shot" src="../evidencias/capturas/w3c-ar-experience.png" alt=""><p class="cap">ar-experience.html</p></div>
+  </div>
+  <div class="grid g2" style="gap:24px;margin-top:20px">
+    <table><tr><th>Vista</th><th>Errores</th><th>Avisos</th></tr><tr><td>index.html</td><td class="ok">0</td><td class="ok">0</td></tr><tr><td>arcade.html</td><td class="ok">0</td><td class="ok">0</td></tr><tr><td>ar-experience.html</td><td class="ok">0</td><td class="ok">0</td></tr><tr><td>blog.html · contacto.html</td><td class="ok">0</td><td class="ok">0</td></tr></table>
+    <div class="card"><h3>Correcciones aplicadas</h3><ul><li><code>h3</code> dentro de tarjetas <code>role="button"</code> → botón real dentro del título.</li><li><code>dl</code> del perfil con <code>dt/dd</code> correctos.</li><li><code>aria-label</code> en <code>div</code> → <code>role="region"</code> / <code>role="list"</code>.</li><li><code>&lt;main&gt;</code> duplicado en las vistas generadas.</li></ul></div>
+  </div>
+  <div class="ft"><span>Servicio oficial Nu Html Checker (vnu 26.11.20) · JSON en docs/evidencias/w3c/</span><span>10</span></div>
+</section>
+
+<!-- 11 LIGHTHOUSE -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>11 · <b>Informe Lighthouse móvil</b></span></div>
+  <p class="k">Certificado de calidad · Lighthouse móvil</p>
+  <h2>Todas las vistas <span class="o">≥ 85</span></h2>
+  <div class="grid g2" style="gap:40px">
+    <div>
+      <table>
+        <tr><th>Vista</th><th>Rendim.</th><th>Accesib.</th><th>Buenas pr.</th><th>SEO</th></tr>
+        <tr><td><b>index.html</b></td><td class="ok">91</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
+        <tr><td><b>arcade.html</b></td><td class="ok">98</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
+        <tr><td><b>ar-experience.html</b></td><td class="ok">99</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
+        <tr><td><b>blog.html</b></td><td class="ok">94</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
+        <tr><td><b>contacto.html</b></td><td class="ok">99</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
+      </table>
+      <div class="card" style="margin-top:22px"><h3>Optimización aplicada (inicio: 60 → 91)</h3><ul><li>La sala 3D completa se trasladó a arcade.html; el inicio muestra una vitrina ligera.</li><li>Hero sin retrasos de pintura (LCP 5,6 s → 3,4 s).</li><li>GSAP solo en escritorio; partículas estáticas en táctiles.</li><li>Sin desplazamientos al cargar que anulen la medición de LCP.</li></ul></div>
+    </div>
+    <div><img class="shot" src="../evidencias/capturas/lighthouse-index.png" alt=""><p class="cap">Lighthouse 12.2.1 · móvil (emulación + red simulada) · servidor estático con gzip, igual que GitHub Pages.</p>
+      <p class="note" style="margin-top:16px">Auditoría ejecutada sobre la versión local antes de publicar. Informes HTML completos en <code>docs/evidencias/lighthouse/</code>.</p></div>
+  </div>
+  <div class="ft"><span>Ejecutado el 26/11/2026</span><span>11</span></div>
+</section>
+
+<!-- 12 INFRAESTRUCTURA -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>12 · <b>Infraestructura de red</b></span></div>
+  <p class="k">Infografía de infraestructura</p>
+  <h2>Del repositorio al <span class="o">navegador</span></h2>
+  <svg width="1680" height="640" viewBox="0 0 1680 640">
+    <defs><marker id="d" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#65C3CC"/></marker></defs>
+    <g font-size="21">
+      <rect x="0" y="40" width="300" height="220" rx="20" fill="#0A1422" stroke="rgba(101,195,204,.4)"/><text x="30" y="88" fill="#65C3CC" font-size="17" letter-spacing="3">DESARROLLO</text><text x="30" y="130" fill="#fff" font-size="25" font-weight="700">Equipo local</text><text x="30" y="168" fill="#DCE7F0">git commit</text><text x="30" y="200" fill="#DCE7F0">git push origin main</text><text x="30" y="236" fill="#8FA2B5" font-size="18">push por HTTPS</text>
+      <rect x="400" y="40" width="360" height="220" rx="20" fill="#0A1422" stroke="rgba(101,195,204,.4)"/><text x="430" y="88" fill="#65C3CC" font-size="17" letter-spacing="3">REPOSITORIO</text><text x="430" y="130" fill="#fff" font-size="25" font-weight="700">GitHub</text><text x="430" y="168" fill="#DCE7F0">blackdot-portafolio · main</text><text x="430" y="200" fill="#DCE7F0">GitHub Actions</text><text x="430" y="236" fill="#8FA2B5" font-size="18">pages-build-deployment</text>
+      <rect x="860" y="40" width="380" height="220" rx="20" fill="#0E6BA8"/><text x="890" y="88" fill="#DCEBF5" font-size="17" letter-spacing="3">HOSTING</text><text x="890" y="130" fill="#fff" font-size="25" font-weight="700">GitHub Pages</text><text x="890" y="168" fill="#fff">Server: GitHub.com</text><text x="890" y="200" fill="#fff">Caché: Varnish · TTL 600 s</text><text x="890" y="236" fill="#DCEBF5" font-size="18">x-github-edge-region: iad</text>
+      <rect x="1340" y="40" width="340" height="220" rx="20" fill="#0A1422" stroke="rgba(101,195,204,.4)"/><text x="1370" y="88" fill="#65C3CC" font-size="17" letter-spacing="3">CLIENTE</text><text x="1370" y="130" fill="#fff" font-size="25" font-weight="700">Navegador</text><text x="1370" y="168" fill="#DCE7F0">computador / teléfono</text><text x="1370" y="200" fill="#DCE7F0">cámara · WebXR · WebGL</text><text x="1370" y="236" fill="#8FA2B5" font-size="18">localStorage</text>
+      <g stroke="#65C3CC" stroke-width="3" fill="none" marker-end="url(#d)"><path d="M300 150 L 396 150"/><path d="M760 150 L 856 150"/><path d="M1340 205 L 1244 205"/></g>
+      <path d="M1244 110 L 1336 110" stroke="#34D399" stroke-width="3" marker-end="url(#d)"/><text x="1255" y="98" fill="#34D399" font-size="17">HTTPS</text>
+      <rect x="860" y="350" width="380" height="250" rx="20" fill="#0A1422" stroke="rgba(101,195,204,.4)"/><text x="890" y="398" fill="#65C3CC" font-size="17" letter-spacing="3">DNS</text><text x="890" y="438" fill="#fff" font-size="23" font-weight="700">*.github.io</text><text x="890" y="474" fill="#DCE7F0">A 185.199.108–111.153</text><text x="890" y="506" fill="#DCE7F0">AAAA 2606:50c0:8001–8003::153</text><text x="890" y="548" fill="#8FA2B5" font-size="18">resuelto con nslookup el 26/11/2026</text>
+      <rect x="1340" y="350" width="340" height="250" rx="20" fill="#0A1422" stroke="rgba(101,195,204,.4)"/><text x="1370" y="398" fill="#65C3CC" font-size="17" letter-spacing="3">TLS / SSL</text><text x="1370" y="438" fill="#fff" font-size="23" font-weight="700">TLS 1.3</text><text x="1370" y="474" fill="#DCE7F0">Let's Encrypt · CN *.github.io</text><text x="1370" y="506" fill="#DCE7F0">HSTS max-age 31556952</text><text x="1370" y="548" fill="#8FA2B5" font-size="18">HTTP → 301 → HTTPS</text>
+      <g stroke="#65C3CC" stroke-width="2.5" stroke-dasharray="8 8" fill="none"><path d="M1510 260 L 1510 346"/><path d="M1410 260 C 1300 300, 1150 300, 1050 346"/></g>
+      <rect x="0" y="350" width="760" height="250" rx="20" fill="#0E1B2C" stroke="rgba(101,195,204,.4)"/><text x="30" y="398" fill="#65C3CC" font-size="17" letter-spacing="3">SOLICITUD TÍPICA</text>
+      <text x="30" y="440" fill="#DCE7F0">1. El navegador resuelve el dominio en DNS.</text><text x="30" y="476" fill="#DCE7F0">2. Negocia TLS 1.3 y valida el certificado.</text><text x="30" y="512" fill="#DCE7F0">3. GitHub Pages entrega HTML/CSS/JS con gzip.</text><text x="30" y="548" fill="#DCE7F0">4. Three.js, A-Frame y modelos se piden bajo demanda</text><text x="56" y="580" fill="#DCE7F0">(CDN jsDelivr / aframe.io, también por HTTPS).</text>
+    </g>
+  </svg>
+  <div class="ft"><span>Datos reales: docs/evidencias/infraestructura/red-github-pages.txt</span><span>12</span></div>
+</section>
+
+<!-- 13 HOSTING -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>13 · <b>Hosting</b></span></div>
+  <p class="k">Hosting</p>
+  <h2>GitHub Pages: <span class="o">serverless estático</span></h2>
+  <div class="grid g3" style="gap:28px">
+    <div class="card"><h3>Configuración</h3><ul><li>Repositorio <code>dannavalentinar11-beep/blackdot-portafolio</code></li><li>Origen: rama <code>main</code>, carpeta raíz</li><li><code>.nojekyll</code>: se sirven los archivos tal cual</li><li>URL: <code>/blackdot-portafolio/</code> (subruta del repositorio)</li></ul></div>
+    <div class="card"><h3>Por qué es adecuado</h3><ul><li>HTTPS gratuito con certificado válido</li><li>Caché de borde y compresión gzip</li><li>Sin servidor que mantener: el sitio es 100 % estático</li><li>Rutas relativas: funciona igual en local y en la subruta</li></ul></div>
+    <div class="card"><h3>Límites respetados</h3><ul><li>Archivo más pesado: video de 49,7 MB (&lt; 100 MB por archivo)</li><li>Modelos GLB optimizados: 0,7–3,8 MB (Draco + WebP)</li><li>Sin datos sensibles en el repositorio</li></ul></div>
+  </div>
+  <div class="grid g4" style="margin-top:34px">
+    <div class="card" style="text-align:center"><p class="big">5</p><p class="mut">vistas HTML</p></div>
+    <div class="card" style="text-align:center"><p class="big">6</p><p class="mut">videojuegos</p></div>
+    <div class="card" style="text-align:center"><p class="big">4</p><p class="mut">modelos GLB</p></div>
+    <div class="card" style="text-align:center"><p class="big">0</p><p class="mut">dependencias npm en producción</p></div>
+  </div>
+  <div class="ft"><span>Despliegue verificado: el sitio publicado respondió 200 tras cada push en ~30–40 s</span><span>13</span></div>
+</section>
+
+<!-- 14 HTTP HTTPS -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>14 · <b>HTTP y HTTPS</b></span></div>
+  <p class="k">Protocolos</p>
+  <h2>HTTPS obligatorio para <span class="o">la cámara</span></h2>
+  <div class="grid g2" style="gap:40px">
+    <div class="card"><h3>Respuesta real del servidor</h3>
+      <p class="mono" style="font-size:20px;line-height:1.7">$ curl -I http://dannavalentinar11-beep.github.io/blackdot-portafolio/<br><span class="ok">HTTP/1.1 301 Moved Permanently</span><br>Location: https://dannavalentinar11-beep.github.io/blackdot-portafolio/<br><br>$ curl -I https://…/blackdot-portafolio/<br><span class="ok">HTTP/1.1 200 OK</span><br>Server: GitHub.com<br>Strict-Transport-Security: max-age=31556952<br>Cache-Control: max-age=600<br>Content-Type: text/html; charset=utf-8</p></div>
+    <div>
+      <div class="card"><h3>Contexto seguro</h3><p><code>getUserMedia()</code> (cámara) y <code>navigator.xr</code> (WebXR) solo existen en contextos seguros. La página lo comprueba con <code>window.isSecureContext</code> y lo muestra en «Compatibilidad de este dispositivo».</p></div>
+      <div class="card" style="margin-top:24px"><h3>HSTS</h3><p>Con <code>Strict-Transport-Security</code> el navegador recuerda durante un año que debe usar HTTPS, incluso si alguien escribe <code>http://</code>.</p></div>
+      <div class="card" style="margin-top:24px"><h3>Recursos externos</h3><p>Google Fonts, jsDelivr (Three.js, Draco), aframe.io, cdnjs (GSAP) y FormSubmit se cargan por HTTPS: sin contenido mixto.</p></div>
+    </div>
+  </div>
+  <div class="ft"><span>Lighthouse «Best Practices» 100: sin contenido mixto ni errores de consola</span><span>14</span></div>
+</section>
+
+<!-- 15 DNS -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>15 · <b>DNS</b></span></div>
+  <p class="k">Servicio DNS</p>
+  <h2>Resolución de <span class="o">github.io</span></h2>
+  <div class="grid g2" style="gap:40px">
+    <table>
+      <tr><th>Tipo</th><th>Valor (consulta real)</th></tr>
+      <tr><td><b>A</b></td><td class="mono">185.199.108.153</td></tr><tr><td><b>A</b></td><td class="mono">185.199.109.153</td></tr><tr><td><b>A</b></td><td class="mono">185.199.110.153</td></tr><tr><td><b>A</b></td><td class="mono">185.199.111.153</td></tr>
+      <tr><td><b>AAAA</b></td><td class="mono">2606:50c0:8001::153</td></tr><tr><td><b>AAAA</b></td><td class="mono">2606:50c0:8002::153</td></tr><tr><td><b>AAAA</b></td><td class="mono">2606:50c0:8003::153</td></tr>
+    </table>
+    <div>
+      <div class="card"><h3>Cómo funciona</h3><p>El subdominio <code>dannavalentinar11-beep.github.io</code> pertenece a la zona de GitHub, que lo resuelve a sus direcciones de Pages (IPv4 e IPv6). No hace falta configurar registros propios.</p></div>
+      <div class="card" style="margin-top:24px"><h3>Dominio propio (opcional)</h3><p>Para usar un dominio propio bastaría un registro <code>CNAME</code> hacia <code>dannavalentinar11-beep.github.io</code> (o registros A a las IP anteriores) y el archivo <code>CNAME</code> en el repositorio. No se usa en este proyecto.</p></div>
+    </div>
+  </div>
+  <div class="ft"><span>nslookup · 26/11/2026</span><span>15</span></div>
+</section>
+
+<!-- 16 SSL -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>16 · <b>Certificado SSL</b></span></div>
+  <p class="k">Certificado SSL / TLS</p>
+  <h2>Certificado <span class="o">válido</span></h2>
+  <div class="grid g2" style="gap:40px">
+    <table>
+      <tr><th>Campo</th><th>Valor (openssl s_client)</th></tr>
+      <tr><td><b>Sujeto</b></td><td class="mono">CN=*.github.io</td></tr>
+      <tr><td><b>Emisor</b></td><td class="mono">Let's Encrypt · CN=YR1</td></tr>
+      <tr><td><b>Válido desde</b></td><td class="mono">30 sep 2026 23:44 GMT</td></tr>
+      <tr><td><b>Válido hasta</b></td><td class="mono">29 dic 2026 23:44 GMT</td></tr>
+      <tr><td><b>Nombres alternativos</b></td><td class="mono">*.github.io, github.io, *.github.com, *.githubusercontent.com…</td></tr>
+      <tr><td><b>Protocolo</b></td><td class="mono">TLSv1.3 · TLS_AES_128_GCM_SHA256</td></tr>
+    </table>
+    <div>
+      <div class="card"><h3>Comodín *.github.io</h3><p>El certificado cubre cualquier subdominio de github.io, por eso la URL del portafolio es segura sin trámites adicionales.</p></div>
+      <div class="card" style="margin-top:24px"><h3>Renovación automática</h3><p>GitHub renueva el certificado antes del vencimiento (ciclo de 90 días de Let's Encrypt). Las fechas cambiarán con cada renovación.</p></div>
+    </div>
+  </div>
+  <div class="ft"><span>Consulta: 26/11/2026</span><span>16</span></div>
+</section>
+
+<!-- 17 CI/CD -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>17 · <b>Integración continua CI/CD</b></span></div>
+  <p class="k">Integración y despliegue continuos</p>
+  <h2>Cada push <span class="o">publica</span></h2>
+  <svg width="1680" height="300" viewBox="0 0 1680 300">
+    <defs><marker id="e" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#65C3CC"/></marker></defs>
+    <g font-size="21" text-anchor="middle">
+      <rect x="0" y="60" width="270" height="170" rx="18" fill="#0A1422" stroke="rgba(101,195,204,.4)"/><text x="135" y="112" fill="#fff" font-size="24" font-weight="700">Validación local</text><text x="135" y="150" fill="#DCE7F0">W3C · Lighthouse</text><text x="135" y="182" fill="#DCE7F0">pruebas Chrome</text><text x="135" y="212" fill="#8FA2B5" font-size="17">docs/pipeline/</text>
+      <rect x="350" y="60" width="270" height="170" rx="18" fill="#0A1422" stroke="rgba(101,195,204,.4)"/><text x="485" y="112" fill="#fff" font-size="24" font-weight="700">Commit</text><text x="485" y="150" fill="#DCE7F0">git add / commit</text><text x="485" y="182" fill="#DCE7F0">mensaje descriptivo</text>
+      <rect x="700" y="60" width="270" height="170" rx="18" fill="#0A1422" stroke="rgba(101,195,204,.4)"/><text x="835" y="112" fill="#fff" font-size="24" font-weight="700">Push a main</text><text x="835" y="150" fill="#DCE7F0">GitHub recibe</text><text x="835" y="182" fill="#DCE7F0">los cambios</text>
+      <rect x="1050" y="60" width="290" height="170" rx="18" fill="#0E6BA8"/><text x="1195" y="112" fill="#fff" font-size="24" font-weight="700">GitHub Actions</text><text x="1195" y="150" fill="#fff">pages-build-deployment</text><text x="1195" y="182" fill="#DCEBF5">construye y despliega</text>
+      <rect x="1420" y="60" width="260" height="170" rx="18" fill="#0A1422" stroke="#34D399"/><text x="1550" y="112" fill="#fff" font-size="24" font-weight="700">Producción</text><text x="1550" y="150" fill="#34D399">HTTPS · ~30–40 s</text><text x="1550" y="182" fill="#DCE7F0">verificación curl</text>
+      <g stroke="#65C3CC" stroke-width="3" marker-end="url(#e)"><path d="M270 145 L 346 145"/><path d="M620 145 L 696 145"/><path d="M970 145 L 1046 145"/><path d="M1340 145 L 1416 145"/></g>
+    </g>
+  </svg>
+  <div class="grid g2" style="gap:28px;margin-top:20px">
+    <div class="card"><h3>Workflow programado</h3><p><code>.github/workflows/actualizar-divinevanity.yml</code>: cada lunes captura divinevanity.co con Chrome sin ventana, valida la imagen (tamaño y variedad de color) y solo publica si cambió.</p></div>
+    <div class="card"><h3>Calidad antes de publicar</h3><p>Se validan las 5 vistas en el W3C y Lighthouse móvil; nada se publica sin autorización de la autora. El historial de Git permite volver a cualquier versión.</p></div>
+  </div>
+  <div class="ft"><span>Despliegue serverless en GitHub Pages</span><span>17</span></div>
+</section>
+
+<!-- 18 PRUEBAS -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>18 · <b>Pruebas funcionales</b></span></div>
+  <p class="k">Pruebas ejecutadas</p>
+  <h2>Resultados <span class="o">verificados</span></h2>
+  <table style="font-size:21px">
+    <tr><th>Prueba</th><th>Método</th><th>Resultado</th></tr>
+    <tr><td>5 vistas abren, enlaces internos válidos, sin errores de consola</td><td>Chrome sin ventana (CDP)</td><td class="ok">Aprobada</td></tr>
+    <tr><td>Modo claro / oscuro global y persistente</td><td>Cambio de tema + reapertura del navegador</td><td class="ok">Aprobada</td></tr>
+    <tr><td>Ping-Pong 2D: vs IA y 2 jugadores, paletas, reinicio, historial</td><td>Teclado simulado en tiempo real</td><td class="ok">Aprobada</td></tr>
+    <tr><td>Fútbol 2D Atari: vs CPU y 2 jugadores, reinicio, marcador guardado</td><td>Teclado simulado en tiempo real</td><td class="ok">Aprobada</td></tr>
+    <tr><td>Aviones 3D (Sky Bound): crear piloto y volar el nivel 1</td><td>Interacción automatizada + captura</td><td class="ok">Aprobada</td></tr>
+    <tr><td>WebAR: escena, modelo (32 mallas), 5 hotspots, raycaster con ratón</td><td>Clics proyectados sobre el lienzo</td><td class="ok">Aprobada</td></tr>
+    <tr><td>Marcadores y métricas persisten tras cerrar el navegador</td><td>3 arranques con el mismo perfil</td><td class="ok">Aprobada</td></tr>
+    <tr><td>Responsive 390 px sin desplazamiento horizontal</td><td>Emulación móvil</td><td class="ok">Aprobada</td></tr>
+    <tr><td>WebXR immersive-ar y cámara en teléfono real</td><td>Requiere dispositivo físico</td><td style="color:#F4B740">Pendiente en la sustentación</td></tr>
+  </table>
+  <div class="ft"><span>Detalle: docs/INFORME-PRUEBAS-3ER-PREVIO.md</span><span>18</span></div>
+</section>
+
+<!-- 19 CONCLUSIONES -->
+<section class="s">
+  <div class="hd"><span>BLACKDOT · Manual técnico</span><span>19 · <b>Conclusiones técnicas</b></span></div>
+  <p class="k">Conclusiones técnicas</p>
+  <h2>Un portafolio <span class="o">demostrable</span></h2>
+  <div class="grid g2" style="gap:40px">
+    <div class="card"><ul>
+      <li>Arquitectura estática y modular: cinco vistas coherentes generadas desde una fuente común, sin frameworks.</li>
+      <li>Calidad medida: W3C 0 errores en todas las vistas; Lighthouse móvil 91–99 en rendimiento y 100 en accesibilidad, buenas prácticas y SEO.</li>
+      <li>Rendimiento por diseño: carga diferida de Three.js, A-Frame, GSAP y modelos; render suspendido fuera de pantalla.</li>
+      <li>WebAR honesta: WebXR donde existe, cámara como alternativa y modo 3D universal, con requisitos documentados.</li>
+      <li>Persistencia robusta: claves por módulo, validación y manejo de errores; los datos de los juegos nunca se reinician.</li>
+    </ul></div>
+    <div class="card"><h3>Mejoras futuras</h3><ul><li>Repetir Lighthouse sobre la URL publicada tras cada despliegue (Lighthouse CI).</li><li>Probar WebXR en más dispositivos Android con ARCore.</li><li>Anclaje de imagen (image tracking) para iOS cuando el navegador lo permita.</li><li>Comprimir las texturas GLB a KTX2 para reducir memoria de GPU.</li></ul></div>
+  </div>
+  <div class="ft"><span>BLACKDOT · Danna Rueda · Ingeniería Multimedia · Universidad Simón Bolívar</span><span>19</span></div>
+</section>
+</body>
+</html>

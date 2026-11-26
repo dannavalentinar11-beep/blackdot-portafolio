@@ -26,8 +26,17 @@
     spotlight(document.getElementById("inicio"));
     spotlight(document.getElementById("arcade-gate"));
 
+    if (reduced || !fine || innerWidth < 900) return; /* celular o movimiento reducido: sin GSAP */
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js").then(function () {
+      return loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js");
+    }).then(runGsap).catch(function (e) { console.warn("BLACKDOT: GSAP no disponible; el sitio sigue con sus transiciones CSS.", e); });
+  }
+  function loadScript(src) {
+    return new Promise(function (res, rej) { var s = document.createElement("script"); s.src = src; s.async = true; s.onload = res; s.onerror = function () { rej(new Error(src)); }; document.head.appendChild(s); });
+  }
+  function runGsap() {
     var gsap = window.gsap, ST = window.ScrollTrigger;
-    if (!gsap || !ST || reduced) return;
+    if (!gsap || !ST) return;
     gsap.registerPlugin(ST);
     document.documentElement.classList.add("has-gsap");
 
@@ -54,7 +63,7 @@
     /* BLACKDOT 2.0: las tarjetas de proyectos ya no tienen parallax (se mantienen alineadas). */
 
     /* Sobre mí: la tarjeta de perfil flota con un desfase de profundidad */
-    gsap.fromTo(".profile-card", { "--py": "40px" }, { "--py": "-20px", ease: "none", scrollTrigger: { trigger: ".about2", start: "top bottom", end: "bottom top", scrub: 0.8 } });
+    if (document.querySelector(".profile-card")) gsap.fromTo(".profile-card", { "--py": "40px" }, { "--py": "-20px", ease: "none", scrollTrigger: { trigger: ".about2", start: "top bottom", end: "bottom top", scrub: 0.8 } });
 
     /* Herramientas: aparición escalonada de las fichas dentro de cada grupo */
     document.querySelectorAll(".tool-cat").forEach(function (grp) {
@@ -62,7 +71,7 @@
     });
 
     /* Footer: la firma BLACKDOT se compacta al llegar al final */
-    gsap.fromTo(".footer-word", { letterSpacing: "0.14em", opacity: 0.25 }, { letterSpacing: "-0.06em", opacity: 1, ease: "none", scrollTrigger: { trigger: ".footer-word", start: "top bottom", end: "bottom 85%", scrub: 0.6 } });
+    if (document.querySelector(".footer-word")) gsap.fromTo(".footer-word", { letterSpacing: "0.14em", opacity: 0.25 }, { letterSpacing: "-0.06em", opacity: 1, ease: "none", scrollTrigger: { trigger: ".footer-word", start: "top bottom", end: "bottom 85%", scrub: 0.6 } });
 
     /* Recalcula cuando cargan imágenes o cambia el diseño */
     addEventListener("load", function () { ST.refresh(); });

@@ -168,6 +168,50 @@
         S.wins = 0; S.games = 0; S.matches = 0; S.hist = [];
         writeJSON("rallyrush_v1", S);
       }
+    },
+
+    pixelpong: {
+      metric: "challenge",
+      /* Si todavía no se ha jugado el Desafío arcade, el dato principal son las victorias */
+      pick: function (b) { return num(b.challenge) > 0 ? "challenge" : "wins"; },
+      labels: { challenge: "Récord en Desafío arcade", streak: "Mejor racha", wins: "Victorias" },
+      show: { challenge: function (v) { return fmt(v) + " pts"; }, streak: fmt, wins: fmt },
+      modes: { ai: "vs IA", local: "2 jugadores", challenge: "Desafío" },
+      resetText: "Se borrarán las estadísticas e historial de Pixel Pong 2D. Tus preferencias (sonido y dificultad) se conservan.",
+      read: function () {
+        var d = readJSON("blackdot-pixelpong-v1") || {};
+        if (!num(d.games) && !num(d.best)) return EMPTY;
+        var modes = this.modes, hist = Array.isArray(d.history) ? d.history : [];
+        return {
+          has: true,
+          bests: { challenge: num(d.best), streak: num(d.bestStreak), wins: num(d.wins) },
+          stats: [["Partidas", fmt(num(d.games))], ["Victorias", fmt(num(d.wins))], ["Derrotas", fmt(num(d.losses))], ["Mejor racha", fmt(num(d.bestStreak))], ["Puntos totales", fmt(num(d.points))]],
+          historyTitle: "Últimas partidas",
+          history: hist.filter(function (h) { return h && isFinite(h.a) && isFinite(h.b); }).slice(0, 3).map(function (h) { return { left: modes[h.mode] || "Partida", right: h.a + " – " + h.b, date: h.date }; })
+        };
+      },
+      reset: function () { var p = readJSON("blackdot-pixelpong-v1") || {}; writeJSON("blackdot-pixelpong-v1", { sound: p.sound !== false, difficulty: p.difficulty }); }
+    },
+
+    atarifootball: {
+      metric: "wins",
+      labels: { wins: "Victorias", streak: "Mejor racha", goals: "Récord de goles en un partido" },
+      show: { wins: fmt, streak: fmt, goals: fmt },
+      modes: { ai: "vs CPU", two: "2 jugadores" },
+      resetText: "Se borrarán las estadísticas e historial de Atari Football 2D. Tus preferencias (sonido y dificultad) se conservan.",
+      read: function () {
+        var d = readJSON("blackdot-football") || {};
+        if (!num(d.played)) return EMPTY;
+        var modes = this.modes, hist = Array.isArray(d.history) ? d.history : [];
+        return {
+          has: true,
+          bests: { wins: num(d.won), streak: num(d.best), goals: num(d.bestGoals) },
+          stats: [["Partidos", fmt(num(d.played))], ["V · E · D", num(d.won) + " · " + num(d.drawn) + " · " + num(d.lost)], ["Goles a favor / en contra", num(d.scored) + " / " + num(d.conceded)], ["Mejor racha", fmt(num(d.best))], ["Más goles en un partido", fmt(num(d.bestGoals))]],
+          historyTitle: "Últimos partidos",
+          history: hist.filter(function (h) { return h && isFinite(h.a) && isFinite(h.b); }).slice(0, 3).map(function (h) { return { left: modes[h.mode] || "Partido", right: h.a + " – " + h.b, date: h.date }; })
+        };
+      },
+      reset: function () { var p = readJSON("blackdot-football") || {}; writeJSON("blackdot-football", { sound: p.sound !== false, difficulty: p.difficulty }); }
     }
   };
 
@@ -182,13 +226,13 @@
     var B = window.BLACKDOT, grid = document.getElementById("hof-grid");
     if (!B || !grid) return;
     var esc = B.esc;
-    /* Orden del salón: el mismo del arcade (01 Cúcuta · 02 Dynasty · 03 Sky Bound · 04 Rally).
-       Las claves de LocalStorage de los juegos retirados en BLACKDOT 2.0 no se leen ni se borran. */
-    var ORDER = ["cucuta", "dynasty", "skybound", "rally"];
+    /* Orden del salón: el mismo del arcade. Primero los juegos de la asignatura (Ping-Pong 2D,
+       Fútbol 2D Atari y Aviones 3D) y después la colección BLACKDOT. */
+    var ORDER = ["pixelpong", "atarifootball", "skybound", "cucuta", "dynasty", "rally"];
     var games = ORDER.map(function (id) { return B.GAMES.filter(function (g) { return g.id === id; })[0]; }).filter(Boolean);
     var filter = "all", snaps = {};
 
-    /* Lee los cuatro juegos, actualiza el registro central y devuelve los nuevos récords */
+    /* Lee los seis juegos, actualiza el registro central y devuelve los nuevos récords */
     function sync() {
       var hall = loadHall(), now = new Date().toISOString(), news = [];
       games.forEach(function (g) {
@@ -233,7 +277,7 @@
         '<div class="hof-media"><img src="' + IMG + g.shots[0] + '-640.webp" alt="Captura de ' + esc(g.name) + '" width="640" height="360" loading="lazy" decoding="async">' +
         '<span class="hof-status ' + (has ? "is-on" : "") + '">' + (has ? "Récord registrado" : "Sin partidas") + "</span>" +
         '<span class="hof-dim">' + esc(g.dim) + "</span></div>";
-      var title = '<header class="hof-head"><span class="hof-num">' + String(i + 1).padStart(2, "0") + '</span><div><h3>' + esc(g.name) + "</h3><p>" + esc(g.genre) + "</p></div></header>";
+      var title = '<header class="hof-head"><span class="hof-num">' + String(i + 1).padStart(2, "0") + '</span><div><h3>' + esc(g.name) + "</h3><p>" + esc(g.course ? "Asignatura · " + g.course : g.genre) + "</p></div></header>";
       var body;
       if (!has) {
         body = '<div class="hof-empty"><p class="hof-empty-t">Sin partidas registradas</p><p>Juega una partida y tu primer récord aparecerá aquí automáticamente.</p></div>';

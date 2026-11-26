@@ -413,3 +413,70 @@ body { background: var(--bg-primary); color: var(--text-primary); }
 .menu-btn > span { background: none; }
 .menu-btn[aria-expanded="true"] > span { transform: none; }
 #menu-btn[aria-expanded="true"] > span { transform: none; }
+
+
+/* Arcade 3er previo: seis estaciones y distinción Asignatura / Colección */
+.arcade-hall:not(.is-3d) .stations { grid-template-columns: repeat(var(--n, 6), minmax(0, 1fr)); gap: clamp(10px, 1.2vw, 18px); }
+.hc-wall { background: repeating-linear-gradient(90deg, transparent 0 calc(100% / 6 - 1px), var(--grid-line) calc(100% / 6 - 1px) calc(100% / 6)), linear-gradient(180deg, var(--zone-bg), color-mix(in srgb, var(--brand-blue) 14%, var(--zone-bg)) 70%, color-mix(in srgb, var(--brand-blue) 20%, var(--zone-bg))); }
+.gate-screens { grid-template-columns: repeat(3, 1fr); width: min(1500px, 175vw); }
+.st-tag { display: none; }
+.arcade-hall:not(.is-3d) .st-tag { order: -1; display: inline-block; align-self: flex-start; margin: 10px 12px 0; padding: 3px 8px; border-radius: 999px; font: 700 .6rem var(--f-display); letter-spacing: .14em; text-transform: uppercase; border: 1px solid var(--border-strong); color: var(--text-secondary); }
+.arcade-hall:not(.is-3d) li.is-course .st-tag { background: var(--accent); border-color: var(--accent); color: #fff; }
+.arcade-hall.is-3d li.is-course .st-name::before { content: "★ "; color: var(--accent-text); }
+
+/* Vistas dedicadas (arcade.html, blog.html, contacto.html, ar-experience.html) */
+.page-hero { position: relative; padding: clamp(120px, 15vw, 170px) 0 clamp(32px, 4vw, 48px); background: var(--hero-bg); border-bottom: 1px solid var(--border-color); }
+.page-title { font-size: clamp(2.4rem, 6vw, 5rem); font-weight: 700; letter-spacing: -.05em; text-transform: uppercase; line-height: .95; }
+.page-title .o { color: transparent; -webkit-text-stroke: 1.2px var(--text-strong); }
+.page-intro { margin-top: 18px; max-width: 62ch; color: var(--text-secondary); font-size: 1.05rem; }
+.page-blog #blog, .page-contacto #contacto { padding-top: clamp(40px, 5vw, 64px) !important; }
+.page-blog #blog .section-head, .page-contacto #contacto .section-head { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.nav a[aria-current="page"] { color: var(--text-strong); background: var(--accent-soft); }
+.mobile-menu a[aria-current="page"] { color: var(--accent-text); }
+
+/* Métricas (localStorage) */
+.metrics { border-top: 1px solid var(--border-color); }
+.metrics-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.metric { display: grid; gap: 4px; padding: 18px; border-radius: 18px; border: 1px solid var(--border-color); background: var(--card-background); }
+.metric span { font: 600 .74rem var(--f-display); letter-spacing: .1em; text-transform: uppercase; color: var(--text-secondary); }
+.metric b { font: 700 clamp(1.7rem, 2.6vw, 2.3rem)/1.05 var(--f-display); color: var(--text-strong); font-variant-numeric: tabular-nums; }
+.metric small { color: var(--text-secondary); font-size: .84rem; }
+.metric--wide { grid-column: 1 / -1; }
+.metric-bars { display: grid; gap: 8px; margin-top: 8px; }
+.metric-bars li { display: grid; grid-template-columns: minmax(130px, 200px) 1fr 40px; align-items: center; gap: 12px; font-size: .9rem; }
+.metric-bars em { font-style: normal; color: var(--text-primary); }
+.metric-bars i { height: 8px; border-radius: 8px; background: linear-gradient(90deg, var(--gc) var(--w), var(--border-color) var(--w)); }
+.metric-bars b { font-size: .95rem; text-align: right; }
+.metrics-history { margin-top: 24px; }
+.metrics-h { font-size: 1.05rem; margin-bottom: 10px; }
+.metrics-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.metrics-table th, .metrics-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border-color); }
+.metrics-table th { font: 600 .72rem var(--f-display); letter-spacing: .1em; text-transform: uppercase; color: var(--text-secondary); }
+.metrics-empty { color: var(--text-secondary); padding: 16px; border: 1px dashed var(--border-strong); border-radius: 14px; }
+.metrics-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 20px; color: var(--text-secondary); }
+@media (max-width: 760px) { .metrics-grid { grid-template-columns: 1fr 1fr; } .metric-bars li { grid-template-columns: 1fr 40px; } .metric-bars i { grid-column: 1 / -1; grid-row: 2; } }
+
+
+/* Validación W3C: la tarjeta de proyecto ya no es role=button; el título contiene el botón real
+   y su área se extiende a toda la tarjeta. */
+.projects2 .p-card { cursor: pointer; }
+.projects2 .p-card:focus-within { border-color: var(--border-strong); box-shadow: var(--shadow-soft); }
+.p-open { all: unset; cursor: pointer; font: inherit; color: inherit; }
+.p-open:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 4px; border-radius: 6px; }
+.pc-head dt, .pc-head dd { margin: 0; color: inherit; font: inherit; letter-spacing: inherit; text-transform: uppercase; }
+
+
+/* Vitrina del arcade en la página de inicio (la sala completa vive en arcade.html) */
+.arcade-teaser { border-top: 1px solid var(--border-color); background: linear-gradient(180deg, transparent, var(--accent-soft) 55%, transparent); }
+.at-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+.at-card a { display: grid; gap: 4px; height: 100%; padding: 10px 10px 14px; border-radius: 18px; border: 1px solid var(--border-color); background: var(--card-background); transition: border-color .3s, transform .4s var(--ease), box-shadow .4s var(--ease); }
+.at-card a:hover, .at-card a:focus-visible { border-color: var(--border-strong); transform: translateY(-3px); box-shadow: var(--shadow-soft); }
+.at-img { display: block; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #05080D; margin-bottom: 6px; }
+.at-img img { width: 100%; height: 100%; object-fit: cover; }
+.at-tag { justify-self: start; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border-strong); font: 700 .58rem var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--text-secondary); }
+.at-card.is-course .at-tag { background: var(--accent); border-color: var(--accent); color: #fff; }
+.at-card strong { font: 600 .98rem/1.2 var(--f-display); color: var(--text-strong); }
+.at-card small { color: var(--text-secondary); font-size: .8rem; }
+.at-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+@media (max-width: 1100px) { .at-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .at-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

@@ -5,11 +5,25 @@ Sitio estático en HTML, CSS y JavaScript *vanilla* (sin frameworks ni compilaci
 
 Sitio actual: https://dannavalentinar11-beep.github.io/blackdot-portafolio/
 
+## Tercer previo de Ingeniería Web (Universidad Simón Bolívar)
+
+| Requisito | Dónde está |
+|---|---|
+| Vistas `index.html`, `blog.html`, `contacto.html`, `arcade.html`, `ar-experience.html` | raíz del proyecto (misma cabecera, footer y tema) |
+| Ping-Pong 2D · Fútbol 2D Atari (IA y 2 jugadores) · Juego de aviones 3D | `pingpong.html`, `futbol.html`, `juegos/skybound.html` (en `arcade.html`, grupo «Asignatura») |
+| WebAR con A-Frame / WebXR y raycaster | `ar-experience.html` + `js/ar-experience.js` |
+| localStorage (marcadores, récords, métricas, tema) | `js/storage.js`, `js/halloffame.js`, `js/metrics-panel.js` |
+| Despliegue HTTPS y CI/CD | GitHub Pages · `docs/DESPLIEGUE.md` |
+| Manual técnico PDF 1920×1080 | `docs/Manual-Tecnico-Auditoria-Infraestructura-BLACKDOT.pdf` (también en `assets/manual-tecnico-blackdot.pdf`) |
+| Evidencias W3C y Lighthouse | `docs/evidencias/` |
+| Guion de sustentación (5 min) | `docs/Guion-Sustentacion-5-minutos-BLACKDOT.pdf` |
+| Informe de pruebas | `docs/INFORME-PRUEBAS-3ER-PREVIO.md` |
+
 ## Novedades de la versión 2.0
 
 | Área | Cambio |
 |---|---|
-| Arcade | Quedan **4 juegos** en el mismo orden en todas las interfaces: 01 Cúcuta Open World · 02 Dynasty FC · 03 Sky Bound · 04 Rally Rush. Se retiraron Pixel Pong 2D y Atari Football 2D (datos, estaciones 3D, modo ligero, récords, textos, enlaces y portadas). |
+| Arcade | **6 juegos** en dos grupos y con el mismo orden en todas las interfaces. Asignatura: 01 Ping-Pong 2D (Pixel Pong) · 02 Fútbol 2D Atari · 03 Aviones 3D (Sky Bound). Colección BLACKDOT: 04 Cúcuta Open World · 05 Dynasty FC · 06 Rally Rush. La sala completa vive en `arcade.html`; el inicio muestra una vitrina. |
 | Tema | Modo claro/oscuro **global**: un solo sistema de variables en `css/tokens.css`, sin secciones forzadas a oscuro (se eliminó `.zone-dark`). Recuerda la elección (`blackdot-theme`) y, si no hay elección, sigue el tema del sistema. La sala 3D del arcade y el visor 3D también cambian de tema. |
 | Proyectos | Galería editorial en CSS Grid: filas alineadas, imágenes completas sin recortes ni deformaciones (`object-fit: contain` y anchos proporcionales a cada relación de aspecto). El video vertical se muestra vertical. |
 | Herramientas | Organizadas en 5 categorías con tarjetas uniformes. |
@@ -26,7 +40,7 @@ css/blackdot2.css             Capa visual 2.x (hero, arcade, ficha, récords, fo
 css/blackdot-v2.css           Capa 2.0: adaptación al tema, proyectos, herramientas, 3D Lab, cinemática
 js/script.js                  Lógica del portafolio, tema global, datos, modales y reproductor de juegos
 js/arcade.js / arcade3d.js    BLACKDOT Arcade (sala 3D con Three.js o modo ligero)
-js/halloffame.js              Salón de la fama (récords de los 4 juegos en LocalStorage)
+js/halloffame.js              Salón de la fama (récords de los 6 juegos en LocalStorage)
 js/motion.js                  GSAP + ScrollTrigger (opcional)
 js/lab3d.js                   Visor de BLACKDOT 3D LAB y reproductor de la cinemática (módulo ES)
 js/lab3d-characters.js        Configuración de personajes (añadir uno nuevo = añadir un objeto)
@@ -34,7 +48,9 @@ juegos/                       Los 4 videojuegos 3D (sin cambios en su funcionami
 assets/models/                blackdot.glb · kairo.glb · nox.glb (Draco + texturas WebP)
 assets/video/                 blackdot-cinematic-final.mp4 y videos de proyectos
 assets/img/                   Imágenes originales del portafolio y del arcade
-archivo/juegos-retirados/     Pixel Pong 2D y Atari Football 2D archivados (no enlazados desde el sitio)
+pingpong.html · futbol.html   Ping-Pong 2D y Fútbol 2D Atari (Canvas 2D) · js/pingpong.js, js/futbol.js, live-coding/
+arcade.html · blog.html · contacto.html · ar-experience.html   Vistas dedicadas
+js/storage.js · js/metrics-panel.js · js/ar-experience.js   Persistencia, métricas y WebAR
 docs/                         Informes técnico y de pruebas, pendientes y scripts del pipeline 3D/video
 ```
 
@@ -84,6 +100,6 @@ Todas las rutas son relativas y respetan mayúsculas/minúsculas. El archivo má
 | `blackdot-hall-v1` | Registro central de récords |
 | `cow_save_v1_*`, `dynastyfc.progress`, `skybound.*`, `rallyrush_v1` | Guardado de cada juego (sin cambios) |
 
-Las claves de los juegos retirados (`blackdot-football`, `blackdot-pixelpong-v1`) no se leen ni se borran.
+`blackdot-football` y `blackdot-pixelpong-v1` guardan las estadísticas e historial de marcadores de los juegos 2D; `blackdot-metrics-v1` guarda las métricas de interacción (ver `js/storage.js`).
 
 Documentación detallada: `docs/INFORME-TECNICO.md`, `docs/INFORME-PRUEBAS.md`, `docs/RECURSOS-PENDIENTES.md`.

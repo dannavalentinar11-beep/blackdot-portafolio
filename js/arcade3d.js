@@ -2,7 +2,7 @@
    BLACKDOT ARCADE — sala 3D (Three.js r160, módulo ES)
    Se carga bajo demanda desde js/arcade.js solo cuando la persona entra.
 
-   Composición (v2.1 → 2.0 portafolio): un salón circular con una alcoba por juego (cuatro) —paredes laterales,
+   Composición (v2.1 → 2.0 portafolio): un salón circular con una alcoba por juego (seis) —paredes laterales,
    panel de fondo, cabecera con señalización y plataforma en el suelo— en las que se
    instala cada máquina con su escenografía. Iluminación ambiental azul/cian, luz
    cenital suave sobre la estación seleccionada y efectos contenidos.
@@ -310,6 +310,40 @@ export function createArcade(opts) {
       tbl.add(top, l1, l2, net, p1, p2, ball);
       tbl.position.set(0, 3.25, -1.2); tbl.rotation.x = 0.45; add(tbl);
       return (t) => { ball.position.set(Math.sin(t * 1.8) * 0.75, 0.07 + Math.abs(Math.sin(t * 3.6)) * 0.16, 0); };
+    },
+    pixelpong(g, add) {
+      const wallT = canvasTex(512, 360, (x, w, h) => {
+        x.fillStyle = "#070b16"; x.fillRect(0, 0, w, h);
+        x.strokeStyle = "rgba(82,229,255,.35)"; x.lineWidth = 3; x.strokeRect(10, 10, w - 20, h - 20);
+        x.setLineDash([14, 12]); x.strokeStyle = "rgba(255,255,255,.35)"; x.beginPath(); x.moveTo(w / 2, 14); x.lineTo(w / 2, h - 14); x.stroke(); x.setLineDash([]);
+        x.font = `700 70px ${FONT}`; x.textAlign = "center"; x.fillStyle = "rgba(82,229,255,.6)"; x.fillText("0", w / 2 - 80, 96); x.fillStyle = "rgba(255,79,154,.6)"; x.fillText("1", w / 2 + 80, 96);
+      });
+      const board = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.83), new THREE.MeshBasicMaterial({ map: wallT, toneMapped: false, color: new THREE.Color(0.8, 0.8, 0.8) })); board.position.set(0, 3.2, -1.72); add(board);
+      const pa = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.4, 0.06), glowMat(0x52e5ff, 1)); pa.position.set(-1.05, 3.2, -1.6);
+      const pb = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.4, 0.06), glowMat(0xff4f9a, 1)); pb.position.set(1.05, 3.2, -1.6);
+      const ball = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.09, 0.09), glowMat(0xffffff, 1.1)); add(pa, pb, ball);
+      return (t) => {
+        const bx = Math.asin(Math.sin(t * 1.4)) / (Math.PI / 2) * 0.92, by = 3.2 + Math.asin(Math.sin(t * 1.9)) / (Math.PI / 2) * 0.62;
+        ball.position.set(bx, by, -1.6); pa.position.y += (by - pa.position.y) * 0.06; pb.position.y += (by - pb.position.y) * 0.06;
+      };
+    },
+    atarifootball(g, add) {
+      const fieldT = canvasTex(512, 350, (x, w, h) => {
+        const gr = x.createRadialGradient(w / 2, h / 2, 10, w / 2, h / 2, w * 0.6); gr.addColorStop(0, "#1d3428"); gr.addColorStop(1, "#06100d");
+        x.fillStyle = gr; x.fillRect(0, 0, w, h);
+        x.strokeStyle = "rgba(217,255,86,.65)"; x.lineWidth = 4; x.strokeRect(24, 20, w - 48, h - 40);
+        x.beginPath(); x.moveTo(w / 2, 20); x.lineTo(w / 2, h - 20); x.stroke(); x.beginPath(); x.arc(w / 2, h / 2, 46, 0, 6.2832); x.stroke();
+        x.strokeRect(24, h / 2 - 70, 64, 140); x.strokeRect(w - 88, h / 2 - 70, 64, 140);
+      });
+      const board = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.78), new THREE.MeshBasicMaterial({ map: fieldT, toneMapped: false, color: new THREE.Color(0.85, 0.85, 0.85) })); board.position.set(0, 3.2, -1.72); add(board);
+      const mk = (c) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.05, 20), glowMat(c, 0.9)); m.rotation.x = Math.PI / 2; return m; };
+      const blue = mk(0x4aa8ff), red = mk(0xff5b55), ball = new THREE.Mesh(new THREE.SphereGeometry(0.05, 12, 8), glowMat(0xffffff, 1));
+      add(blue, red, ball);
+      return (t) => {
+        blue.position.set(-0.5 + Math.sin(t * 0.9) * 0.2, 3.2 + Math.cos(t * 1.1) * 0.25, -1.62);
+        red.position.set(0.55 + Math.sin(t * 1.0 + 1) * 0.2, 3.2 + Math.cos(t * 0.9 + 2) * 0.25, -1.62);
+        ball.position.lerpVectors(blue.position, red.position, (Math.sin(t) + 1) / 2); ball.position.z = -1.58;
+      };
     }
   };
 

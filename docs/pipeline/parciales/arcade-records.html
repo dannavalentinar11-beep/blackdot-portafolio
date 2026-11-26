@@ -1,0 +1,22 @@
+  <!-- SALÓN DE LA FAMA BLACKDOT: récords reales de los seis juegos del arcade (js/halloffame.js) -->
+  <section class="section hof" id="records" aria-labelledby="hof-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker rv">Salón de récords</p>
+          <h2 class="section-title" id="hof-title">Salón de <span class="o">la fama</span></h2>
+        </div>
+        <p class="section-intro rv" style="--d:120">Cada juego tiene una historia. Cada jugador deja un récord.</p>
+      </div>
+      <div class="hof-bar rv">
+        <div class="hof-filters" role="group" aria-label="Filtrar récords">
+          <button type="button" class="is-active" data-hof-filter="all" aria-pressed="true">Todos <b id="hof-count-all">6</b></button>
+          <button type="button" data-hof-filter="rec" aria-pressed="false">Con récord <b id="hof-count-rec">0</b></button>
+          <button type="button" data-hof-filter="empty" aria-pressed="false">Sin partidas <b id="hof-count-empty">6</b></button>
+        </div>
+        <p class="hof-note">Récords personales guardados en este navegador (LocalStorage). No es una clasificación global entre jugadores: se actualizan solos al terminar cada partida.</p>
+        <button class="btn btn-ghost btn-sm" type="button" id="hof-refresh">Actualizar récords <span class="arr" aria-hidden="true">↻</span></button>
+      </div>
+      <div class="hof-grid" id="hof-grid" aria-live="polite"><!-- Seis módulos generados por js/halloffame.js --></div>
+    </div>
+  </section>

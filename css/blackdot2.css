@@ -71,9 +71,7 @@
 .hero2 .hero-title .accent::after { display: none; }
 .hero2 .t-dot { color: var(--cyan); font-weight: 700; }
 /* Entrada cinematográfica: style.css fuerza los estados finales con !important; aquí se define el estado inicial mientras el hero no tenga .is-in */
-html.js .hero2:not(.is-in) .hero-title .ln > span { transform: translateY(110%) rotate(4deg) !important; }
-html.js .hero2:not(.is-in) .hero-fade { opacity: 0 !important; transform: translateY(26px) !important; }
-html.js .hero2:not(.is-in) .hero-card-media { clip-path: inset(100% 0 0 0) !important; }
+/* BLACKDOT 2.0 (rendimiento): los textos del hero se pintan de inmediato (mejor LCP en móvil) */
 .hero2 .hero-title .ln > span { transition-delay: calc(.35s + var(--i) * .12s); }
 .hero2 .hero-fade { transition-delay: calc(.75s + var(--i, 0) * .1s); }
 

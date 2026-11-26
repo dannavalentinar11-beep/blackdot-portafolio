@@ -12,6 +12,42 @@
 
   /* ---------------- Datos ---------------- */
   var GAMES = [
+    /* BLACKDOT 2.0 · 3er previo de Ingeniería Web: el arcade agrupa los juegos exigidos por la
+       asignatura (group: "curso": Ping-Pong 2D, Fútbol 2D Atari y Juego de Aviones 3D = Sky Bound)
+       y la colección adicional del portafolio (group: "coleccion"). */
+    {
+      id: "pixelpong", course: "Ping-Pong 2D", file: "pingpong.html", title: "Pixel", sub: "Pong 2D", genre: "Deportes · Arcade 2D", color: "#52E5FF", tag: "2D · Web",
+      desc: "Tenis de mesa neón en 2D. Juega contra la IA, en modo local de dos jugadores o supera el desafío, con velocidad creciente, estadísticas y ajustes.",
+      tech: ["Canvas 2D", "1 o 2 jugadores", "IA", "Guardado local"],
+      help: "Elige el modo de juego en el menú (contra la IA, dos jugadores o desafío). Haz clic dentro del juego si no responde al teclado.",
+      controls: [["W / S", "Jugador 1 arriba / abajo"], ["↑ / ↓", "Jugador 2 (o jugador 1 contra la IA)"], ["Arrastrar", "Mover tu paleta en el celular"], ["Espacio", "Continuar"], ["Esc / P", "Pausa"], ["R", "Reiniciar"]],
+      name: "Pixel Pong 2D", station: "Sala retro neón", dim: "2D", shots: ["pong-b", "pong-a"],
+      short: "Tenis de mesa neón en 2D con modo desafío.",
+      mechanics: ["Modos: contra la IA, dos jugadores y Desafío arcade", "Dificultad de Fácil a Experto y partidos a 5, 7, 10 o 15 puntos", "La pelota acelera a medida que avanza el punto", "Estadísticas e historial guardados en el navegador", "Configuración y sonido activables"],
+      group: "curso"
+    },
+    {
+      id: "atarifootball", course: "Fútbol 2D Atari", file: "futbol.html", title: "Atari", sub: "Football 2D", genre: "Deportes · Fútbol 2D", color: "#D9FF56", tag: "2D · Web",
+      desc: "Un clásico reimaginado: fútbol rápido en un campo, dos porterías y cero excusas. Juega contra la CPU o con un amigo en la misma pantalla.",
+      tech: ["Canvas 2D", "1 o 2 jugadores", "Estadísticas", "Controles táctiles"],
+      help: "Pulsa JUGAR (contra la CPU) o DOS JUGADORES. Marca más goles que tu rival antes de que se acabe el tiempo; los porteros defienden solos y el balón acelera a medida que avanza el partido. En el celular aparecen controles táctiles.",
+      controls: [["W A S D", "Mover al jugador azul"], ["Espacio", "Chutar (mantén para cargar potencia)"], ["Flechas", "Jugador rojo (dos jugadores)"], ["Intro", "Chute del jugador rojo"], ["Esc / P", "Pausa (o botón Ⅱ PAUSA)"], ["R", "Reiniciar"], ["F", "Mostrar FPS"]],
+      name: "Atari Football 2D", station: "Cancha clásica", dim: "2D", shots: ["football-b", "football-a"],
+      short: "Fútbol arcade 2D contra la CPU o en dúo local.",
+      mechanics: ["Partido rápido contra la CPU o dos jugadores en la misma pantalla", "Dificultad de la CPU de Fácil a Experto, tiempo y límite de goles", "Chute con carga de potencia", "Porteros automáticos y balón que acelera durante el partido", "Estadísticas e historial guardados en el navegador", "Controles táctiles en el celular"],
+      group: "curso"
+    },
+    {
+      id: "skybound", course: "Juego de Aviones 3D", file: "juegos/skybound.html", title: "Sky", sub: "Bound", genre: "Aviación · Arcade", color: "#F2C86B",
+      desc: "Domina el cielo. Atraviesa aros, junta monedas y sobrevive a batallas aéreas contra el Barón Rojo.",
+      tech: ["Three.js", "Física de vuelo", "Hangar y tienda", "Récords"],
+      help: "Crea tu piloto con un nombre, elige mapa y despega. Atraviesa el centro de los aros para sumar más puntos.",
+      controls: [["W A S D", "Dirigir el avión (o flechas)"], ["Espacio", "Frenar para apuntar (entrenamiento)"], ["Espacio / J / clic", "Disparar (batalla)"], ["Esc", "Pausa"]],
+      name: "Sky Bound", station: "Hangar de aviación", dim: "3D", shots: ["skybound-b", "skybound-a"],
+      short: "Aviación arcade: aros, monedas y batallas aéreas.",
+      mechanics: ["Perfiles de piloto: el progreso se guarda con tu nombre", "Entrenamiento en 3 niveles de aros: Amanecer, Reino de las nubes y Cielo celestial", "Batalla aérea por oleadas contra el Barón Rojo, con dificultades desbloqueables", "Monedas, regalos y puntuación por racha y precisión", "Hangar y tienda de aviones (empiezas con el SB-1 Aurora)", "Récords personales y calidad gráfica ajustable"],
+      group: "curso"
+    },
     {
       id: "cucuta", file: "juegos/cucuta.html", title: "Cúcuta", sub: "Open World", genre: "Mundo abierto · Acción", color: "#FFC400",
       desc: "Recorre una versión libre de Cúcuta: crea tu personaje, conduce, compra carros, escucha la radio y explora la ciudad.",
@@ -21,7 +57,8 @@
       /* BLACKDOT ARCADE: nombre, estación temática, capturas reales y mecánicas verificadas en el juego */
       name: "Cúcuta Open World", station: "Distrito urbano", dim: "3D", shots: ["cucuta-a", "cucuta-b"],
       short: "Mundo abierto urbano: explora la ciudad a pie o en carro.",
-      mechanics: ["Creación de personaje: nombre, tono de piel, camiseta y short", "Exploración libre de la ciudad a pie y en carro", "Misiones con objetivos (8 misiones; la primera es «Llegada a Cúcuta»)", "Concesionario AutoNorte, garaje y billetera para comprar y guardar carros", "Armas, vida, resistencia y nivel de búsqueda", "Radio con emisoras, mapa con GPS y minimapa", "Partida guardada en el navegador (opción «Continuar»)"]
+      mechanics: ["Creación de personaje: nombre, tono de piel, camiseta y short", "Exploración libre de la ciudad a pie y en carro", "Misiones con objetivos (8 misiones; la primera es «Llegada a Cúcuta»)", "Concesionario AutoNorte, garaje y billetera para comprar y guardar carros", "Armas, vida, resistencia y nivel de búsqueda", "Radio con emisoras, mapa con GPS y minimapa", "Partida guardada en el navegador (opción «Continuar»)"],
+      group: "coleccion"
     },
     {
       id: "dynasty", file: "juegos/dynasty.html", title: "Dynasty", sub: "FC", genre: "Deportes · Fútbol", color: "#C9A0DC",
@@ -31,17 +68,8 @@
       controls: [["W A S D", "Mover (o flechas)"], ["Espacio / Shift", "Correr rápido"], ["J", "Pase corto / presión"], ["K", "Disparo"], ["L", "Pase largo, centro / barrida"], ["U", "Entrada / pase al hueco"], ["Q / I", "Cambiar jugador"], ["E / H", "Regate / proteger"], ["1 – 8", "Celebración tras un gol"], ["Esc / P", "Pausa"]],
       name: "Dynasty FC", station: "Estadio", dim: "3D", shots: ["dynasty-b", "dynasty-a"],
       short: "Fútbol 3D con partido rápido y modo carrera.",
-      mechanics: ["Partido rápido y Modo carrera", "Elección de equipo, uniforme y formación (4-3-3, 4-4-2, 4-2-3-1 o 3-5-2)", "Duración de 2 a 10 minutos y dificultad de Fácil a Leyenda", "Horario de noche o atardecer; control local, visitante o CPU contra CPU", "Fichajes, repeticiones y celebraciones de gol", "Teclas configurables, mando y controles táctiles", "Marcador, reloj y minimapa durante el partido"]
-    },
-    {
-      id: "skybound", file: "juegos/skybound.html", title: "Sky", sub: "Bound", genre: "Aviación · Arcade", color: "#F2C86B",
-      desc: "Domina el cielo. Atraviesa aros, junta monedas y sobrevive a batallas aéreas contra el Barón Rojo.",
-      tech: ["Three.js", "Física de vuelo", "Hangar y tienda", "Récords"],
-      help: "Crea tu piloto con un nombre, elige mapa y despega. Atraviesa el centro de los aros para sumar más puntos.",
-      controls: [["W A S D", "Dirigir el avión (o flechas)"], ["Espacio", "Frenar para apuntar (entrenamiento)"], ["Espacio / J / clic", "Disparar (batalla)"], ["Esc", "Pausa"]],
-      name: "Sky Bound", station: "Hangar de aviación", dim: "3D", shots: ["skybound-b", "skybound-a"],
-      short: "Aviación arcade: aros, monedas y batallas aéreas.",
-      mechanics: ["Perfiles de piloto: el progreso se guarda con tu nombre", "Entrenamiento en 3 niveles de aros: Amanecer, Reino de las nubes y Cielo celestial", "Batalla aérea por oleadas contra el Barón Rojo, con dificultades desbloqueables", "Monedas, regalos y puntuación por racha y precisión", "Hangar y tienda de aviones (empiezas con el SB-1 Aurora)", "Récords personales y calidad gráfica ajustable"]
+      mechanics: ["Partido rápido y Modo carrera", "Elección de equipo, uniforme y formación (4-3-3, 4-4-2, 4-2-3-1 o 3-5-2)", "Duración de 2 a 10 minutos y dificultad de Fácil a Leyenda", "Horario de noche o atardecer; control local, visitante o CPU contra CPU", "Fichajes, repeticiones y celebraciones de gol", "Teclas configurables, mando y controles táctiles", "Marcador, reloj y minimapa durante el partido"],
+      group: "coleccion"
     },
     {
       id: "rally", file: "juegos/rally.html", title: "Rally", sub: "Rush", genre: "Deportes · Arcade", color: "#24C8FF",
@@ -51,7 +79,8 @@
       controls: [["Ratón / dedo", "Mover tu paleta (arrastra en el celular)"], ["W / S", "Jugador 1 arriba / abajo"], ["↑ / ↓", "Jugador 2 (o también jugador 1 contra la IA)"], ["Esc / P", "Pausa"]],
       name: "Rally Rush", station: "Arena neón", dim: "3D", shots: ["rally-b", "rally-a"],
       short: "Ping-pong futurista en 3D contra la IA o un amigo.",
-      mechanics: ["Contra la IA por niveles, dos jugadores locales o el Rival Imparable", "Encuentros al mejor de 3: 7 puntos con 2 de ventaja, o líder a los 40 s", "La pelota gana velocidad durante el punto", "Monedas Rush, niveles y experiencia (EXP)", "Tienda con mesas y pelotas desbloqueables, perfil y progresión"]
+      mechanics: ["Contra la IA por niveles, dos jugadores locales o el Rival Imparable", "Encuentros al mejor de 3: 7 puntos con 2 de ventaja, o líder a los 40 s", "La pelota gana velocidad durante el punto", "Monedas Rush, niveles y experiencia (EXP)", "Tienda con mesas y pelotas desbloqueables, perfil y progresión"],
+      group: "coleccion"
     }
   ];
 
@@ -62,7 +91,7 @@
     { cat: "04 / Motion graphics", title: "Animación y motion graphics", tool: ["ae", "Ae", "Adobe After Effects"], desc: "Creación de animaciones y composiciones audiovisuales mediante movimiento, efectos y narrativa visual.", extra: "Principios de animación aplicados: anticipación, squash & stretch y timing." },
     { cat: "05 / Edición audiovisual", title: "Edición de video", tool: ["pr", "Pr", "Adobe Premiere Pro"], desc: "Edición y montaje de contenido audiovisual, trabajando ritmo, transiciones, sonido y narrativa.", extra: "Montaje con intención: cada corte acompaña el ritmo de la música y la historia." },
     { cat: "06 / Modelado 3D", title: "Personajes 3D", tool: ["bl", "Bl", "Blender"], desc: "Modelado y creación de personajes tridimensionales explorando formas, proporciones, materiales y composición.", extra: "Tres personajes modelados en Blender: un gato negro, el dálmata de BlackDot y un ninja. Del model sheet al volumen: blocking, proporción y materiales. Ahora también puedes rotarlos y ver sus animaciones en BLACKDOT 3D LAB.", lab: true },
-    { cat: "07 / Videojuegos", title: "Videojuegos para web", tool: ["js", "JS", "JavaScript · Three.js"], desc: "Cuatro juegos 3D completos que corren directamente en el navegador: Cúcuta Open World, Dynasty FC, Sky Bound y Rally Rush.", extra: "Pulsa «Ir a jugar» para ir al arcade y probarlos ahora mismo.", games: true }
+    { cat: "07 / Videojuegos", title: "Videojuegos para web", tool: ["js", "JS", "JavaScript · Canvas 2D · Three.js"], desc: "Seis juegos que corren directamente en el navegador. De la asignatura: Ping-Pong 2D y Fútbol 2D Atari (Canvas 2D) y el juego de aviones 3D Sky Bound; de la colección BLACKDOT: Cúcuta Open World, Dynasty FC y Rally Rush.", extra: "Pulsa «Ir a jugar» para ir al arcade y probarlos ahora mismo.", games: true }
   ];
 
   /* Herramientas (BLACKDOT 2.0): se identifican por clave (data-tool="ps").
@@ -295,7 +324,7 @@
       W = hero.clientWidth; H = hero.clientHeight;
       canvas.width = W * dpr; canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var n = Math.round(Math.min(70, Math.max(28, W * H / 24000)));
+      var n = Math.round(Math.min(finePointer ? 70 : 26, Math.max(finePointer ? 28 : 16, W * H / 24000)));
       pts = [];
       for (var i = 0; i < n; i++) {
         var z = Math.random(); /* 0 = lejos, 1 = cerca */
@@ -325,8 +354,8 @@
     function loop(now) { raf = 0; if (!visible || document.hidden) return; draw(now); raf = requestAnimationFrame(loop); }
     function start() { if (!raf && visible && !reduced) { last = performance.now(); raf = requestAnimationFrame(loop); } }
     build();
-    var rt; addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { build(); if (reduced) draw(performance.now()); }, 150); });
-    if (reduced) { draw(performance.now()); return; }
+    var rt; addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { build(); if (reduced || !finePointer) draw(performance.now()); }, 150); });
+    if (reduced || !finePointer) { draw(performance.now()); return; } /* táctil: imagen fija, sin bucle */
     hero.addEventListener("pointermove", function (e) {
       var r = hero.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top;
       tx = (mx / r.width - 0.5) * 2; ty = (my / r.height - 0.5) * 2;
@@ -341,6 +370,7 @@
   function initHeroTilt() {
     if (!finePointer || reduced) return;
     var vis = $("#hero-visual"), card = $("#hero-card");
+    if (!vis || !card) return; /* páginas sin hero */
     vis.addEventListener("pointermove", function (e) {
       var r = vis.getBoundingClientRect();
       var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
@@ -432,8 +462,13 @@
   function initScrollFx() {
     if (reduced) return;
     var aboutImg = $("#about-figure img"), aboutFig = $("#about-figure"), skew = $("#marquee-skew");
-    var last = scrollY, vel = 0;
-    (function loop() {
+    if (!aboutImg || !aboutFig || !skew) return; /* solo en la página de inicio */
+    if (!finePointer) return; /* en táctiles el parallax del retrato no aporta y consume CPU */
+    var last = scrollY, vel = 0, raf = 0, idle = 0;
+    function kick() { idle = 0; if (!raf) raf = requestAnimationFrame(loop); }
+    addEventListener("scroll", kick, { passive: true });
+    function loop() {
+      raf = 0;
       var y = scrollY;
       vel += ((y - last) - vel) * 0.12; last = y;
       var k = Math.max(-8, Math.min(8, vel * 0.25));
@@ -443,8 +478,10 @@
         var p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
         aboutImg.style.setProperty("--py", (p * 60 - 40).toFixed(1) + "px");
       }
-      requestAnimationFrame(loop);
-    })();
+      /* se detiene solo cuando la velocidad vuelve a cero */
+      if (Math.abs(vel) > 0.05 || ++idle < 20) raf = requestAnimationFrame(loop);
+    }
+    kick();
   }
 
   /* ---------------- Sistema de modales ---------------- */
@@ -502,6 +539,7 @@
   /* ---------------- Proyectos ---------------- */
   function initProjects() {
     var modal = $("#project-modal"), media = $("#pm-media"), cards = $$(".p-card"), idx = 0;
+    if (!modal || !media) return;
     function show(i) {
       idx = (i + PROJECTS.length) % PROJECTS.length;
       var p = PROJECTS[idx], card = cards[idx];
@@ -553,8 +591,8 @@
       if (v) {
         var play = function () { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); };
         var stop = function () { v.pause(); try { v.currentTime = 0; } catch (e) {} };
-        card.addEventListener("mouseenter", play); card.addEventListener("focus", play);
-        card.addEventListener("mouseleave", stop); card.addEventListener("blur", stop);
+        card.addEventListener("mouseenter", play); card.addEventListener("focusin", play);
+        card.addEventListener("mouseleave", stop); card.addEventListener("focusout", stop);
       }
     });
     $("#pm-prev").addEventListener("click", function () { show(idx - 1); });
@@ -580,6 +618,7 @@
   /* ---------------- Blog ---------------- */
   function initBlog() {
     var list = $("#blog-list"), modal = $("#blog-modal");
+    if (!list || !modal) return;
     var arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
     list.innerHTML = ARTICLES.slice(1).map(function (a, k) {
       var i = k + 1, date = a.meta.split(" · ");
@@ -617,6 +656,7 @@
   /* ---------------- Formulario de contacto ---------------- */
   function initContact() {
     var form = $("#contact-form"), status = $("#form-status");
+    if (!form || !status) return;
     var fields = $$("input.input, textarea.input", form);
     var services = $$('input[name="servicio"]', form);
     function hint(id, msg) { var h = $('[data-hint="' + id + '"]', form); if (h) h.textContent = msg || ""; }
@@ -685,6 +725,7 @@
           status.textContent = "¡Gracias, " + v.nombre.split(" ")[0] + "! Tu mensaje llegó a mi correo. Te responderé pronto.";
           form.reset(); fields.forEach(function (f) { f.setAttribute("aria-invalid", "false"); });
           toast("Mensaje enviado. ¡Gracias por escribir!");
+          if (window.BDStore) window.BDStore.track("contact", { channel: "email" });
         })
         .catch(function (err) {
           console.error("BLACKDOT contacto:", err);
@@ -696,6 +737,7 @@
     function sendWhatsApp() {
       var v = validate(); if (!v) return;
       var text = "¡Hola Danna! Te escribo desde tu portafolio BLACKDOT.\n\n" + summary(v);
+      if (window.BDStore) window.BDStore.track("contact", { channel: "whatsapp" });
       window.open("https://wa.me/" + CONTACT_WHATSAPP + "?text=" + encodeURIComponent(text), "_blank", "noopener");
       status.className = "form-status ok"; status.textContent = "Se abrió WhatsApp con tu mensaje listo: solo pulsa «Enviar».";
     }
@@ -756,6 +798,8 @@
     if (msg) $("#pl-load-msg").textContent = msg;
   }
   function playGame(g, ev) {
+    if (window.BDStore) window.BDStore.track("game", { id: g.id });
+    if (!player) { window.location.href = g.file; return; }
     currentGame = g;
     player.style.setProperty("--gc", g.color || "#0A84FF");
     var ox = "50%", oy = "50%";
@@ -821,6 +865,7 @@
   }
   function initPlayer() {
     player = $("#player"); stage = $("#player-stage"); loader = $("#player-loader");
+    if (!player || !stage || !loader) { player = null; return; }
     $("#pl-close").addEventListener("click", closePlayer);
     $("#pl-reload").addEventListener("click", function () {
       if (!currentGame) return;
@@ -852,7 +897,7 @@
   }
 
   /* ---------------- Salón de récords ----------------
-     El salón de récords de los CUATRO juegos del arcade vive en js/halloffame.js. */
+     El salón de récords de los SEIS juegos del arcade vive en js/halloffame.js. */
 
   function initGames() {
     initPlayer();

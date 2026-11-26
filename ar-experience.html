@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDOT AR Experience — Showroom WebAR | Danna Rueda</title>
+<meta name="description" content="BLACKDOT AR Experience: showroom publicitario en realidad aumentada con A-Frame y WebXR. Explora la Linterna BLACKDOT con un cursor virtual (raycaster) desde el computador o el teléfono.">
+<meta name="theme-color" content="#03060B">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" type="image/png" href="assets/img/logo-blackdot.png">
+<link rel="canonical" href="https://dannavalentinar11-beep.github.io/blackdot-portafolio/ar-experience.html">
+<script>
+  (function () {
+    document.documentElement.classList.add("js");
+    var t = null;
+    try { t = localStorage.getItem("blackdot-theme"); } catch (e) {}
+    if (t !== "light" && t !== "dark") t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", t);
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="stylesheet" href="css/tokens.css?v=3.0">
+<link rel="stylesheet" href="css/style.css?v=3.0">
+<link rel="stylesheet" href="css/blackdot2.css?v=4.0">
+<link rel="stylesheet" href="css/blackdot-v2.css?v=4.1">
+<link rel="stylesheet" href="css/ar-experience.css?v=4.0">
+<noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+</noscript>
+</head>
+<!-- BD:NAV -->
+<body>
+<div class="preloader" id="preloader" aria-hidden="true">
+  <img class="preloader-logo" src="assets/img/preloader-blackdot.webp" alt="" width="900" height="600">
+  <div class="preloader-foot">
+    <small>Diseño · Código · Juegos</small>
+    <div class="preloader-count"><b id="pre-count">0</b><span>%</span></div>
+  </div>
+  <div class="preloader-line" id="pre-line"></div>
+</div>
+<div class="noise" aria-hidden="true"></div>
+<div class="progress-bar" id="progress" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-label" id="cursor-label"></span></div>
+<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+<a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+<!-- HEADER -->
+<header class="site-header" id="header">
+  <div class="bar">
+    <a class="brand" href="#inicio" aria-label="BLACKDOT, inicio" data-cursor-hover>
+      <span class="brand-badge"><img src="assets/img/logo-blackdot-96.webp" alt="" width="34" height="34"></span>
+      BLACKDOT<span class="d">.</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Navegación principal">
+      <span class="nav-pill" id="nav-pill" aria-hidden="true"></span>
+      <a href="index.html">Inicio</a>
+      <a href="index.html#sobre-mi">Sobre mí</a>
+      <a href="index.html#proyectos">Proyectos</a>
+      <a href="index.html#lab">3D Lab</a>
+      <a href="arcade.html">Arcade</a>
+      <a href="ar-experience.html" class="is-active" aria-current="page">WebAR</a>
+      <a href="blog.html">Blog</a>
+      <a href="index.html#manual">Manuales</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-sm" href="contacto.html" data-magnetic>Hablemos <span class="arr" aria-hidden="true">→</span></a>
+      <button class="icon-btn theme-btn" id="theme-btn" type="button" aria-label="Cambiar tema" aria-pressed="false">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú"><span><span></span><span></span></span></button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobile-menu" aria-label="Menú móvil">
+  <a href="index.html" style="--i:0"><span><small>01</small>Inicio</span></a>
+  <a href="index.html#sobre-mi" style="--i:1"><span><small>02</small>Sobre mí</span></a>
+  <a href="index.html#proyectos" style="--i:2"><span><small>03</small>Proyectos</span></a>
+  <a href="index.html#lab" style="--i:3"><span><small>04</small>BLACKDOT 3D Lab</span></a>
+  <a href="arcade.html" style="--i:4"><span><small>05</small>Arcade</span></a>
+  <a href="arcade.html#records" style="--i:5"><span><small>06</small>Salón de la fama</span></a>
+  <a href="ar-experience.html" class="is-active" aria-current="page" style="--i:6"><span><small>07</small>BLACKDOT AR Experience</span></a>
+  <a href="index.html#herramientas" style="--i:7"><span><small>08</small>Herramientas</span></a>
+  <a href="blog.html" style="--i:8"><span><small>09</small>Blog</span></a>
+  <a href="index.html#manual" style="--i:9"><span><small>10</small>Manuales</span></a>
+  <a href="contacto.html" style="--i:10"><span><small>11</small>Contacto</span></a>
+  <p class="mm-foot">dannarb0444@gmail.com · Cúcuta, Colombia</p>
+</nav>
+
+<!-- /BD:NAV -->
+<main id="contenido" class="page-ar">
+  <section class="page-hero" aria-labelledby="page-title">
+    <div class="wrap">
+      <p class="kicker">WebAR · A-Frame · WebXR</p>
+      <h1 class="page-title" id="page-title">BLACKDOT <span class="o">AR</span> Experience</h1>
+      <p class="page-intro">Showroom publicitario interactivo: la Linterna BLACKDOT del universo de NOX en 3D y en realidad aumentada. Selecciona sus piezas con el cursor virtual (raycaster), enciéndela y, desde un teléfono compatible, colócala sobre tu mesa.</p>
+    </div>
+  </section>
+
+  <section class="section ar" aria-labelledby="ar-title">
+    <div class="wrap">
+      <h2 class="sr-only" id="ar-title">Experiencia interactiva</h2>
+      <div class="ar-layout">
+        <div class="ar-shell" id="ar-shell">
+          <div class="ar-stage" id="ar-stage">
+            <video class="ar-video" id="ar-video" playsinline muted hidden></video>
+            <div class="ar-overlay" id="ar-overlay">
+              <img src="assets/img/modelo-gato-recorte.webp" alt="" width="563" height="853" class="ar-overlay-img" loading="lazy" decoding="async">
+              <div class="ar-overlay-cta">
+                <p class="kicker">Showroom 3D</p>
+                <p class="ar-overlay-title">Linterna BLACKDOT</p>
+                <button class="btn btn-arcade" type="button" id="ar-start">Iniciar experiencia</button>
+                <small>Carga A-Frame (≈1,3 MB) y el modelo 3D (0,7 MB) al pulsar. No se usa la cámara hasta que la actives.</small>
+              </div>
+            </div>
+            <div class="ar-xr-ui" id="ar-xr-ui"></div>
+          </div>
+          <div class="ar-toolbar" role="toolbar" aria-label="Modos y acciones de la experiencia">
+            <div class="ar-group" role="group" aria-label="Modo de visualización">
+              <button class="hud-btn" type="button" id="ar-mode-3d" aria-pressed="false">Explorar en 3D</button>
+              <button class="hud-btn" type="button" id="ar-mode-ar" disabled>Ver en AR (WebXR)</button>
+              <button class="hud-btn" type="button" id="ar-mode-cam" disabled>Usar la cámara</button>
+            </div>
+            <div class="ar-group" role="group" aria-label="Acciones del producto">
+              <button class="hud-btn" type="button" id="ar-light" aria-pressed="false">Encender linterna</button>
+              <button class="hud-btn" type="button" id="ar-spin">Detener giro</button>
+              <button class="hud-btn" type="button" id="ar-reset">Reiniciar vista</button>
+              <button class="hud-btn" type="button" id="ar-full">Pantalla completa</button>
+            </div>
+          </div>
+          <p class="ar-status" id="ar-status" role="status">Pulsa «Iniciar experiencia» para cargar el showroom.</p>
+        </div>
+
+        <aside class="ar-info" aria-labelledby="ar-product">
+          <p class="lab-role">Producto protagonista</p>
+          <h3 class="lab-name" id="ar-product">Linterna BLACKDOT</h3>
+          <p class="lab-desc">La linterna que lleva NOX, modelada en Blender pieza por pieza (32 mallas). Toca los puntos azules del modelo o elige una pieza:</p>
+          <div class="ar-parts" role="group" aria-label="Piezas del producto">
+            <button type="button" data-part="lente">Lente luminosa</button>
+            <button type="button" data-part="boton">Botón de encendido</button>
+            <button type="button" data-part="orejas">Cabezal felino</button>
+            <button type="button" data-part="emblema">Emblema</button>
+            <button type="button" data-part="correa">Correa</button>
+          </div>
+          <div class="ar-part" id="ar-part" hidden>
+            <p class="ar-part-title" id="ar-part-title"></p>
+            <p id="ar-part-text"></p>
+          </div>
+          <p class="ar-counter">Interacciones en esta visita: <b id="ar-count">0</b></p>
+          <p class="lab-h">Compatibilidad de este dispositivo</p>
+          <ul class="ar-support" id="ar-support"><li><span>Comprobando…</span></li></ul>
+        </aside>
+      </div>
+
+      <div class="ar-docs">
+        <article>
+          <h3>Cómo usarla</h3>
+          <ul>
+            <li><b>Computador:</b> arrastra para mirar, rueda para acercarte; el cursor del ratón actúa como raycaster sobre los puntos azules y los botones 3D.</li>
+            <li><b>Android (Chrome + ARCore):</b> «Ver en AR» abre una sesión WebXR. Apunta a una superficie, toca para colocar el showroom y toca los puntos para ver cada pieza.</li>
+            <li><b>iPhone y navegadores sin WebXR AR:</b> «Usar la cámara» muestra la cámara trasera detrás de la escena; mueve el teléfono y mantén el anillo central sobre un punto (selección por mirada).</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Requisitos y limitaciones reales</h3>
+          <ul>
+            <li>La cámara y WebXR solo funcionan con <b>HTTPS</b> (GitHub Pages lo ofrece con certificado válido).</li>
+            <li>WebXR AR (<code>immersive-ar</code> con <code>hit-test</code>) está disponible en Chrome para Android con ARCore; Safari en iOS aún no lo admite.</li>
+            <li>El modo «Usar la cámara» es una superposición: la escena sigue el giroscopio, pero no se ancla a superficies reales.</li>
+            <li>Si se niega el permiso de cámara o el dispositivo no es compatible, la experiencia continúa en «Explorar en 3D».</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Tecnología</h3>
+          <ul>
+            <li>A-Frame 1.6 (Three.js) cargado bajo demanda · componentes propios <code>bd-product</code>, <code>bd-hotspot</code> y <code>bd-button</code>.</li>
+            <li>Cursor virtual con <code>raycaster</code>: ratón, mirada con <code>fuse</code> o toque en WebXR (<code>xrselect</code>).</li>
+            <li>Interacciones y sesiones guardadas en <code>localStorage</code> (<code>blackdot-metrics-v1</code>).</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- BD:FOOTER -->
+<footer class="footer footer2">
+  <div class="footer-glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="footer-kicker"><span class="dot-live" aria-hidden="true"></span> Fin de la transmisión — gracias por explorar BLACKDOT</p>
+    <div class="footer-cta">
+      <div>
+        <h2 class="footer-big" data-split>Hablemos</h2>
+        <p class="footer-msg">Diseño, tecnología y experiencias interactivas. Si tienes una idea, construyámosla juntos.</p>
+      </div>
+      <a class="btn btn-blue" href="mailto:dannarb0444@gmail.com" data-magnetic>dannarb0444@gmail.com <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+    <div class="footer-grid">
+      <div><small>TELÉFONO</small><a href="tel:+573206327941">+57 320 632 7941</a></div>
+      <div><small>CORREO</small><a href="mailto:dannarb0444@gmail.com">dannarb0444@gmail.com</a></div>
+      <div><small>CIUDAD</small><p>Cúcuta, Colombia</p></div>
+      <div><small>NAVEGAR</small><a href="arcade.html">Videojuegos</a><br><a href="#proyectos">Proyectos</a><br><a href="#lab">BLACKDOT 3D Lab</a><br><a href="#manual" aria-label="Ir a la sección Manual de Identidad Corporativa de BlackDot">Manual de identidad <span aria-hidden="true">↗</span></a></div>
+    </div>
+    <div class="footer-grid footer-grid--links">
+      <div><small>SECCIONES</small><a href="#sobre-mi">Sobre mí</a><br><a href="#cinematica">Cinemática</a><br><a href="#herramientas">Herramientas</a><br><a href="#blog">Blog</a><br><a href="#manual-tecnico">Manual técnico</a><br><a href="#contacto">Contacto</a></div>
+      <div class="fg-games"><small>BLACKDOT ARCADE</small><a href="juegos/cucuta.html" target="_blank" rel="noopener">Cúcuta Open World ↗</a><br><a href="juegos/dynasty.html" target="_blank" rel="noopener">Dynasty FC ↗</a><br><a href="juegos/skybound.html" target="_blank" rel="noopener">Sky Bound ↗</a><br><a href="juegos/rally.html" target="_blank" rel="noopener">Rally Rush ↗</a><br><a href="pingpong.html" target="_blank" rel="noopener">Ping-Pong 2D ↗</a><br><a href="futbol.html" target="_blank" rel="noopener">Fútbol 2D Atari ↗</a></div>
+      <div><small>DOCUMENTOS</small><a href="assets/manual-identidad-blackdot.pdf" target="_blank" rel="noopener noreferrer">Manual de identidad (PDF) ↗</a><br><a href="assets/manual-tecnico-blackdot.pdf" target="_blank" rel="noopener noreferrer">Manual técnico (PDF) ↗</a></div>
+      <div><small>CÓDIGO</small><a href="https://github.com/dannavalentinar11-beep/blackdot-portafolio" target="_blank" rel="noopener noreferrer">Repositorio en GitHub ↗</a></div>
+    </div>
+    <p class="footer-word" aria-hidden="true">BLACKDOT<span>.</span></p>
+    <div class="footer-bottom">
+      <p>© 2026 BLACKDOT — Danna Rueda · Ingeniería Multimedia</p>
+      <p class="footer-credits">Diseño y desarrollo: Danna Rueda · HTML, CSS, JavaScript, Three.js y GSAP</p>
+      <a class="to-top" href="#inicio">Volver arriba <i aria-hidden="true">↑</i></a>
+    </div>
+  </div>
+</footer>
+<!-- /BD:FOOTER -->
+
+<div class="toast" id="toast" role="status" aria-live="polite"><i></i><span id="toast-text"></span></div>
+
+<template id="ar-scene-tpl">
+  <a-scene class="ar-scene" embedded renderer="colorManagement: true; antialias: true; alpha: true" shadow="type: pcfsoft" xr-mode-ui="enabled: false" loading-screen="enabled: false" webxr="optionalFeatures: hit-test, local-floor, dom-overlay; overlayElement: #ar-xr-ui" ar-hit-test="target: #bd-product-root; type: footprint" cursor="rayOrigin: mouse; fuse: false" raycaster="objects: .bd-click; far: 30">
+    <a-assets timeout="20000">
+      <a-asset-item id="linterna-glb" src="assets/models/linterna-blackdot.glb"></a-asset-item>
+    </a-assets>
+
+    <a-entity id="bd-rig">
+      <a-entity id="bd-camera" camera position="0 1.28 1.75" rotation="-6 0 0" look-controls="pointerLockEnabled: false; magicWindowTrackingEnabled: true" wasd-controls="acceleration: 12">
+        <a-entity id="bd-gaze" position="0 0 -1" geometry="primitive: ring; radiusInner: 0.012; radiusOuter: 0.019" material="color: #65C3CC; shader: flat" cursor="fuse: false; fuseTimeout: 1300" raycaster="objects: .bd-click; far: 30; enabled: false" animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.35 0.35 0.35; dur: 1300; easing: linear" animation__reset="property: scale; startEvents: mouseleave, click; to: 1 1 1; dur: 150"></a-entity>
+      </a-entity>
+    </a-entity>
+
+    <a-entity light="type: ambient; intensity: 0.55; color: #BFD8F0"></a-entity>
+    <a-entity light="type: directional; intensity: 1.6; castShadow: true; shadowMapWidth: 1024; shadowMapHeight: 1024" position="2 4 3"></a-entity>
+    <a-entity light="type: point; intensity: 1.4; distance: 8; color: #65C3CC" position="-2 2.2 -1.5"></a-entity>
+    <a-entity light="type: point; intensity: 1.0; distance: 8; color: #0E6BA8" position="2.4 1.2 -1.2"></a-entity>
+
+    <a-entity id="bd-environment" hide-on-enter-ar>
+      <a-sky id="bd-sky" color="#050B14"></a-sky>
+      <a-circle id="bd-floor" radius="7" rotation="-90 0 0" material="color: #0A1320; roughness: 0.85; metalness: 0.2" shadow="receive: true"></a-circle>
+      <a-ring radius-inner="1.05" radius-outer="1.08" rotation="-90 0 0" position="0 0.005 0" material="color: #65C3CC; shader: flat"></a-ring>
+      <a-ring radius-inner="1.75" radius-outer="1.77" rotation="-90 0 0" position="0 0.005 0" material="color: #0E6BA8; shader: flat; opacity: 0.7; transparent: true"></a-ring>
+      <a-box position="0 2 -4.2" width="7" height="4" depth="0.1" material="color: #08121E; roughness: 0.9"></a-box>
+      <a-box position="0 3.55 -4.12" width="7" height="0.04" depth="0.02" material="color: #65C3CC; shader: flat"></a-box>
+      <a-box position="-3.2 2 -4.1" width="0.04" height="4" depth="0.02" material="color: #0E6BA8; shader: flat"></a-box>
+      <a-box position="3.2 2 -4.1" width="0.04" height="4" depth="0.02" material="color: #0E6BA8; shader: flat"></a-box>
+      <a-text value="BLACKDOT" position="0 3.15 -4.1" align="center" width="9" color="#FFFFFF" font="exo2bold"></a-text>
+      <a-text value="AR SHOWROOM" position="0 2.7 -4.1" align="center" width="4" color="#65C3CC"></a-text>
+    </a-entity>
+
+    <a-entity id="bd-product-root" position="0 0 0">
+      <a-cylinder position="0 0.42 0" radius="0.32" height="0.84" material="color: #0B1626; metalness: 0.5; roughness: 0.35" shadow="cast: true; receive: true"></a-cylinder>
+      <a-torus position="0 0.845 0" rotation="90 0 0" radius="0.3" radius-tubular="0.006" material="color: #65C3CC; shader: flat"></a-torus>
+      <a-entity id="bd-product" position="0 0.84 0" scale="8 8 8" gltf-model="#linterna-glb" bd-product animation__spin="property: rotation; to: 0 360 0; loop: true; dur: 18000; easing: linear">
+        <a-sphere class="bd-click" radius="0.005" visible="false" material="color: #65C3CC; emissive: #65C3CC; emissiveIntensity: 1.4" bd-hotspot="part: lente"></a-sphere>
+        <a-sphere class="bd-click" radius="0.005" visible="false" material="color: #65C3CC; emissive: #65C3CC; emissiveIntensity: 1.4" bd-hotspot="part: boton"></a-sphere>
+        <a-sphere class="bd-click" radius="0.005" visible="false" material="color: #65C3CC; emissive: #65C3CC; emissiveIntensity: 1.4" bd-hotspot="part: orejas"></a-sphere>
+        <a-sphere class="bd-click" radius="0.005" visible="false" material="color: #65C3CC; emissive: #65C3CC; emissiveIntensity: 1.4" bd-hotspot="part: emblema"></a-sphere>
+        <a-sphere class="bd-click" radius="0.005" visible="false" material="color: #65C3CC; emissive: #65C3CC; emissiveIntensity: 1.4" bd-hotspot="part: correa"></a-sphere>
+        <a-cone id="bd-beam" visible="false" position="0 0.28 0" radius-bottom="0.012" radius-top="0.09" height="0.38" open-ended="true" material="color: #9FE7FF; shader: flat; opacity: 0.22; transparent: true; side: double"></a-cone>
+        <a-entity id="bd-beam-light" position="0 0.12 0" light="type: point; intensity: 0; distance: 2.5; color: #8FE3FF"></a-entity>
+      </a-entity>
+      <a-text id="bd-label" value="Linterna BLACKDOT" position="0 1.66 0.05" align="center" width="2.4" color="#FFFFFF"></a-text>
+      <a-plane class="bd-click" bd-button="action: light" position="-0.62 0.32 0.42" rotation="-25 0 0" width="0.52" height="0.15" material="color: #0B1626; shader: flat">
+        <a-text id="bd-btn-light-text" value="ENCENDER" align="center" width="1.6" color="#FFFFFF" position="0 0 0.002"></a-text>
+      </a-plane>
+      <a-plane class="bd-click" bd-button="action: spin" position="0 0.32 0.46" rotation="-25 0 0" width="0.52" height="0.15" material="color: #0B1626; shader: flat">
+        <a-text id="bd-btn-spin-text" value="DETENER" align="center" width="1.6" color="#FFFFFF" position="0 0 0.002"></a-text>
+      </a-plane>
+      <a-plane class="bd-click" bd-button="action: reset" position="0.62 0.32 0.42" rotation="-25 0 0" width="0.52" height="0.15" material="color: #0B1626; shader: flat">
+        <a-text value="REINICIAR" align="center" width="1.6" color="#FFFFFF" position="0 0 0.002"></a-text>
+      </a-plane>
+    </a-entity>
+  </a-scene>
+</template>
+
+<script src="js/storage.js?v=4.0"></script>
+<script src="js/script.js?v=4.0"></script>
+<script src="js/ar-experience.js?v=4.0" defer></script>
+</body>
+</html>

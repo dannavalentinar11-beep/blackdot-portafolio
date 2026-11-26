@@ -4,7 +4,7 @@
    - Sala 3D (js/arcade3d.js + Three.js, cargado solo al entrar) o
      galería pseudo-3D en modo ligero (sin WebGL, movimiento reducido o
      equipos de baja capacidad). La persona puede cambiar de modo.
-   - Cuatro estaciones, panel de información, ficha de cada juego y
+   - Seis estaciones, panel de información, ficha de cada juego y
      «Jugar ahora» con el reproductor original del portafolio (js/script.js).
    ========================================================================== */
 (function () {
@@ -15,10 +15,10 @@
     var section = document.getElementById("juegos");
     if (!B || !section || !document.getElementById("arcade-hall")) return;
 
-    /* BLACKDOT 2.0: el arcade tiene cuatro juegos y el mismo orden en todas las
-       interfaces (sala 3D, modo ligero, fichas, récords y footer):
-       01 Cúcuta Open World · 02 Dynasty FC · 03 Sky Bound · 04 Rally Rush. */
-    var ORDER = ["cucuta", "dynasty", "skybound", "rally"];
+    /* Orden único en todas las interfaces (sala 3D, modo ligero, fichas, récords y footer):
+       juegos de la asignatura (01 Ping-Pong 2D · 02 Fútbol 2D Atari · 03 Aviones 3D / Sky Bound)
+       y colección BLACKDOT (04 Cúcuta Open World · 05 Dynasty FC · 06 Rally Rush). */
+    var ORDER = ["pixelpong", "atarifootball", "skybound", "cucuta", "dynasty", "rally"];
     var GAMES = ORDER.map(function (id) { return B.GAMES.filter(function (g) { return g.id === id; })[0]; }).filter(Boolean);
     var IMG = "assets/img/arcade/";
     var $ = function (s, c) { return (c || document).querySelector(s); };
@@ -29,7 +29,7 @@
     var info = $("#hall-info"), tip = $("#hall-tip"), canvas = $("#arcade-canvas");
     var sheet = $("#game-sheet"), modeBtn = $("#hall-mode"), overviewBtn = $("#hall-overview");
 
-    var cur = Math.max(0, ORDER.indexOf("cucuta")), entered = false, focused = false, mode = "flat", engine = null, loading = null, inView = false, pendingEnter = false, sheetIdx = 0, swallowClick = false;
+    var cur = 0, entered = false, focused = false, mode = "flat", engine = null, loading = null, inView = false, pendingEnter = false, sheetIdx = 0, swallowClick = false;
 
     function setFocused(v) { focused = v; hall.classList.toggle("is-overview", mode === "3d" && !v); }
     function pad(n) { return n < 10 ? "0" + n : String(n); }
@@ -64,7 +64,8 @@
     /* ---------- Estaciones ---------- */
     list.innerHTML = GAMES.map(function (g, i) {
       var n = pad(i + 1);
-      return '<li style="--gc:' + g.color + '"><button class="st" type="button" data-i="' + i + '" aria-label="Estación ' + n + ": " + esc(g.name) + " — " + esc(g.genre) + '">' +
+      return '<li class="' + (g.group === "curso" ? "is-course" : "is-collection") + '" style="--gc:' + g.color + '"><button class="st" type="button" data-i="' + i + '" aria-label="Estación ' + n + ": " + esc(g.name) + (g.course ? " (asignatura: " + esc(g.course) + ")" : "") + " — " + esc(g.genre) + '">' +
+        '<span class="st-tag">' + (g.group === "curso" ? "Asignatura" : "Colección") + '</span>' +
         '<span class="st-marquee"><span class="st-num">' + n + '</span><span class="st-name">' + esc(g.name) + "</span></span>" +
         '<span class="st-screen"><img src="' + IMG + g.shots[0] + '-640.webp" alt="" width="640" height="360" loading="lazy" decoding="async"></span>' +
         '<span class="st-genre">' + esc(g.station) + " · " + esc(g.dim) + "</span>" +
@@ -73,12 +74,13 @@
         '<button class="st-play" type="button" data-play="' + i + '" aria-label="Jugar ' + esc(g.name) + '"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg> Jugar</button></li>';
     }).join("");
     var items = $$("li", list), buttons = $$(".st", list);
+    list.style.setProperty("--n", GAMES.length);
 
     function fillInfo(i) {
       var g = GAMES[i];
       info.style.setProperty("--gc", g.color);
       $("#hi-num").textContent = pad(i + 1);
-      $("#hi-station").textContent = g.station + " · " + g.dim;
+      $("#hi-station").textContent = (g.course ? "Asignatura · " + g.course : "Colección BLACKDOT · " + g.station) + " · " + g.dim;
       $("#hi-name").textContent = g.name;
       $("#hi-genre").textContent = g.genre;
       $("#hi-desc").textContent = g.desc;
@@ -89,7 +91,8 @@
     function layoutFlat() {
       items.forEach(function (li, i) { li.classList.toggle("is-current", i === cur); });
       /* En pantallas estrechas la fila de máquinas se desplaza: centra la seleccionada */
-      if (mode !== "3d" && list.scrollWidth > list.clientWidth + 4) {
+      /* Solo después de entrar: un desplazamiento al cargar detendría la medición de LCP del navegador */
+      if (entered && mode !== "3d" && list.scrollWidth > list.clientWidth + 4) {
         var li = items[cur];
         list.scrollTo({ left: Math.max(0, li.offsetLeft - (list.clientWidth - li.offsetWidth) / 2), behavior: reduced ? "auto" : "smooth" });
       }
@@ -126,7 +129,7 @@
       $("#gs-thumbs").innerHTML = g.shots.map(function (s, k) {
         return '<button type="button" data-shot="' + s + '" aria-pressed="' + (k === 0) + '" aria-label="Ver captura ' + (k + 1) + " de " + esc(g.name) + '"><img src="' + IMG + s + '-640.webp" alt="" width="640" height="360" loading="lazy"></button>';
       }).join("");
-      $("#gs-kicker").textContent = "Estación " + pad(sheetIdx + 1) + " · " + g.station;
+      $("#gs-kicker").textContent = "Estación " + pad(sheetIdx + 1) + " · " + (g.course ? "Juego de la asignatura: " + g.course : "Colección BLACKDOT · " + g.station);
       $("#gs-title").textContent = g.name;
       $("#gs-genre").textContent = g.genre + " · " + g.dim;
       $("#gs-desc").textContent = g.desc;
@@ -212,7 +215,7 @@
     function loadModule() {
       if (!loading) {
         try { dynImport = dynImport || new Function("u", "return import(u)"); } catch (e) { return Promise.reject(e); }
-        loading = dynImport(new URL("js/arcade3d.js?v=3.5", document.baseURI).href);
+        loading = dynImport(new URL("js/arcade3d.js?v=4.0", document.baseURI).href);
         loading.catch(function () { loading = null; });
       }
       return loading;

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>BLACKDOT — Guion de sustentación (5 minutos)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+<style>
+@page { size: A4; margin: 16mm 16mm 18mm; }
+* { box-sizing: border-box; }
+body { font: 11pt/1.5 Inter, Arial, sans-serif; color: #10202F; margin: 0; }
+h1 { font: 700 26pt/1.05 'Space Grotesk', sans-serif; letter-spacing: -.02em; margin: 0 0 4pt; color: #06121F; }
+h2 { font: 700 15pt 'Space Grotesk', sans-serif; margin: 20pt 0 6pt; color: #0B5C91; display: flex; gap: 10pt; align-items: baseline; break-after: avoid; }
+h2 span { font: 600 9pt Inter; letter-spacing: .14em; color: #fff; background: #0E6BA8; padding: 3pt 8pt; border-radius: 99pt; }
+h3 { font: 600 11.5pt 'Space Grotesk'; margin: 12pt 0 4pt; color: #06121F; }
+.sub { color: #4A5D70; margin-bottom: 10pt; }
+.say { border-left: 3pt solid #65C3CC; background: #F1F8FA; padding: 8pt 12pt; margin: 6pt 0; border-radius: 0 8pt 8pt 0; }
+.say p { margin: 4pt 0; }
+ol, ul { margin: 4pt 0 4pt 16pt; padding: 0; } li { margin: 3pt 0; }
+.t { font-weight: 700; color: #0B5C91; white-space: nowrap; }
+table { width: 100%; border-collapse: collapse; font-size: 10pt; margin-top: 6pt; }
+td, th { border-bottom: 1px solid #D7E2EA; padding: 6pt 6pt; vertical-align: top; text-align: left; }
+th { font: 600 8.5pt Inter; letter-spacing: .1em; text-transform: uppercase; color: #4A5D70; }
+td:first-child { font-weight: 600; width: 27%; }
+.box { border: 1px solid #D7E2EA; border-radius: 10pt; padding: 8pt 12pt; margin-top: 8pt; }
+.warn { border-color: #F4B740; background: #FFF8E8; }
+code { font-size: 9.5pt; background: #EEF3F7; padding: 0 3pt; border-radius: 3pt; }
+.avoid { break-inside: avoid; }
+</style>
+</head>
+<body>
+<h1>BLACKDOT · Guion de sustentación</h1>
+<p class="sub">Tercer previo de Ingeniería Web · Danna Rueda · 5 minutos máximo · URL: <b>dannavalentinar11-beep.github.io/blackdot-portafolio</b></p>
+
+<div class="box warn"><b>Antes de entrar:</b> abre el sitio en el computador y en el teléfono (Chrome en Android para WebXR; en iPhone se usa «Usar la cámara»), concede la cámara una vez para probar, juega una partida corta de Ping-Pong 2D para que el panel de métricas tenga datos, y deja abiertas las pestañas: inicio, arcade.html y ar-experience.html.</div>
+
+<h2><span>0:00 – 2:00</span> Elevator pitch</h2>
+<div class="say">
+<p>«Hola, soy Danna Rueda, estudiante de Ingeniería Multimedia. Mi trabajo une tres mundos que normalmente están separados: el diseño visual, el desarrollo web y las experiencias interactivas en 3D.»</p>
+<p>«BLACKDOT es mi marca y mi portafolio. No es una plantilla: lo diseñé y programé con HTML, CSS y JavaScript sin frameworks, y lo publiqué en GitHub Pages con HTTPS.»</p>
+<p>«¿Qué lo hace diferente? Primero, se puede jugar: tiene un arcade con seis videojuegos, entre ellos los de la asignatura —Ping-Pong 2D, Fútbol 2D Atari y un juego de aviones 3D—. Segundo, mis personajes 3D, modelados y animados en Blender, se pueden rotar y animar en el navegador. Tercero, incluye una experiencia de realidad aumentada en la web: un showroom de producto que se abre desde el teléfono.»</p>
+<p>«Y está medido: valida con cero errores en el W3C y obtiene entre 91 y 99 de rendimiento en Lighthouse móvil, con 100 en accesibilidad, buenas prácticas y SEO.»</p>
+<p>«Puedo aportar a un equipo alguien que entiende la marca, el diseño y el código al mismo tiempo, y que entrega productos que funcionan y se pueden comprobar.»</p>
+</div>
+<h3>Fortalezas que debes mencionar (elige 3)</h3>
+<ul><li>Identidad visual propia (manual de identidad) llevada al código con un sistema de temas claro/oscuro.</li><li>Pipeline 3D real: de Blender a GLB optimizado (111 MB → 8,4 MB) con animaciones verificadas.</li><li>Videojuegos en Canvas 2D y Three.js con bucles a 60 FPS y guardado local.</li><li>Calidad demostrable: W3C, Lighthouse, pruebas automatizadas y despliegue continuo.</li></ul>
+
+<h2><span>2:00 – 4:00</span> Live demo</h2>
+<table>
+<tr><th>Tiempo</th><th>Qué hacer</th><th>Qué decir</th></tr>
+<tr><td><span class="t">2:00–2:20</span> Navegación</td><td>Inicio → menú (5 vistas) → cambiar a modo claro y volver.</td><td>«Las cinco vistas comparten cabecera, footer y un único sistema de tema que se guarda en localStorage.»</td></tr>
+<tr><td><span class="t">2:20–2:40</span> Proyectos y 3D Lab</td><td>Bajar a Proyectos; en 3D Lab pulsar «Ver en 3D», rotar y elegir «Ollie».</td><td>«Los personajes cargan solo bajo demanda; las animaciones son las originales de Blender.»</td></tr>
+<tr><td><span class="t">2:40–3:20</span> Arcade</td><td>arcade.html → entrar → estación 01 Ping-Pong 2D → jugar unos segundos (W/S) → cerrar. Mostrar Fútbol 2D: modo «Dos jugadores». Mostrar panel «Tus métricas».</td><td>«Ping-Pong y Fútbol tienen modo contra la IA y dos jugadores locales; el marcador queda en el historial y persiste al cerrar el navegador.»</td></tr>
+<tr><td><span class="t">3:20–4:00</span> WebAR</td><td>Teléfono: ar-experience.html → «Ver en AR» (Android) o «Usar la cámara» (iPhone) → tocar un punto azul → «Encender».</td><td>«El cursor es un raycaster: detecta los puntos del modelo. La cámara se pide solo aquí y funciona porque el sitio usa HTTPS.»</td></tr>
+</table>
+<div class="box"><b>Plan B:</b> si el teléfono no proyecta, usa «Explorar en 3D» en el computador y muestra el clic sobre un punto (mismo raycaster). Si falla Internet, enseña las capturas del manual (páginas 9–11).</div>
+
+<h2><span>4:00 – 5:00</span> Defensa técnica · respuestas cortas</h2>
+<table class="avoid">
+<tr><th>Pregunta</th><th>Respuesta</th></tr>
+<tr><td>Arquitectura del código</td><td>Sitio estático en tres capas: 5 vistas HTML, CSS por capas con <code>tokens.css</code> como fuente del tema, y módulos JS independientes (storage, script, arcade, lab3d, ar-experience). Un script genera las vistas con la misma cabecera y footer.</td></tr>
+<tr><td>JavaScript</td><td>Vanilla, sin dependencias en producción; módulos ES con <code>import()</code> dinámico para cargar Three.js y A-Frame solo cuando hacen falta.</td></tr>
+<tr><td>Canvas 2D / 3D</td><td>Ping-Pong y Fútbol dibujan con el contexto 2D; Sky Bound, la sala del arcade y el 3D Lab usan WebGL con Three.js r160.</td></tr>
+<tr><td>A-Frame</td><td>Framework de entidades y componentes sobre Three.js. Creé tres componentes: <code>bd-product</code>, <code>bd-hotspot</code> y <code>bd-button</code>.</td></tr>
+<tr><td>Raycaster</td><td>Lanza un rayo desde el cursor (ratón, mirada o toque en WebXR) y emite <code>click</code> sobre las entidades con clase <code>.bd-click</code>.</td></tr>
+<tr><td>WebXR</td><td>Sesión <code>immersive-ar</code> con hit-test para colocar el showroom sobre una superficie; disponible en Chrome Android con ARCore. Donde no existe, uso la cámara como alternativa.</td></tr>
+<tr><td>LocalStorage</td><td>Claves separadas por módulo; <code>storage.js</code> valida el JSON y captura errores; guarda tema, métricas, récords e historial de marcadores sin datos personales.</td></tr>
+<tr><td>60 FPS</td><td><code>requestAnimationFrame</code> con <code>dt</code> acotado, lógica y dibujo separados, render pausado fuera de pantalla y degradación automática si baja de ~35 FPS.</td></tr>
+<tr><td>Memoria</td><td>Los juegos viven en un iframe que se destruye al cerrar; en 3D se llama a <code>dispose()</code> de geometrías, materiales y texturas al cambiar de modelo.</td></tr>
+<tr><td>HTTPS</td><td>GitHub Pages sirve TLS 1.3 con certificado Let's Encrypt <code>*.github.io</code>, redirige HTTP con 301 y envía HSTS. Sin HTTPS el navegador bloquea la cámara y WebXR.</td></tr>
+<tr><td>GitHub Pages / CI-CD</td><td>Cada push a <code>main</code> dispara <code>pages-build-deployment</code> y publica en ~30–40 s; además un workflow semanal actualiza la vista de Divinevanity.co.</td></tr>
+</table>
+<p class="sub" style="margin-top:12pt">Consejo: si no sabes algo, di qué parte del código lo resuelve («eso está en <code>lab3d.js</code>, función <code>disposeModel</code>») y ofrece mostrarlo.</p>
+</body>
+</html>

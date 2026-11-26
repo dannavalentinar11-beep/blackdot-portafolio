@@ -467,6 +467,7 @@ function initLab() {
       if (my !== token) { disposeGltf(gltf); return; }
       setProgress(0.95, "Preparando materiales y animaciones…");
       stats = v.setModel(gltf, c);
+      if (window.BDStore) window.BDStore.track("lab", { id: c.id });
       fillInfo(c, stats);
       loading.hidden = true;
       stage.classList.add("is-live");
