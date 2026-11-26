@@ -679,13 +679,9 @@
       f.addEventListener("input", function () { if (f.getAttribute("aria-invalid") === "true") check(f); });
     });
     services.forEach(function (s) { s.addEventListener("change", function () { if ($('[data-hint="f-servicios"]').textContent) checkServices(); }); });
-    /* BLACKDOT 2.0: el mensaje llega directo al correo mediante FormSubmit (servicio gratuito
-       para sitios estáticos como GitHub Pages). La primera vez FormSubmit envía a este correo un
-       enlace de activación que hay que confirmar una sola vez. También se puede enviar por WhatsApp. */
-    var CONTACT_EMAIL = "dannarb0444@gmail.com";
+    /* El formulario se envía por WhatsApp: abre el chat con el mensaje ya escrito
+       (funciona en GitHub Pages sin servidor ni servicios de terceros). */
     var CONTACT_WHATSAPP = "573206327941";
-    var FORM_ENDPOINT = "https://formsubmit.co/ajax/" + CONTACT_EMAIL;
-    var submitBtn = $('button[type="submit"]', form), waBtn = $("#contact-wa"), sending = false;
     function validate() {
       var ok = fields.map(check).every(Boolean);
       var okS = checkServices();
@@ -702,47 +698,17 @@
       };
     }
     function summary(v) {
-      return "Nombre: " + v.nombre + "\nCorreo: " + v.correo + "\nTeléfono: " + v.telefono + "\nEmpresa: " + v.empresa + "\nServicios: " + v.servicios + "\n\n" + v.mensaje;
+      return ["Nombre: " + v.nombre, "Correo: " + v.correo, "Teléfono: " + v.telefono, "Empresa: " + v.empresa, "Servicios: " + v.servicios, "", v.mensaje].join(String.fromCharCode(10));
     }
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      if (sending) return;
       var v = validate(); if (!v) return;
-      if (v.trampa) { status.className = "form-status ok"; status.textContent = "¡Gracias! Tu mensaje fue enviado."; return; } /* bot */
-      sending = true; submitBtn.disabled = true; submitBtn.setAttribute("aria-busy", "true");
-      status.className = "form-status"; status.textContent = "Enviando tu mensaje…";
-      fetch(FORM_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify({
-          _subject: "Nuevo proyecto desde BLACKDOT — " + v.nombre, _template: "table", _captcha: "false", _replyto: v.correo,
-          Nombre: v.nombre, Correo: v.correo, "Teléfono": v.telefono, Empresa: v.empresa, Servicios: v.servicios, Mensaje: v.mensaje
-        })
-      }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
-        .then(function (res) {
-          if (!res.ok || String(res.j.success) === "false") throw new Error(res.j.message || "Respuesta no válida del servicio de correo");
-          status.className = "form-status ok";
-          status.textContent = "¡Gracias, " + v.nombre.split(" ")[0] + "! Tu mensaje llegó a mi correo. Te responderé pronto.";
-          form.reset(); fields.forEach(function (f) { f.setAttribute("aria-invalid", "false"); });
-          toast("Mensaje enviado. ¡Gracias por escribir!");
-          if (window.BDStore) window.BDStore.track("contact", { channel: "email" });
-        })
-        .catch(function (err) {
-          console.error("BLACKDOT contacto:", err);
-          status.className = "form-status err";
-          status.innerHTML = "No se pudo enviar desde aquí. Puedes enviarlo por <button type=\"button\" class=\"link-btn\" data-send=\"wa\">WhatsApp</button> o por <a href=\"mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent("Nuevo proyecto — " + v.nombre) + "&body=" + encodeURIComponent(summary(v)) + "\">correo</a>.";
-        })
-        .then(function () { sending = false; submitBtn.disabled = false; submitBtn.removeAttribute("aria-busy"); });
-    });
-    function sendWhatsApp() {
-      var v = validate(); if (!v) return;
-      var text = "¡Hola Danna! Te escribo desde tu portafolio BLACKDOT.\n\n" + summary(v);
+      if (v.trampa) return; /* bot */
+      var text = ["¡Hola Danna! Te escribo desde tu portafolio BLACKDOT.", "", summary(v)].join(String.fromCharCode(10));
       if (window.BDStore) window.BDStore.track("contact", { channel: "whatsapp" });
       window.open("https://wa.me/" + CONTACT_WHATSAPP + "?text=" + encodeURIComponent(text), "_blank", "noopener");
       status.className = "form-status ok"; status.textContent = "Se abrió WhatsApp con tu mensaje listo: solo pulsa «Enviar».";
-    }
-    if (waBtn) waBtn.addEventListener("click", sendWhatsApp);
-    status.addEventListener("click", function (e) { if (e.target.closest && e.target.closest('[data-send="wa"]')) sendWhatsApp(); });
+    });
   }
 
   /* ======================================================================

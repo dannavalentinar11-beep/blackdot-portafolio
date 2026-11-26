@@ -7,6 +7,6 @@
 5. **Ping-Pong 2D y Fútbol 2D Atari.** Reintegrados al arcade para el tercer previo (grupo «Asignatura»).
 6. **Manual técnico (PDF).** Reemplazado por el manual de auditoría e infraestructura del tercer previo (19 páginas, 1920×1080). El manual anterior queda en el historial de Git.
 7. **Pruebas en dispositivos reales** (iPhone/Android, Safari, Firefox) y Lighthouse: pendientes, ver `INFORME-PRUEBAS.md`.
-8. **Formulario de contacto (activación única).** Los mensajes llegan a dannarb0444@gmail.com mediante FormSubmit. La primera vez que alguien envíe el formulario desde el sitio publicado, FormSubmit te enviará un correo «Action Required / Activate Form»: ábrelo y pulsa **Activate**. Desde ese momento todos los mensajes llegan directo a tu bandeja (revisa también Spam). El botón «Enviar por WhatsApp» abre WhatsApp con el mensaje listo para tu número +57 320 632 7941.
+8. **Formulario de contacto.** Se envía por WhatsApp al +57 320 632 7941 con el mensaje prellenado; no requiere activación ni servicios externos.
 9. **Vista previa de Divinevanity.co.** Se actualiza sola cada lunes con la tarea automática de GitHub Actions. Para actualizarla al instante: en GitHub abre la pestaña **Actions → Actualizar vista de Divinevanity.co → Run workflow**.
 10. **Tercer previo — antes de la sustentación:** probar `ar-experience.html` en un teléfono real (Android con ARCore para «Ver en AR»; iPhone con «Usar la cámara») y repetir Lighthouse móvil sobre la URL publicada.

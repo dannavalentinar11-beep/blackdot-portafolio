@@ -112,7 +112,7 @@ def build():
     blogmodal = between(index, "<!-- MODAL BLOG -->", '<div class="toast"', include_end=False)
     templates = between(index, "<!-- Portadas SVG animadas -->", '<script src="js/storage.js', include_end=False)
     base_scripts = '''<script src="js/storage.js?v=4.0"></script>
-<script src="js/script.js?v=4.0"></script>
+<script src="js/script.js?v=4.1"></script>
 <script src="js/motion.js?v=4.0" defer></script>
 '''
     pages = {
