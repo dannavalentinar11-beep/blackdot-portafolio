@@ -1,0 +1,51 @@
+# Mantiene actualizada la vista previa de Divinevanity.co en la sección Proyectos.
+# Cada lunes (y cuando se ejecute a mano desde la pestaña Actions) toma una captura
+# de https://divinevanity.co con Chrome sin ventana y, si cambió, la publica.
+name: Actualizar vista de Divinevanity.co
+
+on:
+  schedule:
+    - cron: "0 12 * * 1"   # lunes 7:00 a. m. hora de Colombia
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  captura:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Capturar divinevanity.co (960 × 1887, igual que la imagen del portafolio)
+        run: |
+          google-chrome --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --lang=es-CO --window-size=960,1887 --virtual-time-budget=20000 \
+            --screenshot=/tmp/divinevanity.png https://divinevanity.co
+
+      - name: Convertir a JPG y comprobar que la captura es válida
+        run: |
+          pip install --quiet pillow
+          python3 - <<'PY'
+          from PIL import Image, ImageStat
+          im = Image.open("/tmp/divinevanity.png").convert("RGB")
+          assert im.size == (960, 1887), im.size
+          # Evita publicar una página en blanco o con error: exige variedad de color
+          assert sum(ImageStat.Stat(im).stddev) > 40, "captura vacía"
+          im.save("assets/img/proyecto-divinevanity.jpg", "JPEG", quality=85, optimize=True, progressive=True)
+          PY
+
+      - name: Publicar si cambió
+        run: |
+          if git diff --quiet -- assets/img/proyecto-divinevanity.jpg; then
+            echo "La vista previa ya está al día."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add assets/img/proyecto-divinevanity.jpg
+            git commit -m "Actualiza la vista previa de Divinevanity.co"
+            git push
+            # Los commits del bot no siempre disparan la publicación: se solicita explícitamente
+            curl -s -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"               -H "Accept: application/vnd.github+json"               "https://api.github.com/repos/${{ github.repository }}/pages/builds" || true
+          fi

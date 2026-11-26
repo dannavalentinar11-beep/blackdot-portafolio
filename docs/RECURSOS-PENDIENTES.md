@@ -8,3 +8,4 @@
 6. **Manual técnico (PDF).** El PDF original habla de los 6 juegos; no se modificó porque es un documento tuyo. Conviene actualizarlo.
 7. **Pruebas en dispositivos reales** (iPhone/Android, Safari, Firefox) y Lighthouse: pendientes, ver `INFORME-PRUEBAS.md`.
 8. **Formulario de contacto (activación única).** Los mensajes llegan a dannarb0444@gmail.com mediante FormSubmit. La primera vez que alguien envíe el formulario desde el sitio publicado, FormSubmit te enviará un correo «Action Required / Activate Form»: ábrelo y pulsa **Activate**. Desde ese momento todos los mensajes llegan directo a tu bandeja (revisa también Spam). El botón «Enviar por WhatsApp» abre WhatsApp con el mensaje listo para tu número +57 320 632 7941.
+9. **Vista previa de Divinevanity.co.** Se actualiza sola cada lunes con la tarea automática de GitHub Actions. Para actualizarla al instante: en GitHub abre la pestaña **Actions → Actualizar vista de Divinevanity.co → Run workflow**.
