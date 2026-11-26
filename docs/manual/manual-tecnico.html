@@ -274,7 +274,7 @@ svg text { font-family: 'Space Grotesk', Arial, sans-serif; }
     <table><tr><th>Vista</th><th>Errores</th><th>Avisos</th></tr><tr><td>index.html</td><td class="ok">0</td><td class="ok">0</td></tr><tr><td>arcade.html</td><td class="ok">0</td><td class="ok">0</td></tr><tr><td>ar-experience.html</td><td class="ok">0</td><td class="ok">0</td></tr><tr><td>blog.html · contacto.html</td><td class="ok">0</td><td class="ok">0</td></tr></table>
     <div class="card"><h3>Correcciones aplicadas</h3><ul><li><code>h3</code> dentro de tarjetas <code>role="button"</code> → botón real dentro del título.</li><li><code>dl</code> del perfil con <code>dt/dd</code> correctos.</li><li><code>aria-label</code> en <code>div</code> → <code>role="region"</code> / <code>role="list"</code>.</li><li><code>&lt;main&gt;</code> duplicado en las vistas generadas.</li></ul></div>
   </div>
-  <div class="ft"><span>Servicio oficial Nu Html Checker (vnu 26.11.20) · JSON en docs/evidencias/w3c/</span><span>10</span></div>
+  <div class="ft"><span>Nu Html Checker (vnu 26.11.20) · 0 errores también sobre la URL publicada · JSON en docs/evidencias/w3c/ y w3c-publicado/</span><span>10</span></div>
 </section>
 
 <!-- 11 LIGHTHOUSE -->
@@ -285,17 +285,17 @@ svg text { font-family: 'Space Grotesk', Arial, sans-serif; }
   <div class="grid g2" style="gap:40px">
     <div>
       <table>
-        <tr><th>Vista</th><th>Rendim.</th><th>Accesib.</th><th>Buenas pr.</th><th>SEO</th></tr>
-        <tr><td><b>index.html</b></td><td class="ok">91</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
-        <tr><td><b>arcade.html</b></td><td class="ok">98</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
-        <tr><td><b>ar-experience.html</b></td><td class="ok">99</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
-        <tr><td><b>blog.html</b></td><td class="ok">94</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
-        <tr><td><b>contacto.html</b></td><td class="ok">99</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
+        <tr><th>Vista</th><th>Publicado</th><th>Local</th><th>Accesib.</th><th>Buenas pr.</th><th>SEO</th></tr>
+        <tr><td><b>index.html</b></td><td class="ok">88–90</td><td>91</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
+        <tr><td><b>arcade.html</b></td><td class="ok">95–97</td><td>98</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
+        <tr><td><b>ar-experience.html</b></td><td class="ok">90</td><td>99</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
+        <tr><td><b>blog.html</b></td><td class="ok">91</td><td>94</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
+        <tr><td><b>contacto.html</b></td><td class="ok">100</td><td>99</td><td class="ok">100</td><td class="ok">100</td><td class="ok">100</td></tr>
       </table>
-      <div class="card" style="margin-top:22px"><h3>Optimización aplicada (inicio: 60 → 91)</h3><ul><li>La sala 3D completa se trasladó a arcade.html; el inicio muestra una vitrina ligera.</li><li>Hero sin retrasos de pintura (LCP 5,6 s → 3,4 s).</li><li>GSAP solo en escritorio; partículas estáticas en táctiles.</li><li>Sin desplazamientos al cargar que anulen la medición de LCP.</li></ul></div>
+      <div class="card" style="margin-top:22px"><h3>Optimización aplicada</h3><ul><li>Inicio 60 → 91: sala 3D trasladada a arcade.html, hero sin retraso de pintura, GSAP solo en escritorio, partículas estáticas en táctiles.</li><li>Arcade publicado 73–84 → 95–97: la comprobación de WebGL creaba un contexto 3D al cargar (tarea larga de ~830 ms); ahora se hace al entrar a la sala (TBT 400–510 ms → 0–30 ms).</li></ul></div>
     </div>
-    <div><img class="shot" src="../evidencias/capturas/lighthouse-index.png" alt=""><p class="cap">Lighthouse 12.2.1 · móvil (emulación + red simulada) · servidor estático con gzip, igual que GitHub Pages.</p>
-      <p class="note" style="margin-top:16px">Auditoría ejecutada sobre la versión local antes de publicar. Informes HTML completos en <code>docs/evidencias/lighthouse/</code>.</p></div>
+    <div><img class="shot" src="../evidencias/capturas/lighthouse-publicado-arcade.png" alt=""><p class="cap">Lighthouse 12.2.1 · móvil · sobre https://dannavalentinar11-beep.github.io/blackdot-portafolio/arcade.html</p>
+      <p class="note" style="margin-top:16px">«Publicado» = varias ejecuciones sobre la URL HTTPS de GitHub Pages (index: la primera con caché fría dio 77). Informes en <code>docs/evidencias/lighthouse-publicado/</code>; versión local en <code>docs/evidencias/lighthouse/</code>.</p></div>
   </div>
   <div class="ft"><span>Ejecutado el 26/11/2026</span><span>11</span></div>
 </section>
@@ -453,12 +453,12 @@ svg text { font-family: 'Space Grotesk', Arial, sans-serif; }
   <div class="grid g2" style="gap:40px">
     <div class="card"><ul>
       <li>Arquitectura estática y modular: cinco vistas coherentes generadas desde una fuente común, sin frameworks.</li>
-      <li>Calidad medida: W3C 0 errores en todas las vistas; Lighthouse móvil 91–99 en rendimiento y 100 en accesibilidad, buenas prácticas y SEO.</li>
+      <li>Calidad medida: W3C 0 errores en todas las vistas; Lighthouse móvil sobre la URL publicada 88–100 en rendimiento y 100 en accesibilidad, buenas prácticas y SEO.</li>
       <li>Rendimiento por diseño: carga diferida de Three.js, A-Frame, GSAP y modelos; render suspendido fuera de pantalla.</li>
       <li>WebAR honesta: WebXR donde existe, cámara como alternativa y modo 3D universal, con requisitos documentados.</li>
       <li>Persistencia robusta: claves por módulo, validación y manejo de errores; los datos de los juegos nunca se reinician.</li>
     </ul></div>
-    <div class="card"><h3>Mejoras futuras</h3><ul><li>Repetir Lighthouse sobre la URL publicada tras cada despliegue (Lighthouse CI).</li><li>Probar WebXR en más dispositivos Android con ARCore.</li><li>Anclaje de imagen (image tracking) para iOS cuando el navegador lo permita.</li><li>Comprimir las texturas GLB a KTX2 para reducir memoria de GPU.</li></ul></div>
+    <div class="card"><h3>Mejoras futuras</h3><ul><li>Automatizar Lighthouse sobre la URL publicada en cada despliegue (Lighthouse CI).</li><li>Probar WebXR en más dispositivos Android con ARCore.</li><li>Anclaje de imagen (image tracking) para iOS cuando el navegador lo permita.</li><li>Comprimir las texturas GLB a KTX2 para reducir memoria de GPU.</li></ul></div>
   </div>
   <div class="ft"><span>BLACKDOT · Danna Rueda · Ingeniería Multimedia · Universidad Simón Bolívar</span><span>19</span></div>
 </section>

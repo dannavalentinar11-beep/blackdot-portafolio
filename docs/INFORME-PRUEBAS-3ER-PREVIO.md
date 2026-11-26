@@ -25,7 +25,7 @@ Leyenda: ✅ aprobada · ⚠️ aprobada con observación · ⏳ pendiente (requ
 | Sin errores de consola | 0 errores y 0 excepciones en las 5 vistas, el arcade, el 3D Lab, la experiencia WebAR y los juegos 2D | ✅ |
 | Responsive | 390 × 844 sin desplazamiento horizontal; menú móvil probado | ✅ |
 | W3C | 5 vistas: 0 errores y 0 avisos en el validador oficial (Nu Html Checker vnu 26.11.20), tanto en local como **sobre la URL publicada** (`?doc=https://dannavalentinar11-beep.github.io/…`). JSON en `docs/evidencias/w3c/` y `docs/evidencias/w3c-publicado/`, capturas en `docs/evidencias/capturas/w3c-*.png` | ✅ |
-| Lighthouse móvil ≥ 85 | Local: index 91 · arcade 98 · ar-experience 99 · blog 94 · contacto 99 (rendimiento; 100 en accesibilidad, buenas prácticas y SEO). **URL publicada**: ver tabla «Lighthouse sobre la URL publicada» | ⚠️ arcade publicado 73–84 (corrección lista, pendiente de publicar) |
+| Lighthouse móvil ≥ 85 | Local: index 91 · arcade 98 · ar-experience 99 · blog 94 · contacto 99 (rendimiento; 100 en accesibilidad, buenas prácticas y SEO). **URL publicada**: ver tabla «Lighthouse sobre la URL publicada» | ✅ publicado: index 88–90 · arcade 95–97 · ar-experience 90 · blog 91 · contacto 100 |
 
 ## Problemas encontrados y corregidos durante las pruebas
 1. Vistas generadas con un `<main>` duplicado → corregido el generador.
@@ -47,10 +47,11 @@ Rendimiento de cada ejecución; accesibilidad, buenas prácticas y SEO = 100 en 
 | Vista | Ejecuciones (rendimiento) | Resultado |
 |---|---|---|
 | index.html | 77 (primera, caché fría) · 90 · 89 · 88 | ✅ 88–90 con caché |
-| arcade.html | 84 · 84 · 80 · 73 | ⚠️ por debajo de 85 |
+| arcade.html (antes de la corrección, commit `d83e85a`) | 84 · 84 · 80 · 73 | ⚠️ por debajo de 85 |
+| arcade.html (con la corrección, commit `de83748`) | 96 · 96 · 95 · 97 (TBT 0–30 ms) | ✅ |
 | ar-experience.html | 90 | ✅ |
 | blog.html | 91 | ✅ |
 | contacto.html | 100 | ✅ |
 
 **Causa en arcade.html:** al cargar, `js/arcade.js` creaba un contexto WebGL solo para comprobar si el navegador lo soporta; eso generaba una tarea larga de ~830 ms (TBT 400–510 ms).
-**Corrección (en el proyecto, aún no publicada):** la comprobación de WebGL se hace solo al entrar a la sala o al pedir el modo 3D (`hasWebGL()` diferido) y la versión del script pasa a `arcade.js?v=4.1`. Resultado en local: 97–98 (TBT 110–150 ms); la sala 3D sigue entrando y renderizando sin errores de consola. Tras publicarla hay que repetir la medición del arcade en la URL real.
+**Corrección (publicada en el commit `de83748`):** la comprobación de WebGL se hace solo al entrar a la sala o al pedir el modo 3D (`hasWebGL()` diferido) y la versión del script pasa a `arcade.js?v=4.1`. Resultado en local: 97–98 (TBT 110–150 ms); la sala 3D sigue entrando y renderizando sin errores de consola. Medida de nuevo en la URL real: 95–97. Captura: `docs/evidencias/capturas/lighthouse-publicado-arcade.png`.
