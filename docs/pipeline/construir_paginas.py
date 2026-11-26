@@ -123,7 +123,7 @@ def build():
                            "Los juegos de la asignatura —Ping-Pong 2D, Fútbol 2D Atari y el juego de aviones 3D— y la colección BLACKDOT, listos para jugar en el navegador. Tus marcadores y récords se guardan en este dispositivo."),
             body=lambda: sala + "\n\n" + METRICS_SECTION + "\n" + records,
             extra=arcade_modals,
-            scripts=base_scripts + '<script src="js/arcade.js?v=4.0" defer></script>\n<script src="js/halloffame.js?v=4.0" defer></script>\n<script src="js/metrics-panel.js?v=4.0" defer></script>\n',
+            scripts=base_scripts + '<script src="js/arcade.js?v=4.1" defer></script>\n<script src="js/halloffame.js?v=4.0" defer></script>\n<script src="js/metrics-panel.js?v=4.0" defer></script>\n',
             keep_importmap=True),
         "blog": dict(
             title="Blog — BLACKDOT | Ideas y procesos de Danna Rueda",

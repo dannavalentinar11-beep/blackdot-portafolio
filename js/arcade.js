@@ -36,16 +36,23 @@
     function wrap(i) { return (i + GAMES.length) % GAMES.length; }
 
     /* ---------- Capacidades del dispositivo ---------- */
-    var hasWebGL = (function () {
-      try { var c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); } catch (e) { return false; }
-    })();
+    /* Crear un contexto WebGL cuesta tiempo de CPU: se comprueba solo cuando hace falta
+       (al entrar o al pedir la sala 3D), no al cargar la página. */
+    var webglOK = null;
+    function hasWebGL() {
+      if (webglOK === null) {
+        try { var c = document.createElement("canvas"); webglOK = !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); } catch (e) { webglOK = false; }
+      }
+      return webglOK;
+    }
+    function maybeWebGL() { return webglOK === null ? !!window.WebGLRenderingContext : webglOK; }
     var nav = navigator;
     var lowPower = !!((nav.connection && nav.connection.saveData) || (nav.deviceMemory && nav.deviceMemory <= 2) || (nav.hardwareConcurrency && nav.hardwareConcurrency <= 2));
     var coarse = window.matchMedia("(pointer: coarse)").matches;
     function readMode() { try { return localStorage.getItem("blackdot-arcade-mode"); } catch (e) { return null; } }
     function saveMode(m) { try { localStorage.setItem("blackdot-arcade-mode", m); } catch (e) {} }
     function preferredMode() {
-      if (!hasWebGL) return "flat";
+      if (!hasWebGL()) return "flat";
       var s = readMode();
       if (s === "3d" || s === "flat") return s;
       return (reduced || lowPower) ? "flat" : "3d";
@@ -266,14 +273,14 @@
       });
     }
     function setMode(m, persist) {
-      mode = (m === "3d" && hasWebGL) ? "3d" : "flat";
+      mode = (m === "3d" && hasWebGL()) ? "3d" : "flat";
       hall.classList.toggle("is-3d", mode === "3d");
       hall.classList.toggle("is-flat", mode !== "3d");
       modeBtn.setAttribute("aria-pressed", mode === "flat" ? "true" : "false");
       $("#hall-mode-txt").textContent = mode === "3d" ? "Modo ligero" : "Sala 3D";
-      modeBtn.title = mode === "3d" ? "Cambiar al modo ligero (sin 3D)" : (hasWebGL ? "Volver a la sala 3D" : "Tu navegador no soporta WebGL");
+      modeBtn.title = mode === "3d" ? "Cambiar al modo ligero (sin 3D)" : (maybeWebGL() ? "Volver a la sala 3D" : "Tu navegador no soporta WebGL");
       modeBtn.setAttribute("aria-label", modeBtn.title);
-      modeBtn.disabled = !hasWebGL && mode === "flat";
+      modeBtn.disabled = !maybeWebGL() && mode === "flat";
       overviewBtn.hidden = mode !== "3d";
       tip.classList.remove("is-show");
       if (persist) saveMode(mode);
@@ -299,7 +306,7 @@
     var enterBtn = $("#arcade-enter");
     enterBtn.addEventListener("click", enter);
     /* Precarga por intención: solo cuando la persona apunta al botón de entrada */
-    function prefetch() { if (hasWebGL && preferredMode() === "3d") loadModule().catch(function () {}); }
+    function prefetch() { if (hasWebGL() && preferredMode() === "3d") loadModule().catch(function () {}); }
     $$("#arcade-enter, [data-enter-arcade]").forEach(function (b) {
       b.addEventListener("pointerenter", prefetch, { once: true });
       b.addEventListener("focus", prefetch, { once: true });

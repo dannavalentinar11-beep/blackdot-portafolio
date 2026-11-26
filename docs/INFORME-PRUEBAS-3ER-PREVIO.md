@@ -21,11 +21,11 @@ Leyenda: ✅ aprobada · ⚠️ aprobada con observación · ⏳ pendiente (requ
 | Cámara gestionada | Solo se pide al pulsar «Usar la cámara» / «Ver en AR»; se detiene al ocultar la pestaña y al cambiar de modo; mensajes para permiso denegado, sin cámara o sin HTTPS | ✅ (lógica) · ⏳ en teléfono real |
 | WebAR en dispositivo compatible | WebXR `immersive-ar` requiere Chrome Android con ARCore | ⏳ no hay teléfono en este entorno: probar antes de la sustentación |
 | HTTPS | Sitio publicado: HTTP → 301 → HTTPS, HSTS, TLS 1.3, certificado Let's Encrypt `*.github.io` válido hasta 29/12/2026 | ✅ |
-| Rutas en GitHub Pages | Todas las rutas son relativas; probadas bajo subruta local. La versión anterior ya publicada respondió 200 en todas sus rutas | ✅ · ⏳ repetir tras publicar esta versión |
+| Rutas en GitHub Pages | Versión publicada (commit `d83e85a`): las 5 vistas, los 3 juegos de la asignatura, el modelo AR, `js/ar-experience.js` y el manual PDF responden 200 por HTTPS | ✅ |
 | Sin errores de consola | 0 errores y 0 excepciones en las 5 vistas, el arcade, el 3D Lab, la experiencia WebAR y los juegos 2D | ✅ |
 | Responsive | 390 × 844 sin desplazamiento horizontal; menú móvil probado | ✅ |
-| W3C | 5 vistas: 0 errores y 0 avisos en el validador oficial (Nu Html Checker vnu 26.11.20). JSON en `docs/evidencias/w3c/`, capturas en `docs/evidencias/capturas/w3c-*.png` | ✅ |
-| Lighthouse móvil ≥ 85 | index 91/100/100/100 · arcade 98/100/100/100 · ar-experience 99/100/100/100 · blog 94/100/100/100 · contacto 99/100/100/100 (rendimiento/accesibilidad/buenas prácticas/SEO). Informes en `docs/evidencias/lighthouse/` | ✅ (local) · ⏳ repetir sobre la URL publicada |
+| W3C | 5 vistas: 0 errores y 0 avisos en el validador oficial (Nu Html Checker vnu 26.11.20), tanto en local como **sobre la URL publicada** (`?doc=https://dannavalentinar11-beep.github.io/…`). JSON en `docs/evidencias/w3c/` y `docs/evidencias/w3c-publicado/`, capturas en `docs/evidencias/capturas/w3c-*.png` | ✅ |
+| Lighthouse móvil ≥ 85 | Local: index 91 · arcade 98 · ar-experience 99 · blog 94 · contacto 99 (rendimiento; 100 en accesibilidad, buenas prácticas y SEO). **URL publicada**: ver tabla «Lighthouse sobre la URL publicada» | ⚠️ arcade publicado 73–84 (corrección lista, pendiente de publicar) |
 
 ## Problemas encontrados y corregidos durante las pruebas
 1. Vistas generadas con un `<main>` duplicado → corregido el generador.
@@ -39,4 +39,18 @@ Leyenda: ✅ aprobada · ⚠️ aprobada con observación · ⏳ pendiente (requ
 ## Limitaciones del entorno
 - Chrome sin ventana usa renderizado por software (SwiftShader): los FPS medidos allí (≈15) no representan un equipo real.
 - No hay teléfono físico: la sesión WebXR y la cámara real deben probarse en Android/iPhone antes de la sustentación.
-- Lighthouse se ejecutó sobre la versión local (aún no publicada). Tras publicar, conviene repetirlo en la URL HTTPS.
+- Lighthouse varía entre ejecuciones (red, CDN de GitHub y CPU del equipo); por eso se registran varias ejecuciones sobre la URL publicada.
+
+## Lighthouse sobre la URL publicada (26/11/2026, móvil, Lighthouse 12.2.1)
+Rendimiento de cada ejecución; accesibilidad, buenas prácticas y SEO = 100 en todas. Informes de la última ejecución en `docs/evidencias/lighthouse-publicado/`.
+
+| Vista | Ejecuciones (rendimiento) | Resultado |
+|---|---|---|
+| index.html | 77 (primera, caché fría) · 90 · 89 · 88 | ✅ 88–90 con caché |
+| arcade.html | 84 · 84 · 80 · 73 | ⚠️ por debajo de 85 |
+| ar-experience.html | 90 | ✅ |
+| blog.html | 91 | ✅ |
+| contacto.html | 100 | ✅ |
+
+**Causa en arcade.html:** al cargar, `js/arcade.js` creaba un contexto WebGL solo para comprobar si el navegador lo soporta; eso generaba una tarea larga de ~830 ms (TBT 400–510 ms).
+**Corrección (en el proyecto, aún no publicada):** la comprobación de WebGL se hace solo al entrar a la sala o al pedir el modo 3D (`hasWebGL()` diferido) y la versión del script pasa a `arcade.js?v=4.1`. Resultado en local: 97–98 (TBT 110–150 ms); la sala 3D sigue entrando y renderizando sin errores de consola. Tras publicarla hay que repetir la medición del arcade en la URL real.
