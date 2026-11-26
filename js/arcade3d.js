@@ -171,7 +171,7 @@ export function createArcade(opts) {
   gridTexLight.wrapS = gridTexLight.wrapT = THREE.RepeatWrapping; gridTexLight.repeat.set(30, 30);
   const PALETTE = {
     dark: { bg: 0x02050a, fog: 0.026, sky: 0x7aa6d6, ground: 0x05080e, hemiI: 1.5, keyI: 1.1, metal: 0x18222f, panel: 0x0f1a28, body: 0x141e2c, floor: 0x0a1320, grid: gridTex, wall: 0x060c16, wallE: 0.6, ceil: 0x03070d, ceilE: 0.7, refl: 0x6f869c, exposure: 1.0 },
-    light: { bg: 0xdfe7ee, fog: 0.018, sky: 0xffffff, ground: 0x8fa3b6, hemiI: 2.1, keyI: 1.5, metal: 0xb7c4d1, panel: 0xedf2f6, body: 0x1d2938, floor: 0xd3dee8, grid: gridTexLight, wall: 0xe8eef3, wallE: 0.22, ceil: 0xf3f6f9, ceilE: 0.22, refl: 0xc4d1dc, exposure: 1.05 }
+    light: { bg: 0xe4ebf1, fog: 0.007, sky: 0xffffff, ground: 0x7d90a4, hemiI: 1.6, keyI: 1.7, metal: 0x5f7287, panel: 0xd7e1ea, body: 0x15202e, floor: 0xc9d5e0, grid: gridTexLight, wall: 0xdde6ee, wallE: 0.12, ceil: 0xeef3f7, ceilE: 0.12, refl: 0xaebdcb, exposure: 1.0 }
   };
   let pal = PALETTE.dark;
   function setTheme(theme) {
@@ -580,7 +580,8 @@ export function createArcade(opts) {
     const want = focusedMode ? selected : -1;
     if (want !== bigSel) { bigSel = want; drawBig(want); }
 
-    if (composer) composer.render(dt); else renderer.render(scene, camera);
+    /* En el tema claro no se usa bloom: sobre un fondo claro velaría toda la escena */
+    if (composer && pal !== PALETTE.light) composer.render(dt); else renderer.render(scene, camera);
 
     /* Control de FPS: degrada calidad si el equipo no alcanza ~35 fps */
     fpsAcc += dt; fpsN++;

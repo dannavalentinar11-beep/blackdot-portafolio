@@ -212,7 +212,7 @@
     function loadModule() {
       if (!loading) {
         try { dynImport = dynImport || new Function("u", "return import(u)"); } catch (e) { return Promise.reject(e); }
-        loading = dynImport(new URL("js/arcade3d.js?v=3.0", document.baseURI).href);
+        loading = dynImport(new URL("js/arcade3d.js?v=3.5", document.baseURI).href);
         loading.catch(function () { loading = null; });
       }
       return loading;
